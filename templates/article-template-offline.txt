@@ -1,0 +1,308 @@
+{/* This is the offline article template. It defines how articles are formatted. */}
+
+{{define "root"}}
+<!DOCTYPE html>
+<html manifest="/cache?q=ulocD&SID={{.SID}}" lang="en-US" class="no-js"> 
+  <head>
+    <title>{{.Title}} - OFFLINE</title>
+	<meta name="description" content="{{.Subtitle}}" />
+	<meta name="keywords" content="{{.Title}} - {{.Subtitle}}"/>
+	<link rel="shortcut icon" href="/img/favicon.ico"/>
+	<!--meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" /-->
+    <meta charset='utf-8'>
+	<style>
+		body {
+			margin: 0;
+			font-family: Helvetica, Arial, sans-serif;
+			font-size: 16px;
+			background: {{.SlideColor}};
+		}
+		pre,
+		code {
+			font-family: Menlo, monospace;
+			font-size: 14px;
+		}
+		pre {
+			line-height: 18px;
+			margin: 0;
+			padding: 0;
+		}
+		a {
+			color: #375EAB;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		p, ul, ol {
+			margin: 20px;
+		}
+
+		h1, h2, h3, h4 {
+			margin: 20px 0;
+			padding: 0;
+			color: #375EAB;
+			font-weight: bold;
+		}
+		h1 {
+			font-size: 24px;
+		}
+		h2 {
+			font-size: 20px;
+			background: {{.ColorTo}};
+			padding: 2px 5px;
+		}
+		h3 {
+			font-size: 20px;
+		}
+		h3, h4 {
+			margin: 20px 5px;
+		}
+		h4 {
+			font-size: 16px;
+		}
+
+		div#heading {
+			float: left;
+			margin: 0 0 10px 0;
+			padding: 21px 0;
+			font-size: 20px;
+			font-weight: normal;
+		}
+
+		div#topbar {
+			background: {{.ColorFrom}};
+			height: 64px;
+			overflow: hidden;
+		}
+
+		body {
+			text-align: center;
+		}
+		div#page {
+			width: 100%;
+		}
+		div#page > .container,
+		div#topbar > .container {
+			text-align: left;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0 20px;
+			width: 900px;
+		}
+		div#page.wide > .container,
+		div#topbar.wide > .container {
+			width: auto;
+		}
+
+		div#footer {
+			text-align: center;
+			color: #666;
+			font-size: 14px;
+			margin: 40px 0;
+		}
+
+		.author p {
+			margin: 20, 0, 0, 0px;
+		}
+
+		div.code,
+		div.output {
+			margin: 20px;
+			padding: 10px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+
+		div.code { background: #e9e9e9; }
+		div.output { background: black; }
+		div.output .stdout { color: #e6e6e6; }
+		div.output .stderr { color: rgb(244, 74, 63); }
+		div.output .system { color: rgb(255, 209, 77) }
+
+		.buttons {
+			margin-left: 20px;
+		}
+		div.output .buttons {
+			margin-left: 0;
+			margin-bottom: 10px;
+		}
+
+		#toc {
+			float: right;
+			margin: 0px 10px;
+			padding: 10px;
+			border: 1px solid #e5ecf9; 
+			background-color: white;
+			max-width: 33%;
+
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+
+		#toc ul, #toc a {
+			list-style-type: none;
+			padding-left: 10px;
+			color: black;
+			margin: 0px;
+		}
+		
+		input[type=checkbox].css-checkbox {
+									position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+								}
+
+								input[type=checkbox].css-checkbox + label.css-label {
+									padding-left:37px;
+									height:32px; 
+									display:inline-block;
+									background-repeat:no-repeat;
+									background-position: 0 0;
+									font-size:32px;
+									cursor:pointer;
+
+								}
+
+								input[type=checkbox].css-checkbox:checked + label.css-label {
+									background-position: 0 -32px;
+								}
+								label.css-label {
+						background-image:url(/img/checkbox.png);
+						-webkit-touch-callout: none;
+						-webkit-user-select: none;
+						-khtml-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+					}
+					
+		input[type=radio].css-checkbox {
+									position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+								}
+
+								input[type=radio].css-checkbox + label.css-label2 {
+									padding-left:41px;
+									height:36px; 
+									display:inline-block;
+									background-repeat:no-repeat;
+									background-position: 0 0;
+									font-size:36px;
+									cursor:pointer;
+
+								}
+
+								input[type=radio].css-checkbox:checked + label.css-label2 {
+									background-position: 0 -36px;
+								}
+								label.css-label2 {
+						background-image:url(/img/radiobutton.png);
+						-webkit-touch-callout: none;
+						-webkit-user-select: none;
+						-khtml-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+					}
+					
+		 .css-input { padding:10px; font-size:21px; border-style:double; border-radius:7px; border-width:4px; border-color:#336699; color:#336699; text-shadow:0px 0px 0px rgba(42,42,42,.75);  } 
+				 .css-input:focus { outline:none; } 
+
+
+	</style>
+	<script type="text/javascript">
+		var showToc = true;  // Showing TOC now, init to true
+
+		// Need an <a> with id="show-toc" to toggle the <div id="toc">'s
+		//   display="none|block" (init to "none").
+		function toggleTOC() {
+		   var elm = document.getElementById("show-toc");
+		   if (showToc) {
+			  document.getElementById("toc").style.display = "none";
+			  elm.innerHTML = "(SHOW)";
+		   } else {
+			  document.getElementById("toc").style.display = "block";
+			  elm.innerHTML = "(HIDE)";
+		   }
+		   showToc = !showToc; // toggle the flag
+		   return false;       // don't follow the link
+		}
+
+	</script>
+	
+  </head>
+
+  <body>
+    <div id="topbar" class="wide">
+      <div class="container">
+        <div id="heading">{{.Title}}
+          {{with .Subtitle}}{{.}}{{end}}
+        </div>
+      </div>
+    </div>
+    <div id="page" class="wide">
+      <div class="container">
+        {{with .Sections}}
+		  <h5>TABLE OF CONTENTS <a id="show-toc" href="#show-toc">(HIDE)</a></h5>
+			<script type="text/javascript">
+				document.getElementById("show-toc").onclick = toggleTOC;
+			</script>
+          <div id="toc">
+            {{template "TOC" .}}
+          </div>
+        {{end}}
+
+        {{range .Sections}}
+          {{elem $.Template .}}
+        {{end}}{{/* of Section block */}}
+		
+		{{if eq .DispLastPageOn "Y"}}
+        {{if .Authors}}
+          <h2>Authors</h2>
+          {{range .Authors}}
+            <div class="author">
+              {{range .Elem}}{{elem $.Template .}}{{end}}
+            </div>
+          {{end}}
+		<br>
+		  
+		<h3>About Us</h3>
+		{{.AboutUs}}
+		<h3>[ <a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL">Index</a> ] [ <a href="/uwm">UWM</a> ] [ <a href="/?q=home">Carousel</a> ]  [ <a href="/desktop0#page">Desktop0</a> ] [ <a href="/?q=home">Register</a> ] [ <a href="{{.Host}}uloc">ULOC</a> ]</h3>
+		<p>
+		<a href="https://ulapph-public-1.appspot.com/articles?TYPE=ARTICLE&DOC_ID=3&SID=TDSARTL-3"><img src="https://lh3.googleusercontent.com/OIRp0mGr7ua7nekr0aF3jRTjdjJOzfTNl4WPhm0sF47CudZD0rZqa9oFRLU1FT1Cpdh45WVbQNEL6rkvTM79Ebv34cjO54D9=s100"></a>
+		<a href="https://golang.org/"><img src="/img/gopher.png" width=50 height=40></a><a href="https://cloud.google.com/"><img src="/img/google-cloud.png" width=50 height=50></a>
+		<a href="{{.SocialLinkPlus}}" title="ULAPPH Google Plus" target="gcommunity"><img src="/img/icon-comm.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkFB}}" title="ULAPPH Facebook" target="fcommunity"><img src="/img/facebook-icon.png" height=50 width=50/></a>
+		<a href="{{.SocialLinkTwitter}}" title="ULAPPH Twitter" target="twitter"><img src="/img/twitter-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkLinkedIn}}" title="ULAPPH LinkedIn" target="linkedin"><img src="/img/linkedin-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkYoutube}}" title="ULAPPH Youtube" target="ycommunity"><img src="/img/Youtube.png" height=50 width=50/></a>
+		<br>
+		Host: {{.Host}}
+		<br>
+		SID: {{.SID}}
+		<br>
+		Version: {{.Build}}
+        {{end}}
+		{{end}}
+      </div>
+    </div>
+  </body>
+ <script type="text/javascript">
+	toggleTOC();
+ </script>
+</html>
+{{end}}
+
+{{define "TOC"}}
+  <ul>
+  {{range .}}
+    <li><a href="#TOC_{{.FormattedNumber}}">{{.Title}}</a></li>
+    {{with .Sections}}{{template "TOC" .}}{{end}}
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "newline"}}
+{{/* No automatic line break. Paragraphs are free-form. */}}
+{{end}}

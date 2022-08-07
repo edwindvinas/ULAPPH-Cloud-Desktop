@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ULAPPH Cloud Desktop</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="ULAPPH Cloud Desktop" />
+	<style>
+	div.gallery {
+	  border: 1px solid #ccc;
+	}
+
+	div.gallery:hover {
+	  border: 1px solid #777;
+	}
+
+	div.gallery img {
+	  width: 100%;
+	  height: auto;
+	}
+
+	div.desc {
+	  padding: 15px;
+	  text-align: center;
+	  font-size: 20px;
+	  font-weight: bold;
+	}
+
+	* {
+	  box-sizing: border-box;
+	}
+
+	.responsive {
+	  padding: 0 6px;
+	  float: left;
+	  width: 24.99999%;
+	}
+
+	@media only screen and (max-width: 700px) {
+	  .responsive {
+		width: 49.99999%;
+		margin: 6px 0;
+	  }
+	}
+
+	@media only screen and (max-width: 500px) {
+	  .responsive {
+		width: 100%;
+	  }
+	}
+
+	.clearfix:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	</style>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87908378-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-87908378-2');
+	</script>
+	<script>
+	function gotoURL(thisURL) {
+		var urlParams;
+		var match,
+				pl     = /\+/g,  // Regex for replacing addition symbol with a space
+				search = /([^&=]+)=?([^&]*)/g,
+				decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+				query  = window.location.search.substring(1);
+
+		urlParams = {};
+		while (match = search.exec(query))
+		urlParams[decode(match[1])] = decode(match[2]);
+		result = thisURL.indexOf("?");
+		finalURL = "";
+		if (result > 0) {
+			finalURL = thisURL+"&UID="+urlParams['UID']+"&uid="+urlParams['UID'];
+		} else {
+			finalURL = thisURL+"?UID="+urlParams['UID']+"&uid="+urlParams['UID'];
+		}
+		console.log(finalURL);
+		window.open(finalURL, "_blank");
+	}
+	</script>
+</head>
+<body>
+
+<h2 style="text-align: center;">Welcome to Ulapph Cloud Desktop!</h2>
+
+<!--div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="/search" title="Search">
+    <div class="desc">Search</div>
+  </div>
+</div-->
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/uwm');return false;" href="#" title="Desktop">
+    <div class="desc">Desktop</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/chat-bubble/ulapphbot.html');return false;" href="#" title="Open AI ChatBot">
+    <div class="desc">AI Chatbot</div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=MiniBrowserGet');return false;" href="#" title="Quick launch & Search">
+    <div class="desc">Quick Launcher</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/editor?EDIT_FUNC=TIMELINE&SID=GEN');return false;" href="#" title="Open ULAPPH TimelineJS">
+    <div class="desc">Timeline Search</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=AnalogClockWidget');return false;"  href="#" title="Clock & Cal">
+    <div class="desc">Clock & Cal</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://www.worldtimebuddy.com/');return false;" href="#" title="Time Buddy">
+    <div class="desc">Time Buddy</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://scientific-calculator.appspot.com/');return false;" href="#" title="Calculator">
+    <div class="desc">Calculator</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=MyPreferences');return false;" href="#" title="Settings">
+    <div class="desc">Settings</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://ulapph-installer.appspot.com/contents?q=home');return false;" href="#" title="Templates">
+    <div class="desc">Templates</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/admin-setup');return false;" href="#" title="Admin">
+    <div class="desc">Admin</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/editor?EDIT_FUNC=CRYPTO');return false;" href="#" title="Encryptor">
+    <div class="desc">Encryptor</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/editor?EDIT_FUNC=READER');return false;" href="#" title="Editor">
+    <div class="desc">Editor</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=HTERM');return false;" href="#" title="Terminal">
+    <div class="desc">Terminal</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=ALL_DESKTOPS');return false;" href="#" title="Open ULAPPH Desktops">
+    <div class="desc">Desktops</div>
+  </div>
+</div>
+
+<!--div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/www/index.html');return false;" href="#" title="Open ULAPPH Homepage">
+    <div class="desc">WWW</div>
+  </div>
+</div-->
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=MIRROR2');return false;" href="#" title="Small Camera">
+    <div class="desc">Small Camera</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=MIRROR');return false;" href="#" title="Big Camera">
+    <div class="desc">Big Camera</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://appr.tc/');return false;" href="#" title="WebRTC VideoChat">
+    <div class="desc">WebRTC VideoChat</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/editor?EDIT_FUNC=TEXT-TO-SPEECH');return false;" href="#" title="Text to Speech">
+    <div class="desc">Text to Speech</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=RandomGenerator');return false;" href="#" title="Random Generator">
+    <div class="desc">Random Generator</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://www.google.com/android/find');return false;" href="#" title="Find Android">
+    <div class="desc">Find Android</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://www.subnetmask.info/');return false;" href="#" title="Subnet Calculator">
+    <div class="desc">Subnet Calculator</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=Speedtest&API_KEY=6pt90h4f3qwcbgclwkql6vseucunzzkkg3q6g5cttjmxpce9hfvl4l1234567890');return false;" href="#" title="Speed Test">
+    <div class="desc">Speed Test</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://www.lucidchart.com/');return false;" href="#" title="Lucid Art">
+    <div class="desc">Lucid Art</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=FAM_TREE');return false;" href="#" title="Family Tree">
+    <div class="desc">Family Tree</div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/mindmaps/');return false;" href="#" title="Mind Maps">
+    <div class="desc">Mind Maps</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tree');return false;" href="#" title="UI Tree">
+    <div class="desc">UI Tree</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/orgchart');return false;" href="#" title="Org Chart">
+    <div class="desc">Org Chart</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/editor?EDIT_FUNC=MERMAID');return false;" href="#" title="Sequence Diagram">
+    <div class="desc">Sequence Diagram</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=WIDGET&t=TREE');return false;" href="#" title="Syntax Tree">
+    <div class="desc">Syntax Tree</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://ulapph-swagger.appspot.com/');return false;" href="#" title="Swagger Editor">
+    <div class="desc">Swagger Editor</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://www.mathcha.io/editor');return false;" href="#" title="Math Editor">
+    <div class="desc">Math Editor</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('hhttps://stackedit.io/editor');return false;" href="#" title="Markdown Editor">
+    <div class="desc">Markdown Editor</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://bookbrowser-demo.geek1011.net/');return false;" href="#" title="Ebook Reader">
+    <div class="desc">Ebook Reader</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://zxing.appspot.com/generator/');return false;" href="#" title="QR Generator">
+    <div class="desc">QR Generator</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/jsbeautify/index.html');return false;" href="#" title="JS Beautifier">
+    <div class="desc">JS Beautifier</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/minify/index.html');return false;"  href="#" title="JS Minifier">
+    <div class="desc">JS Minifier</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://keycode.info/');return false;" href="#" title="Key Codes">
+    <div class="desc">Key Codes</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/json2csv/index.html');return false;" href="#" title="JSON to CSV">
+    <div class="desc">JSON to CSV</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/csv2json/index.html');return false;" href="#" title="CSV to JSON">
+    <div class="desc">CSV to JSON</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://validator.w3.org/');return false;"  href="#" title="Markup Validator">
+    <div class="desc">Markup Validator</div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/jwtdebugger/');return false;" href="#" title="JWT Debugger">
+    <div class="desc">JWT Debugger</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://play.golang.org/');return false;" href="#" title="Go Playground">
+    <div class="desc">Go Playground</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/tools?FUNC=ALL_RECENT');return false;" href="#" title="All Recent">
+    <div class="desc">All Recent</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/contents?q=home');return false;" href="#" title="Open ULAPPH Cloud Website">
+    <div class="desc">Website</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/cctv/index.html');return false;" href="#" title="Open ULAPPH CCTV">
+    <div class="desc">CCTV</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/doctor/doctor.html');return false;" href="#" title="Open ULAPPH Doctor">
+    <div class="desc">Doctor</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/music/music.html');return false;" href="#" title="Open ULAPPH Music Player">
+    <div class="desc">Music</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/video/video.html');return false;" href="#" title="Open ULAPPH Video Player">
+    <div class="desc">Video</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/media?FUNC_CODE=YVP');return false;" href="#" title="Open Custom Youtube Player">
+    <div class="desc">Custom Youtube</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/guestbook/guestbook.html');return false;" href="#" title="Open ULAPPH Guestbook">
+    <div class="desc">Guestbook</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/uploader/uploader.html');return false;" href="#" title="Open ULAPPH Uploader">
+    <div class="desc">Uploader</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/todo/todo.html');return false;" href="#" title="Open ULAPPH Todos">
+    <div class="desc">Todo</div>
+  </div>
+</div>
+
+<!--div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/search/search.html');return false;" href="#" title="Open ULAPPH Search">
+    <div class="desc">Search</div>
+  </div>
+</div-->
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/stream/stream.html');return false;" href="#" title="Open ULAPPH Stream">
+    <div class="desc">Stream</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/chat/chat.html');return false;" href="#" title="Open ULAPPH Chat">
+    <div class="desc">Chat</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/broadcast/broadcast.html');return false;" href="#" title="Open ULAPPH Broadcast">
+    <div class="desc">Broadcast</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/social/social.html');return false;" href="#" title="Open ULAPPH Social">
+    <div class="desc">Social</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/qrscan/qrscan.html');return false;" href="#" title="Open ULAPPH QR Scanner">
+    <div class="desc">QR Scan</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/remote/remote.html');return false;" href="#" title="Open ULAPPH Remote Control">
+    <div class="desc">Remote Control</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/maps/maps.html');return false;" href="#" title="Open ULAPPH Maps">
+    <div class="desc">Online Maps</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/tracker/tracker.html');return false;" href="#" title="Open ULAPPH Tracker">
+    <div class="desc">Realtime Tracker</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/news/news.html');return false;" href="#" title="Open News Monitor">
+    <div class="desc">News Monitor</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/uloc');return false;" href="#" title="Open Local Storage">
+    <div class="desc">Local Storage</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/games/games.html');return false;" href="#" title="Open Games">
+    <div class="desc">Games</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/recipes/recipes.html');return false;" href="#" title="Open Recipes">
+    <div class="desc">Recipes</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/exercise/exercise.html');return false;" href="#" title="Open Exercise">
+    <div class="desc">Exercise</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/textformat/textformat.html');return false;" href="#" title="Text Format">
+    <div class="desc">TextFormat</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/countdown/countdown.html');return false;" href="#" title="Countdown">
+    <div class="desc">Countdown</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/motion/motion.html');return false;" href="#" title="Motion">
+    <div class="desc">Motion Alarm</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('https://ulapph-cloud-desktop-em-garvbqo2bq-uc.a.run.app/');return false;" href="#" title="Expense Manager">
+    <div class="desc">Expense Manager</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/static/pwa/pwa/index.html');return false;" href="#" title="Open ULAPPH PWA">
+    <div class="desc">PWA</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/media?FUNC_CODE=VIEW_THUMBS');return false;" href="#" title="Photo Gallery">
+    <div class="desc">Photo Gallery</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/android/');return false;" href="#" title="Android">
+    <div class="desc">Android</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" onclick="gotoURL('/logout');return false;" href="#" title="Logout">
+    <div class="desc">Logout</div>
+  </div>
+</div>
+
+</a>
+
+<div class="clearfix"></div>
+</body>
+</html>

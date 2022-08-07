@@ -1,0 +1,83 @@
+{{define "root"}}
+<!doctype html>
+<html class="no-js">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+
+  <link rel="stylesheet" href="/static/lib/css/mermaid/materialize.css" />
+
+  <link rel="stylesheet" href="/static/lib/css/mermaid/main.css">
+  <link rel="stylesheet" href="/static/lib/css/mermaid/mermaid.css">
+
+</head>
+
+<body ng-app="angularMermaidApp" ng-controller="MainCtrl">
+
+  <div class="row">
+    <span id="fluff" ng-show="showform">
+      <form class="col s12 m12 l3">
+        <div class="input-field col s12">
+          <textarea class="materialize-textarea" style="font-size:12px; font-family:'Consolas','Menlo',fixed-width; height:150px" required ng-model="mermaidsyntax" ng-change="checkUpdate()"></textarea>
+          <label>Enter mermaid diagram syntax here</label>
+        </div>
+        <div>
+
+          <div ng-show="showerror">
+            <br/>
+            <i class="tiny mdi-alert-error"> Invalid syntax</i>
+            <br/>
+            <br/>
+          </div>
+		  <p>
+		  Note:<br>
+          - <a href="http://knsv.github.io/mermaid/#sequence-diagrams" target="mermaid">Read Syntax</a><br>
+		  - To save, copy/paste to a media text file.
+		  
+          <!--
+        <br/> Sample sequence syntax:
+        <br/>
+        <div class="mmcode">
+          sequenceDiagram
+          <br/> A->>B: Query
+          <br/> B->>C: Forward query
+          <br/> Note right of C: Thinking...
+          <br/> C->>B: Response
+          <br/> B->>A:Forward response
+          <br/>
+        </div>
+        -->
+
+        </div>
+      </form>
+    </span>
+    <div ng-class="diagclass">
+      <div ng-class="cardclass">
+        <div class="card-content">
+          <!--span class="card-title grey-text" ng-show="showform">Generated diagram</span><br/-->
+          <span id="mermaidholder"></span>
+          <span ng-show="showform">
+            <a ng-href="{{"{{"}}viewlink{{"}}"}}">LINK TO VIEW</a>
+            <a ng-href="{{"{{"}}editlink{{"}}"}}">LINK TO EDIT</a>
+            <a ng-href="{{"{{"}}svglink{{"}}"}}" download="diagram.svg">DOWNLOAD SVG</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/lib/js/mermaid/jquery.js"></script>
+  <script src="/static/lib/js/mermaid/angular.js"></script>
+  <script type="text/javascript" src="/static/lib/js/mermaid/mermaid.js"></script>
+  <script src="/static/lib/js/mermaid/materialize.js"></script>
+  <script src="/static/lib/js/mermaid/angular-sanitize.js"></script>
+  <script src="/static/lib/js/mermaid/angular-utf8-base64.js"></script>
+
+  <script src="/static/lib/js/mermaid/app.js"></script>
+  <script src="/static/lib/js/mermaid/main.js"></script>
+</body>
+</html>
+{{end}}

@@ -1,0 +1,58 @@
+/* style.css
+ * The purpose of this stylesheet is to set default styles for basic html elements.
+ */
+
+
+body, div, td, li, p, input, textarea, select, option {
+	font-family: Arial, Geneva, SunSans-Regular, sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+body, div, td, li, p { 
+	line-height: 22px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: 0.8;
+	color: #999;
+	font-family: Arial, Geneva, SunSans-Regular, sans-serif;
+	font-weight: normal;
+}
+h1 { 
+	font-size: 70px;
+	margin: 10px 0 20px 0;
+}
+h2, h3 {
+	font-size: 50px;
+	margin: 80px 0 20px 0;
+}
+h4 {
+	font-size: 40px;
+	margin: 40px 0 20px 0;
+}
+h5 {
+	font-size: 35px;
+	margin: 30px 0 15px 0;
+}
+h6 {
+	font-size: 30px;
+	margin: 20px 0 10px 0;
+}
+
+p {
+	margin: 0 0 10px 0;
+}
+
+a, a:link, a:active, a:visited {
+	color: #333;
+	text-decoration: underline;
+}
+a:hover { 
+	color: #999;
+	text-decoration: underline;
+}
+
+pre {
+	overflow: auto;
+}

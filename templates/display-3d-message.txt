@@ -1,0 +1,141 @@
+{{define "root"}}
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>3D Text</title>
+
+    
+    <style>
+
+		body {
+		  background-color: #11a9e2;
+		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0d86b3), to(#11a9e2));
+		  background-image: -moz-linear-gradient(#0d86b3, #11a9e2);
+		  background-repeat: no-repeat;
+		  padding: 100px;
+		  text-rendering: optimizeLegibility;
+		  font: 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		a {
+		  color: #fff;
+		  font-weight: bold;
+		  text-decoration: none;
+		  -webkit-transiton: .2s all linear;
+		}
+		a:hover {
+		  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+		}
+		h1, h2, p {
+		  color: #fff;
+		  color: rgba(255, 255, 255, 0.75);
+		  text-align: center;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		h1 {
+		  margin: 0;
+		  font: bold 100px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  color: #fff;
+		  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+		  -webkit-transition: .2s all linear;
+		}
+		h1:hover {
+		  cursor: text;
+		}
+		h1:focus {
+		  outline: none;
+		}
+		p {
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		h2 {
+		  margin: 30px 0 15px;
+		  font-size: 20px;
+		  font-weight: 200;
+		  line-height: 25px;
+		}
+		pre {
+		  background-color: rgba(0, 0, 0, 0.3);
+		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0.15)), to(rgba(0, 0, 0, 0)));
+		  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+		  width: 500px;
+		  margin: 30px auto;
+		  padding: 15px;
+		  color: #fff;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		  border-radius: 6px;
+		  -moz-border-radius: 6px;
+		  -webkit-border-radius: 6px;
+		  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		}
+		.influads_block {
+		  margin: 0 auto 20px;
+		  width: 180px;
+		  font-size: 12px;
+		  text-align: center;
+		  line-height: 15px;
+		}
+		.influads_img {
+		  height: 90px;
+		  margin-bottom: 11px;
+		  margin-left: auto;
+		  margin-right: auto;
+		}
+		.influads_text {
+		  margin-bottom: 5px;
+		}
+		.influads_text_a, .influads_powered_link {
+		  font-weight: normal;
+		}
+
+	</style>
+  </head>
+
+  <body onload="speakFunc()">
+    <h1 contenteditable="true">{{.STR_FILLER1}}</h1>
+	<script>
+		function speakFunc() {
+			//parse URL values
+			var urlParams;
+			var match,
+					pl     = /\+/g,  // Regex for replacing addition symbol with a space
+					search = /([^&=]+)=?([^&]*)/g,
+					decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+					query  = window.location.search.substring(1);
+
+			urlParams = {};
+			while (match = search.exec(query))
+			   urlParams[decode(match[1])] = decode(match[2]);
+			
+			if (urlParams["SPEAK"] == "Y") {
+				//speak after 5seconds
+				setTimeout(function(){speakMessage('{{.STR_FILLER1}}');},5000);
+			}
+			function speakMessage(thisMsg){	
+				if (('speechSynthesis' in window) || ('SpeechRecognition' in window)) {
+					//if message has >>> read only the left text
+					var str = thisMsg;
+					var n = str.indexOf(">>>");
+					if (n > 0) {
+						var res = str.split(">>>");
+						if (res.length > 0) {
+							thisMsg = res[0];
+						}		
+					}
+
+					var msg = new SpeechSynthesisUtterance();
+					msg.rate = 1;
+					msg.pitch = 1;
+					msg.text = thisMsg;
+					window.speechSynthesis.speak(msg);
+				}
+			}
+		}
+	</script>
+  </body>
+</html>
+
+{{end}}

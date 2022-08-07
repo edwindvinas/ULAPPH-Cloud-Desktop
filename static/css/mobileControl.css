@@ -1,0 +1,108 @@
+	body {
+		font-family: 'Sansita One', cursive;
+		color:#aaa;
+		background:radial-gradient(#002D59, #1B2836);
+		background-size: cover;
+		background-repeat: no-repeat;
+		height: 100%;
+		overflow: hidden;
+	}
+	a {
+		color:yellow;
+		text-decoration: none;
+	}
+	::selection { background: transparent; }
+	dl dd {
+		color:green;
+	}
+	b {
+		color:yellow;
+		margin-left:3px;
+	}
+	input { 
+		font-size: 18px; 
+		width: 200px;
+	}
+	#wrapper {
+		position:absolute;
+		left:50%;
+		top:50%;
+		margin-top:-200px;
+		margin-left:-200px;
+		width:500px;
+		height:500px;
+		color:white;
+		cursor:pointer;
+	}
+	#test {
+		pointer-events:none;
+		position:absolute;
+		text-align: center;
+		font-size: 30px;
+		line-height: 500px;
+		width:500px;
+		height:500px;
+		background:rgba(0,0,0,0.5);
+		border-radius:30px;
+	}
+	.swipedown {
+		animation: movedown 0.3s ease-in-out infinite alternate;
+	}
+	.swipeup {
+		animation: moveup 0.3s ease-in-out infinite alternate;
+	}
+	.swipeleft {
+		animation: moveleft 0.3s ease-in-out infinite alternate;
+	}
+	.swiperight {
+		animation: moveright 0.3s ease-in-out infinite alternate;
+	}
+	.tap {
+		animation: pulse 0.3s ease-in-out infinite alternate;
+	}
+	.longtap {
+		animation: pulse 0.10s ease-in-out infinite alternate;
+	}
+	.dbltap {
+		animation: pulse 0.15s ease-in-out infinite alternate;
+	}
+	@keyframes movedown {
+		0% {
+			transform:translateY(0px);
+		}
+		100% {
+			transform:translateY(20px);
+		}
+	}
+	@keyframes moveup {
+		0% {
+			transform:translateY(0px);
+		}
+		100% {
+			transform:translateY(-20px);
+		}
+	}
+	@keyframes moveleft {
+		0% {
+			transform:translateX(0px);
+		}
+		100% {
+			transform:translateX(-20px);
+		}
+	}
+	@keyframes moveright {
+		0% {
+			transform:translateX(0px);
+		}
+		100% {
+			transform:translateX(20px);
+		}
+	}
+	@keyframes pulse {
+		0% {
+			transform:scale(1);
+		}
+		100% {
+			transform:scale(0.8);
+		}
+	}

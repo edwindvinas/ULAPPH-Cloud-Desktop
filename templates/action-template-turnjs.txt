@@ -1,0 +1,63 @@
+{/*
+This is the action template for Turnjs template
+It determines how the formatting actions are rendered.
+*/}
+
+{{define "section"}}
+  <h{{len .Number}} id="TOC_{{.FormattedNumber}}">{{.Title}}</h{{len .Number}}>
+  {{range .Elem}}{{elem $.Template .}}{{end}}
+{{end}}
+
+{{define "list"}}
+  <ul>
+  {{range .Bullet}}
+    <li>{{style .}}</li>
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "text"}}
+  {{if .Pre}}
+  <div class="code"><pre>{{range .Lines}}{{.}}{{end}}</pre></div>
+  {{else}}
+  <p>
+    {{range $i, $l := .Lines}}{{if $i}}{{template "newline"}}
+    {{end}}{{style $l}}{{end}}
+  </p>
+  {{end}}
+{{end}}
+
+{{define "code"}}
+  <div class="code{{if playable .}} playground{{end}}" contenteditable="true" spellcheck="false">{{.Text}}</div>
+{{end}}
+
+{{define "image"}}
+<div class="image">
+  <!--img class="lazy" src="{{.URL}}" data-original="{{.URL}}" {{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}}-->
+  <img src="{{.URL}}" data-original="{{.URL}}" {{with .Height}} height="500"{{end}}{{with .Width}} width="450"{{end}}>
+</div>
+{{end}}
+
+{{define "iframe"}}
+<iframe src="{{.URL}}"{{with .Height}} height="500"{{end}}{{with .Width}} width="450"{{end}}></iframe>
+{{end}}
+
+{{define "link"}}<p class="link"><a href="{{.URL}}" target="_blank">{{style .Label}}</a></p>{{end}}
+
+{{define "html"}}{{.HTML}}{{end}}
+
+{{define "caption"}}<br><caption>{{style .Text}}</caption>{{end}}
+		
+{{define "checkbox"}}<div><input type="checkbox" name="feedbacks" id="{{.Name}}" class="css-checkbox" /><label for="{{.Name}}" class="css-label">{{.Label}}</label></div>{{end}}
+
+{{define "radio"}}<div><input type="radio" name="feedbacks" id="{{.Name}}" class="css-checkbox" /><label for="{{.Name}}" class="css-label2">{{.Label}}</label></div>{{end}}
+
+{{define "input"}}<div>{{.Value}}<br><input type="text" name="feedbacks" id="{{.Name}}"  class="css-input" value="" maxlength=500></div>{{end}}
+
+{{define "submit"}}<div><a href="#" onclick="submitFeedbacks({{.Mode}});" class="button button-3d button-caution">{{.Caption}}</a></div>{{end}}
+
+{{define "blockquote"}}<blockquote>{{.Text | html}}</blockquote>{{end}}
+
+{{define "open"}}<script type="text/javascript">window.open("{{.URL}}");</script>{{end}}
+
+{{define "anchor"}}<a name="{{.Name}}"></a>{{end}}

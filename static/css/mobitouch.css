@@ -1,0 +1,18 @@
+#page {
+    background: red;
+}
+
+.longpress {
+    -webkit-animation: 1s longpress;
+            animation: 1s longpress;
+}
+
+@-webkit-keyframes longpress {
+    0%, 20% { background: red; }
+    100% { background: yellow; }
+}
+
+@keyframes longpress {
+    0%, 20% { background: red; }
+    100% { background: yellow; }
+}

@@ -1,0 +1,2587 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ULAPPH Cloud Desktop",
+    "description": "An API for the ULAPPH Cloud Desktop which can be used to manage authentications, drives, slides, articles, media and things",
+    "termsOfService": "/",
+    "contact": {
+      "name": "ULAPPH Cloud Desktop"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+    "tags": [{
+        "name": "oauth2",
+        "description": "Access Oauth2 services",
+        "externalDocs": {
+            "description": "Find out more about oauth2",
+            "url": "/oauth2"
+        }
+    },{
+        "name": "drives",
+        "description": "Manage your public drives",
+        "externalDocs": {
+            "description": "Find out more about drives",
+            "url": "/drives"
+        }
+    },{
+        "name": "share",
+        "description": "Share to all social sites",
+        "externalDocs": {
+            "description": "Find out more about sharing",
+            "url": "/share"
+        }
+    },{
+        "name": "slides",
+        "description": "Access your slides",
+        "externalDocs": {
+            "description": "Find out more about slides",
+            "url": "/slides"
+        }
+    }, {
+        "name": "articles",
+        "description": "Access your articles",
+        "externalDocs": {
+            "description": "Find out more about articles",
+            "url": "/articles"
+        }
+    }, {
+        "name": "media",
+        "description": "Access your media",
+        "externalDocs": {
+            "description": "Find out more about media",
+            "url": "/media"
+        }
+    }, {
+        "name": "things",
+        "description": "Access your things",
+        "externalDocs": {
+            "description": "Find out more about things",
+            "url": "/things"
+        }
+    }, {
+        "name": "notifications",
+        "description": "Send notifications",
+        "externalDocs": {
+            "description": "Find out more about notifications",
+            "url": "/notifications"
+        }
+    }, {
+        "name": "system",
+        "description": "Access your system status",
+        "externalDocs": {
+            "description": "Find out more about things",
+            "url": "/things"
+		}
+    }, {
+        "name": "commands",
+        "description": "Use different terminal commands",
+        "externalDocs": {
+            "description": "Find out more about commands",
+            "url": "/commands"
+        }
+    }, {
+        "name": "otto",
+        "description": "Use javascript interpreter APIs",
+        "externalDocs": {
+            "description": "Find out more about commands",
+            "url": "/otto"
+        }
+    }],
+    "schemes": ["https"],
+    "paths": {
+        "/oauth2/google/call": {
+            "get": {
+                "tags": ["oauth2"],
+                "summary": "googleOauth2() - Redirect to Google Oauth2 server",
+                "description": "",
+                "operationId": "googleOauth2",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "client_id",
+                    "in": "query",
+                    "description": "Required. The client ID for your application. You can find this value in the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "redirect_uri",
+                    "in": "query",
+                    "description": "Required. Determines where the API server redirects the user after the user completes the authorization flow. The value must exactly match one of the redirect_uri values listed for your project in the API Console. Note that the http or https scheme, case, and trailing slash ('/') must all match.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "response_type",
+                    "in": "query",
+                    "description": "Required. Determines whether the Google OAuth 2.0 endpoint returns an authorization code. Set the parameter value to code for web server applications.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "scope",
+                    "in": "query",
+                    "description": "Required. A space-delimited list of scopes that identify the resources that your application could access on the user's behalf. These values inform the consent screen that Google displays to the user.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "access_type",
+                    "in": "query",
+                    "description": "Recommended. Indicates whether your application can refresh access tokens when the user is not present at the browser. Valid parameter values are online, which is the default value, and offline.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "state",
+                    "in": "query",
+                    "description": "Recommended. Specifies any string value that your application uses to maintain state between your authorization request and the authorization server's response. The server returns the exact value that you send as a name=value pair in the hash (#) fragment of the redirect_uri after the user consents to or denies your application's access request.",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "include_granted_scopes",
+                    "in": "query",
+                    "description": "Optional. Enables applications to use incremental authorization to request access to additional scopes in context. ",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "login_hint",
+                    "in": "query",
+                    "description": "Optional. If your application knows which user is trying to authenticate, it can use this parameter to provide a hint to the Google Authentication Server. ",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "prompt",
+                    "in": "query",
+                    "description": "Optional. A space-delimited, case-sensitive list of prompts to present the user. If you don't specify this parameter, the user will be prompted only the first time your app requests access.",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Redirect Ouath2 successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/google/callback": {
+            "get": {
+                "tags": ["oauth2"],
+                "summary": "googleOauth2Callback() - Callback from Google Oauth2 server",
+                "description": "",
+                "operationId": "googleOauth2Callback",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "code",
+                    "in": "query",
+                    "description": "If the user approves the access request, then the response contains an authorization code",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "state",
+                    "in": "query",
+                    "description": "An unguessable random string. It is used to protect against cross-site request forgery attacks.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "error",
+                    "in": "query",
+                    "description": "If the user does not approve the request, the response contains an error message",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Callback Ouath2 successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/google/callback/token": {
+            "post": {
+                "tags": ["oauth2"],
+                "summary": "googleOauth2ExchangeCode() - Exchange code for token from Google auth server",
+                "description": "",
+                "operationId": "googleOauth2ExchangeCode",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "code",
+                    "in": "query",
+                    "description": "The authorization code returned from the initial request.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "client_id",
+                    "in": "query",
+                    "description": "The client ID obtained from the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "client_secret",
+                    "in": "query",
+                    "description": "The client secret obtained from the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "redirect_uri",
+                    "in": "query",
+                    "description": "One of the redirect URIs listed for your project in the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "grant_type",
+                    "in": "query",
+                    "description": "As defined in the OAuth 2.0 specification, this field must contain a value of authorization_code.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Exchange code to token successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/github/call": {
+            "get": {
+                "tags": ["oauth2"],
+                "summary": "githubOauth2() - Redirect to Github Oauth2 server",
+                "description": "",
+                "operationId": "githubOauth2",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "client_id",
+                    "in": "query",
+                    "description": "Required. The client ID you received from GitHub when you registered.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "redirect_uri",
+                    "in": "query",
+                    "description": "The URL in your application where users will be sent after authorization. See details below about redirect urls.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "scope",
+                    "in": "query",
+                    "description": "A space delimited list of scopes. If not provided, scope defaults to an empty list for users that have not authorized any scopes for the application.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "allow_signup",
+                    "in": "query",
+                    "description": "Whether or not unauthenticated users will be offered an option to sign up for GitHub during the OAuth flow. ",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "state",
+                    "in": "query",
+                    "description": "An unguessable random string. It is used to protect against cross-site request forgery attacks.",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Redirect Ouath2 successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/github/callback": {
+            "get": {
+                "tags": ["oauth2"],
+                "summary": "googleOauth2Callback() - Callback from Github Oauth2 server",
+                "description": "",
+                "operationId": "googleOauth2Callback",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "code",
+                    "in": "query",
+                    "description": "If the user approves the access request, then the response contains an authorization code",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "state",
+                    "in": "query",
+                    "description": "An unguessable random string. It is used to protect against cross-site request forgery attacks.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "error",
+                    "in": "query",
+                    "description": "If the user does not approve the request, the response contains an error message",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Callback Ouath2 successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/github/callback/token": {
+            "post": {
+                "tags": ["oauth2"],
+                "summary": "googleOauth2ExchangeCode() - Exchange code for token from Google auth server",
+                "description": "",
+                "operationId": "googleOauth2ExchangeCode",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "code",
+                    "in": "query",
+                    "description": "The authorization code returned from the initial request.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "client_id",
+                    "in": "query",
+                    "description": "The client ID obtained from the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "client_secret",
+                    "in": "query",
+                    "description": "The client secret obtained from the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "redirect_uri",
+                    "in": "query",
+                    "description": "One of the redirect URIs listed for your project in the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "state",
+                    "in": "query",
+                    "description": "The unguessable random string you optionally provided in Step 1.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Exchange code to token successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/microsoft/call": {
+            "get": {
+                "tags": ["oauth2"],
+                "summary": "handlerOuath2MicrosoftCall() - Redirect to Microsoft Oauth2 server",
+                "description": "",
+                "operationId": "handlerOuath2MicrosoftCall",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "client_id",
+                    "in": "query",
+                    "description": "Required. The client ID for your application. You can find this value in the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "redirect_uri",
+                    "in": "query",
+                    "description": "Required. Determines where the API server redirects the user after the user completes the authorization flow. The value must exactly match one of the redirect_uri values listed for your project in the API Console. Note that the http or https scheme, case, and trailing slash ('/') must all match.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "response_type",
+                    "in": "query",
+                    "description": "Required. Determines whether the Google OAuth 2.0 endpoint returns an authorization code. Set the parameter value to code for web server applications.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "response_mode",
+                    "in": "query",
+                    "description": "Required. Determines whether the Google OAuth 2.0 endpoint returns an authorization code. Set the parameter value to query for web server applications.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "scope",
+                    "in": "query",
+                    "description": "Required. A space-delimited list of scopes that identify the resources that your application could access on the user's behalf. These values inform the consent screen that Google displays to the user.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "state",
+                    "in": "query",
+                    "description": "Recommended. Specifies any string value that your application uses to maintain state between your authorization request and the authorization server's response. The server returns the exact value that you send as a name=value pair in the hash (#) fragment of the redirect_uri after the user consents to or denies your application's access request.",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Redirect Ouath2 successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/microsoft/callback": {
+            "get": {
+                "tags": ["oauth2"],
+                "summary": "microsoftOauth2Callback() - Callback from Microsoft Oauth2 server",
+                "description": "",
+                "operationId": "microsoftOauth2Callback",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "code",
+                    "in": "query",
+                    "description": "If the user approves the access request, then the response contains an authorization code",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "state",
+                    "in": "query",
+                    "description": "An unguessable random string. It is used to protect against cross-site request forgery attacks.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "error",
+                    "in": "query",
+                    "description": "If the user does not approve the request, the response contains an error message",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Callback Ouath2 successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/oauth2/microsoft/token": {
+            "post": {
+                "tags": ["oauth2"],
+                "summary": "microsoftOauth2ExchangeCode() - Exchange code for token from Microsoft auth server",
+                "description": "",
+                "operationId": "microsoftOauth2ExchangeCode",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "code",
+                    "in": "query",
+                    "description": "The authorization code returned from the initial request.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "client_id",
+                    "in": "query",
+                    "description": "The client ID obtained from the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "client_secret",
+                    "in": "query",
+                    "description": "The client secret obtained from the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "redirect_uri",
+                    "in": "query",
+                    "description": "One of the redirect URIs listed for your project in the API Console.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "grant_type",
+                    "in": "query",
+                    "description": "As defined in the OAuth 2.0 specification, this field must contain a value of authorization_code.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Exchange code to token successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=all": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to all social networks in the world!",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "desc",
+                    "in": "query",
+                    "description": "The description to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },	
+        "/share?SH_FUNC=facebook": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Facebook",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },	
+        "/share?SH_FUNC=twitter": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Twitter",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "via",
+                    "in": "query",
+                    "description": "optional Twitter username of content author (don't include @)",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "hashtags",
+                    "in": "query",
+                    "description": "optional Hashtags appended onto the tweet (comma separated. don't include #)",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },	
+        "/share?SH_FUNC=plus": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Google Plus",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },	
+        "/share?SH_FUNC=pinterest": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Pinterest",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "img",
+                    "in": "query",
+                    "description": "The image thumbnail",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "is_video",
+                    "in": "query",
+                    "description": "The indicator if video or not",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },	
+        "/share?SH_FUNC=linkedin": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - LinkedIn",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=buffer": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Buffer",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=digg": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Digg",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=tumblr": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Digg",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "desc",
+                    "in": "query",
+                    "description": "The description to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=reddit": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Reddit",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=stumbleUpon": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - StumbleUpon",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=delicious": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Delicious",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "provider",
+                    "in": "query",
+                    "description": "The provider to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=blogger": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Blogger",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "desc",
+                    "in": "query",
+                    "description": "The desc to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=liveJournal": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Live Journal",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "desc",
+                    "in": "query",
+                    "description": "The desc to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=myspace": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - MySpace",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "desc",
+                    "in": "query",
+                    "description": "The desc to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=yahoo": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Yahoo",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=friendFeed": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Friend Feed",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=newsVine": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - News Vine",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=everNote": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Ever Note",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=getPocket": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Get Pocket",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=flipboard": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - FlipBoard",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=instaPaper": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - InstaPaper",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "desc",
+                    "in": "query",
+                    "description": "The desc to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=line.me": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Line.Me",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=skype": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Skype",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=telegram": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Telegram",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=vk": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - VK",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=okru": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - OKru",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=douban": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Douban",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=baidu": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Baidu",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=qzone": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Qzone",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=xing": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - Xing",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=renren": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - RenRen",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/share?SH_FUNC=weibo": {
+            "get": {
+                "tags": ["share"],
+                "summary": "shareToSocialSites() - Share to social network - RenRen",
+                "description": "",
+                "operationId": "shareToSocialSites",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The url to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "title",
+                    "in": "query",
+                    "description": "The title to be shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Share successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/slides": {
+            "get": {
+                "tags": ["slides"],
+                "summary": "getSlides() - Gets all public slides in this system",
+                "description": "",
+                "operationId": "getSlides",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "description": "The userId whom to get owned slides",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Slides"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/articles": {
+            "get": {
+                "tags": ["articles"],
+                "summary": "getArticles() - Gets all articles in this system",
+                "description": "",
+                "operationId": "getArticles",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "description": "The userId whom to get owned articles",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Articles"
+                            }
+                        }
+						
+                    },
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/media?FUNC_CODE=GET_COMMENTS_COUNT": {
+            "get": {
+                "tags": ["media"],
+                "summary": "getCommentsCount() - Gets the current comments count of media file",
+                "description": "",
+                "operationId": "getCommentsCount",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "SID",
+                    "in": "query",
+                    "description": "The SID of the media file",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "API_KEY",
+                    "in": "query",
+                    "description": "The API key for the ULAPPH server",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Media"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid API key supplied"
+                    },
+                    "404": {
+                        "description": "Media not found"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+        "/things?T_FUNC=LIST": {
+            "get": {
+                "tags": ["things"],
+                "summary": "getThings() - Gets all things in this system",
+                "description": "",
+                "operationId": "getThings",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/DataPayload"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "Things not found"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+		"/things?T_FUNC=GET_PAYLOAD": {
+            "get": {
+                "tags": ["things"],
+                "summary": "getThingPayload() - Gets the payload of a thing",
+                "description": "This can only be done by the logged in users.",
+                "operationId": "getThingPayload",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "thingName",
+                    "in": "query",
+                    "description": "The thingName where payload will be retrieved",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "showPayloadOnly",
+                    "in": "query",
+                    "description": "Y or N flag to display only payload",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/DataPayload"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+		"/things?T_FUNC=GET_PAYLOAD_ITEM": {
+            "get": {
+                "tags": ["things"],
+                "summary": "getThingPayloadField() - Reads the payload & get field value of a thing",
+                "description": "This can only be done by the logged in users.",
+                "operationId": "getThingPayloadField",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "thingName",
+                    "in": "query",
+                    "description": "The thingName where payload will be retrieved",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "dataFormat",
+                    "in": "query",
+                    "description": "The format of data being extracted for the field which can be Bool, Float, Int, String, Array, Interface and Object.",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "jsonQuery0",
+                    "in": "query",
+                    "description": "The JSON field Level 0 which will point to the specific field value.",
+					"required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "jsonQuery1",
+                    "in": "query",
+                    "description": "The JSON field Level 1 which will point to the specific field value.",
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "jsonQuery2",
+                    "in": "query",
+                    "description": "The JSON field Level 2 which will point to the specific field value.",
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "jsonQuery3",
+                    "in": "query",
+                    "description": "The JSON field Level 3 which will point to the specific field value.",
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "jsonQuery4",
+                    "in": "query",
+                    "description": "The JSON field Level 4 which will point to the specific field value.",
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+		},
+		"/things?T_FUNC=POST_PAYLOAD": {
+            "post": {
+                "tags": ["things"],
+                "summary": "postThingPayload() - Stores the payload of a thing",
+                "description": "This can only be done by the logged in users.",
+                "operationId": "postThingPayload",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "thingName",
+                    "in": "query",
+                    "description": "The thingName where payload will be retrieved",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "isShared",
+                    "in": "query",
+                    "description": "Y or N if thing is shared",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "docStat",
+                    "in": "query",
+                    "description": "Document status if Worldwide, ULAPPH Only, Personal",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/DataPayload"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+		},
+		"/things?T_FUNC=SEND-CONTROL": {
+            "post": {
+                "tags": ["things"],
+                "summary": "controlThingPayload() - Sends control signal from cloud to device via Firebase",
+                "description": "This can only be done by the logged in users.",
+                "operationId": "controlThingPayload",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "thingName",
+                    "in": "query",
+                    "description": "The thingName which will be controlled by payload",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/DataPayload"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+		"/notifications?N_FUNC=ALARM": {
+            "post": {
+                "tags": ["notifications"],
+                "summary": "sendAlarm() - Sends alarm to system user",
+                "description": "This can only be done by the logged in users.",
+                "operationId": "sendAlarm",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "userName",
+                    "in": "query",
+                    "description": "The userName which will receive the message",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "message",
+                    "in": "query",
+                    "description": "The content of message to be sent",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                        "in": "body",
+                        "name": "body",
+                        "description": "The notification object to create",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NotificationMessage"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/NotificationMessage"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Expired token"
+                    },
+                    "403": {
+                        "description": "Invalid client"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+		"/commands?CMD_FUNC=scrape": {
+            "post": {
+                "tags": ["commands"],
+                "summary": "scrapeWebsite() - Scrapes a given website into a slide & text",
+                "description": "This can scrape websites given parameters.",
+                "operationId": "scrapeWebsite",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "url",
+                    "in": "query",
+                    "description": "The URL of website to be scraped",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "selector",
+                    "in": "query",
+                    "description": "The selector where specific data is to be scraped",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "extract_images",
+                    "in": "query",
+                    "description": "Extract images from selected area (Y/N)",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "extract_links",
+                    "in": "query",
+                    "description": "Extract links from selected area (Y/N)",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "extract_text",
+                    "in": "query",
+                    "description": "Extract texts from selected area (Y/N)",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "text_len",
+                    "in": "query",
+                    "description": "Limit text length",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "inc_raw_text",
+                    "in": "query",
+                    "description": "Include raw text from whole web page (Y/N)",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "output",
+                    "in": "query",
+                    "description": "If blank will output as slides; if value is alertify, it will show in UWM desktop. If value is json, it will output in json format.",
+                    "required": false,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Scrapes"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+		"/commands?CMD_FUNC=extract_planner": {
+            "post": {
+                "tags": ["commands"],
+                "summary": "extractPlanner() - Extract planner tasks from Office 365",
+                "description": "This will extract the planner tasks given parameters.",
+                "operationId": "extractPlanner",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "token",
+                    "in": "query",
+                    "description": "The token for the target planner",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "SID",
+                    "in": "query",
+                    "description": "The TDSMEDIA containing config for the target planner",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+		"/things?T_FUNC=HEALTHZ": {
+            "get": {
+                "tags": ["system"],
+                "summary": "getSystemHealthz() - Gets status health of the system",
+                "description": "This can be used for monitoring purposes.",
+                "operationId": "getSystemHealthz",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "responses": {
+                    "200": {
+                        "description": "System Status",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SystemStatus"
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        },
+		"/otto": {
+            "post": {
+                "tags": ["otto"],
+                "summary": "jsOtto() - Executes a Javascript in a VM",
+                "description": "This can be used for creating APIs in Javascript.",
+                "operationId": "runJavascriptOtto",
+                "produces": ["application/xml", "application/json"],
+				"consumes": ["application/xml", "application/json"],
+                "parameters": [{
+                    "name": "DEBUG",
+                    "in": "query",
+                    "description": "Enabled and disable debug mode (Y/N)",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                    "name": "SID",
+                    "in": "query",
+                    "description": "The SID of script to be executed",
+                    "required": true,
+                    "type": "string",
+                    "format": "string"
+                },{
+                        "in": "body",
+                        "name": "body",
+                        "description": "The input object to be processed",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ottoInput"
+                        }
+                 }],
+                "responses": {
+                    "200": {
+                        "description": "Otto Javascript Response",
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [{
+                    "server_token": []
+                }],
+                "deprecated": false
+            }
+        }
+	},
+    "securityDefinitions": {
+		"server_token": {
+		  "type": "apiKey",
+		  "name": "Authorization",
+		  "in": "header",
+		  "description": "The apiKey to access this system",
+		}
+    },
+    "definitions": {
+        "Share": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "xml": {
+                "name": "Share"
+            }
+        },
+        "Slides": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "xml": {
+                "name": "Slides"
+            }
+        },
+        "Articles": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "xml": {
+                "name": "Articles"
+            }
+        },
+        "Media": {
+            "type": "object",
+            "properties": {
+                "regType": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "Media"
+            }
+        },
+        "Scrapes": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },				
+                "text": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "link": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "Scrapes"
+            }
+        },
+        "DataPayload": {
+            "type": "object",
+            "properties": {
+                "thingId": {
+                    "type": "integer"
+                },
+                "thingName": {
+                    "type": "string"
+                },
+                "payload": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "DataPayload"
+            }
+        },
+        "NotificationMessage": {
+            "type": "object",
+            "properties": {
+                "userName": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "NotificationMessage"
+            }
+        },
+        "ottoInput": {
+            "type": "object",
+            "properties": {
+                "dummy": {
+                	"type": "string"
+                }
+            },
+            "xml": {
+                "name": "ottoInput"
+            }
+        },
+        "SystemStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "SystemStatus"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about ULAPPH Cloud Desktop.",
+        "url": "http://www.ulapph.com"
+    }
+}

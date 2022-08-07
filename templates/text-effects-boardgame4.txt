@@ -1,0 +1,148 @@
+{{define "root"}}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Cool Text Effects Using CSS Text-Shadow</title>
+
+<style>
+	body, div, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, img, form, fieldset, blockquote {
+		margin: 0; padding: 0; border: 0;
+	}
+
+	body {
+		background: #eee;
+	}
+
+	@font-face {
+		font-family: League-Gothic;
+		src: url("League-Gothic.otf") format("opentype");
+	}
+
+	@font-face {
+		font-family: Museo;
+		src: url("Museo300-Regular.otf") format("opentype");
+	}
+
+
+
+
+	#vintage h1 {
+		text-align: {{.STR_FILLER2}};
+		margin: 200px auto;
+		font-family: "League-Gothic", Courier;
+		font-size: 200px; text-transform: uppercase;
+		color: #707070;
+		text-shadow: 5px 5px 0px #eee, 7px 7px 0px #707070;
+	}
+
+	#neon {
+	 padding: 100px; background: #000;
+	}
+
+	#neon h1 {
+		text-align: {{.STR_FILLER2}};
+		margin: 200px auto;
+		font-family: "Museo";
+		font-size: 200px; text-transform: uppercase;
+		color: #fff;
+		text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+	}
+
+
+
+	#inset {
+		padding: 100px; background: #474747;
+	}
+
+	#inset h1 {
+		text-align: {{.STR_FILLER2}};
+		margin: 200px auto;
+		font-family: "League-Gothic", Courier;
+		font-size: 200px; text-transform: uppercase;
+		color: #222;
+		text-shadow: 0px 2px 3px #666;
+
+	}
+
+
+	#anaglyphic {
+		padding: 100px; background: #fff;
+	}
+
+	#anaglyphic h1 {
+		text-align: {{.STR_FILLER2}};
+		margin: 200px auto;
+		font-family: "League-Gothic", Courier;
+		font-size: 200px; text-transform: uppercase;
+		color: rgba(0,168,255,0.5);
+		text-shadow: 8px 8px 0 rgba(255,0,180,0.5);
+
+	}
+
+
+	#fire {
+		padding: 100px; background: #000;
+	}
+
+	#fire h1 {
+		text-align: {{.STR_FILLER2}};
+		margin: 200px auto;
+		font-family: "League-Gothic", Courier;
+		font-size: 200px; text-transform: uppercase;
+		color: #fff;
+		text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+
+	}
+
+
+	#boardgame {
+		padding: 100px; background: #eee;
+	}
+
+	#boardgame h1 {
+		text-align: {{.STR_FILLER2}};
+		margin: 200px auto;
+		font-family: "League-Gothic", Courier;
+		font-size: 200px; text-transform: uppercase;
+		color: #fff;
+		text-shadow: 10px 10px 0 #ffd217, 20px 20px 0 #5ac7ff, 30px 30px 0 #ffd217, 40px 40px 0 #5ac7ff;
+
+	}
+
+
+		
+</style>
+</head>
+
+<body>
+
+<div id="vintage">
+	<h1 contenteditable="true">{{.STR_FILLER1}}</h1>
+</div>
+
+<div id="neon">
+	<h1 contenteditable="true">{{.STR_FILLER1}}</h1>
+</div>
+
+<div id="inset">
+	<h1 contenteditable="true">{{.STR_FILLER1}}</h1>
+</div>
+
+<div id="anaglyphic">
+	<h1 contenteditable="true">{{.STR_FILLER1}}</h1>
+</div>
+
+<div id="fire">
+	<h1 contenteditable="true">{{.STR_FILLER1}}</h1>
+</div>
+
+
+<div id="boardgame">
+	<h1 contenteditable="true">{{.STR_FILLER1}}</h1>
+</div>
+
+</body>
+</html>
+{{end}}

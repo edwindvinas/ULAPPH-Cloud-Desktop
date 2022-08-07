@@ -1,0 +1,20 @@
+{
+"short_name": "uBot",
+"name": "Ulapph Chat Bot",
+"icons": [
+{
+"src": "bot-144.png",
+"sizes": "144x144",
+"type": "image/png"
+},
+{
+"src": "bot-512.png",
+"sizes": "512x512",
+"type": "image/png"
+}
+],
+"theme_color": "#50d29d",
+"background_color": "#50d29d",
+"display": "standalone",
+"start_url": "/static/chat-bubble/ulapphbot.html"
+}

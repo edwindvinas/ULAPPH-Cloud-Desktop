@@ -1,0 +1,135 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+h2 {
+  font-family:sans-serif;
+}
+.list {
+  font-family:sans-serif;
+  margin:0;
+  padding:20px 0 0;
+}
+.list > li {
+  display:block;
+  background-color: #eee;
+  padding:10px;
+  box-shadow: inset 0 1px 0 #fff;
+}
+.avatar {
+  max-width: 150px;
+}
+img {
+  max-width: 100%;
+}
+h3 {
+  font-size: 16px;
+  margin:0 0 0.3rem;
+  font-weight: normal;
+  font-weight:bold;
+}
+p {
+  margin:0;
+}
+
+input {
+  border:solid 1px #ccc;
+  border-radius: 5px;
+  padding:7px 14px;
+  margin-bottom:10px
+}
+input:focus {
+  outline:none;
+  border-color:#aaa;
+}
+.sort {
+  padding:8px 30px;
+  border-radius: 6px;
+  border:none;
+  display:inline-block;
+  color:#fff;
+  text-decoration: none;
+  background-color: #28a8e0;
+  height:30px;
+}
+.sort:hover {
+  text-decoration: none;
+  background-color:#1b8aba;
+}
+.sort:focus {
+  outline:none;
+}
+.sort:after {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  content:"";
+  position: relative;
+  top:-10px;
+  right:-5px;
+}
+.sort.asc:after {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #fff;
+  content:"";
+  position: relative;
+  top:13px;
+  right:-5px;
+}
+.sort.desc:after {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #fff;
+  content:"";
+  position: relative;
+  top:-10px;
+  right:-5px;
+}
+.img-circle {
+border-radius: 50%;
+}</style></head>
+<body>
+<h2>List of ULAPPH Cloud Desktop Servers</h2>
+<div id="users">
+  <input class="search" placeholder="Search" />
+  <button class="sort" data-sort="server">
+    Sort by server
+  </button>
+  <button class="sort" data-sort="country">
+    Sort by country
+  </button>
+  <button class="sort" data-sort="tags">
+    Sort by tags
+  </button>
+
+  <ul class="list">
+   {{range .}}
+    <li>
+      <h3 class="server">{{.STR_FILLER1}}</h3>
+	  <h3 class="server">[ <a href="{{.STR_FILLER1}}" target="{{.STR_FILLER1}}-home" title="Home"><b>Home</b></a> | <a href="{{.STR_FILLER1}}/?q=login&LFUNC=GOOGLE&TARGET_URL={{.STR_FILLER1}}/login?continue=/uwm" target="{{.STR_FILLER1}}-uwm" title="Login Desktop"><b>UWM Desktop</b></a> | <a href="{{.STR_FILLER1}}/?q=login&LFUNC=guest&TARGET_URL=/login" target="{{.STR_FILLER1}}-guest" title="Guest Desktop"><b>UWM Guest</b></a> | <a href="{{.STR_FILLER1}}/website?q=home" target="{{.STR_FILLER1}}-www"><b>Contents</b></a> | <a href="{{.STR_FILLER1}}/?q=gallery" target="{{.STR_FILLER1}}-gallery"><b>Gallery</b></a> | <a href="{{.STR_FILLER1}}/search" target="{{.STR_FILLER1}}-search"><b>Site Search</b></a> | <a href="{{.STR_FILLER1}}/directory?DIR_FUNC=sessions2" target="{{.STR_FILLER1}}-online"><b>Online</b></a> | <a href="{{.STR_FILLER1}}/chat?pubchan=public" target="{{.STR_FILLER1}}-chat"><b>Site Chat</b></a> | <a href="{{.STR_FILLER1}}/?q=login&LFUNC=GOOGLE" target="{{.STR_FILLER1}}-register"><b>Register</b></a> | <a href="{{.STR_FILLER1}}/login?f=presence" target="{{.STR_FILLER1}}-access"><b>Access Statistics</b></a> | <a href="{{.STR_FILLER1}}/admin-setup" target="{{.STR_FILLER1}}-admin"><b>Admin</b></a> ]</h3>
+	  <p class="tags"><font color=green>{{.STR_FILLER3}}</font></p>
+      <p class="country"><img src="{{.STR_FILLER4}}" class="img-circle" width=40 height=40></img> <img src="/img/flags/{{.STR_FILLER2}}.gif" width=60 height=40></img></p>
+    </li>
+   {{end}}
+  </ul>
+
+</div>
+<script src="/static/js/list.min.js"></script>
+<script>
+var options = {
+  valueNames: [ 'server', 'country', 'tags' ]
+};
+
+var userList = new List('users', options);
+</script>
+<hr><h4>[ <a href="http://www.ulapph.com">Portal</a> | <a href="/directory?DIR_FUNC=sites">World Directory</a> | <a href="/directory?DIR_FUNC=people">World People</a> | <a href="/directory?DIR_FUNC=sessions">World online?</a> | <a href="/social?SO_FUNC=show-trending">World Trending</a> | <a href="/social?SO_FUNC=show-whats-new">World Whats New!</a> | <a href="/chat?pubchan=worldwide">World Chat</a> | <a href="/logout">Logout</a>]</h4>
+</body></html>
+{{end}}

@@ -1,0 +1,573 @@
+	    <li>
+        	<a href="#page" onmouseenter="playAudio();">Cloud</a>   
+            <ul class="sublist">
+				<li onmouseenter="playAudio();">Google Office    
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://gsuite.google.com/','_blank'); return false">G-Suite</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://mail.google.com/mail/u/0/h/', 'Gmail Mobile' ); return false">Gmail-Send Email(M)</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://gmail.google.com/','_blank'); return false">Gmail-Send Email(F)</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://keep.google.com', 'Google Keep' ); return false">Google Keep</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://calendar.google.com/', 'Calendar' ); return false">Google Calendar(F)</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://contacts.google.com', 'Google Contacts' ); return false">Google Contacts</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://drive.google.com/?authuser=0#my-drive', 'GoogleDrive' ); return false">Google Drive</a>
+						</li>
+						<li class="divider"></li> 
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://docs.google.com/document/u/0/', 'Google Docs' ); return false">Google Docs</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://docs.google.com/presentation/u/0/', 'Google Slides' ); return false">Google Slides</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://docs.google.com/drawings', 'Google Drawings' ); return false">Google Drawings</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://docs.google.com/spreadsheets/u/0/', 'Google Sheets' ); return false">Google Sheets</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://docs.google.com/forms/', 'Google Forms' ); return false">Google Forms</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com/cloudprint', 'Google Print' ); return false">Google Print</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://opo.ulapph.com/slides?TYPE=SLIDE&DOC_ID=180&SID=TDSSLIDE-180', 'Everything Google...' ); return false">Everything Google...</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://myaccount.google.com/','_blank'); return false">Manage Account</a>
+						</li>
+						<li class="divider"></li>
+		
+					</ul>
+				</li>
+				<li class="divider"></li>
+
+				<li onmouseenter="playAudio();">Google Applications
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://gmail.google.com','_blank'); return false">Login</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com.ph/', 'GoogleSearch' ); return false">Google Search</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://scholar.google.com.ph/', 'GoogleScholar' ); return false">Google Scholar</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/', 'Youtube' ); return false">Google Youtube</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://books.google.com', 'Google Books' ); return false">Google Books</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://maps.google.com', 'Google Maps' ); return false">Google Maps</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://plus.google.com', 'Google Plus' ); return false">Google Plus</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://news.google.com','_blank'); return false">Google News</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://play.google.com/store?hl=en', 'Google Play' ); return false">Google Play</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com/wallet/', 'Google Wallet' ); return false">Google Wallet</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com/shopping?hl=en', 'Google Shopping' ); return false">Google Shopping</a>
+						</li>
+						<li class="divider"></li>    
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com/finance', 'Google Finance' ); return false">Google Finance</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://photos.google.com/', 'Google Photos' ); return false">Google Photos</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.panoramio.com/', 'Panoramio' ); return false">Panoramio</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.blogger.com/', 'Blogger' ); return false">Blogger</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com.ph/earth/', 'Google Earth' ); return false">Google Earth</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com.ph/maps/streetview/', 'Google StreetView' ); return false">Google StreetView</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com.ph/trends', 'Google Trends' ); return false">Google Trends</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://sites.google.com/?pli=1', 'Google Sites' ); return false">Google Sites</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://translate.google.com.ph/', 'Google Translate' ); return false">Google Translate</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://groups.google.com', 'Google Groups' ); return false">Google Groups</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://hangouts.google.com', 'Google Hangouts' ); return false">Google Hangouts</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com/sky/', 'Google Sky' ); return false">Google Sky</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com.ph/intl/en/about/products/', 'All Google Products' ); return false">All Google Products</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li>
+				
+				<li onmouseenter="playAudio();">Google Cloud Platform
+					<span class="arrow"></span>
+					<ul class="sublist-menu">
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/cloudshell', 'Google Shell' ); return false">Google Shell</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/logs/viewer', 'Logs Viewer' ); return false">Logs Viewer</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/apis/library?project=', 'API Manager' ); return false">API Manager</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/billing?project=', 'Billing' ); return false">Billing</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/launcher?project=', 'Cloud Launcher' ); return false">Cloud Launcher</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/iam-admin?project=', 'IAM & Admin' ); return false">IAM & Admin</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/appengine', 'App Engine' ); return false">App Engine</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/compute/instances', 'Compute Engine' ); return false">Compute Engine</a>
+						</li>
+						<li class="divider"></li>  
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/kubernetes/list', 'Container Engine' ); return false">Container Engine</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/networking/networks/list', 'Networking' ); return false">Networking</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/functions?project=', 'Cloud Functions' ); return false">Cloud Functions</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/bigtable/clusters', 'Big Table' ); return false">Big Table</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/sql/instances', 'Cloud SQL' ); return false">Cloud SQL</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/datastore', 'Datastore' ); return false">Datastore</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/storage/browser', 'Cloud Storage' ); return false">Cloud Storage</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/spanner?project=', 'Spanner' ); return false">Spanner</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.firebase.google.com', 'Firebase' ); return false">Firebase</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/monitoring?project=', 'Monitoring' ); return false">Monitoring</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/debug?project=', 'Debug' ); return false">Debug</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/traces?project=', 'Trace' ); return false">Trace</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/logs?project=', 'Logging' ); return false">Logging</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/errors?project=', 'Error Reporting' ); return false">Error Reporting</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/gcr?project=', 'Container Registry' ); return false">Container Registry</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/code?project=', 'Development' ); return false">Development</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/deployments?project=', 'Deployment Manager' ); return false">Deployment Manager</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/testlab?project=', 'Test Lab' ); return false">Test Lab</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/endpoints?project=', 'Endpoints' ); return false">Endpoints</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/bigquery?project=', 'Big Query' ); return false">Big Query</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/cloudpubsub?project=', 'PubSub' ); return false">PubSub</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/dataproc?project=', 'Data Proc' ); return false">Data Proc</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/dataflow?project=', 'Data Flow' ); return false">Data Flow</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/mlengine?project=', 'ML Engine' ); return false">ML Engine</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/genomics?project=', 'Genomics' ); return false">Genomics</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li>
+
+				<li onmouseenter="playAudio();">SAP Cloud Platform
+					<span class="arrow"></span>
+					<ul class="sublist-menu">
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://www.sap.com/index.html', 'SAP Home' ); return false">SAP Home</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://accounts.sap.com/', 'SAP Account' ); return false">SAP Login</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://cockpit.eu10.hana.ondemand.com/', 'SAP Cockpit' ); return false">SAP Cockpit</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li>
+				
+                <li onmouseenter="playAudio();">Microsoft Office    
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://outlook.com','_blank'); return false">Outlook</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://onedrive.live.com', 'Microsoft live' ); return false">One Drive</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://outlook.com/', 'Microsoft outlook' ); return false">Mail</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://calendar.live.com/calendar/calendar.aspx', 'Microsoft calendar' ); return false">Calendar</a>
+						</li>
+						<li class="divider"></li>
+						
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://bay02.calendar.live.com/calendar/calendar.aspx?rru=tasks', 'Microsoft tasks' ); return false">Tasks</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://office.live.com/start/Word.aspx?omkt=en-PH', 'Microsoft Word' ); return false">Word</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://office.live.com/start/Excel.aspx?omkt=en-PH', 'Microsoft Excel' ); return false">Excel</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://office.live.com/start/PowerPoint.aspx?omkt=en-PH', 'Microsoft PowerPoint' ); return false">Powerpoint</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.onenote.com/notebooks', 'Microsoft notebooks' ); return false">One Note</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://docs.com/en-us?entrypointid=1', 'Microsoft docs' ); return false">Docs.com</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://support.microsoft.com/en-ph/allproducts', 'Microsoft All Products' ); return false">All Microsoft Products</a>
+						</li>
+						<li class="divider"></li>
+                        
+		
+					</ul>
+				</li>
+				<li class="divider"></li>
+
+				<li onmouseenter="playAudio();">Microsoft Applications
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://outlook.com','_blank'); return false">Login</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://sway.com/', 'Microsoft sway' ); return false">Sway</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://docs.com/en-us?entrypointid=1', 'Microsoft docs' ); return false">Docs.com</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.office.com/', 'Microsoft office' ); return false">Office</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.bing.com/?FORM=MO0027', 'Microsoft bing' ); return false">Bing</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.msn.com/en-ph/?OCID=CALHeader', 'Microsoft MSN' ); return false">MSN</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.microsoft.com/en-ph/', 'Microsoft Website' ); return false">Microsoft</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.microsoftstore.com/', 'Microsoft Store' ); return false">Store</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://twitter.com/Microsoft', 'Microsoft twitter' ); return false">Twitter</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.facebook.com/Microsoft', 'Microsoft facebook' ); return false">Facebook</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/user/Microsoft', 'Microsoft youtube' ); return false">Youtube</a>
+						</li>
+						<li class="divider"></li>
+					
+					</ul>
+				</li>
+				<li class="divider"></li>
+				<li onmouseenter="playAudio();">Microsoft Developers
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://developer.microsoft.com/en-us/','MsftDev'); return false">Developers Homepage</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://dotnet.microsoft.com/platform/community', '.NETCom' ); return false">.Net Community</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://techcommunity.microsoft.com/t5/azure/ct-p/Azure', 'AzureCom' ); return false">Azure Community</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://techcommunity.microsoft.com/', 'TechCom' ); return false">Tech Community</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://github.community/', 'GithubCom' ); return false">Tech Community</a>
+						</li>
+						<li class="divider"></li>	
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://techcommunity.microsoft.com/t5/office-365/ct-p/Office365', 'O365Com' ); return false">Office365 Community</a>
+						</li>
+						<li class="divider"></li>	
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://techcommunity.microsoft.com/t5/windows-10/ct-p/Windows10', 'Wincom' ); return false">Windows Community</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://techcommunity.microsoft.com/t5/windows-10/ct-p/Windows10', 'Wincom' ); return false">Windows Community</a>
+						</li>
+						<li class="divider"></li>
+
+					</ul>
+				</li>
+				<li class="divider"></li>
+				<li onmouseenter="playAudio();">DropBox
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="window.open('https://photos.dropbox.com/app/timeline','_blank'); return false">Timeline</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/recents', 'Dropbox Recent' ); return false">Dropbox Recent</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/home', 'Dropbox Files' ); return false">Dropbox Files</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/team?_tk=left_nav_team', 'Dropbox Team' ); return false">Dropbox Team</a>
+                        </li>
+                        <li class="divider"></li>
+                        
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/paper?_tk=left_nav_paper', 'Dropbox Paper' ); return false">Dropbox Paper</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://photos.dropbox.com/app/timeline', 'Dropbox Photos' ); return false">Dropbox Photos</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/share', 'Dropbox Sharing' ); return false">Dropbox Sharing</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/links', 'Dropbox Links' ); return false">Dropbox Links</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/events', 'Dropbox Events' ); return false">Dropbox Events</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/requests', 'File Requests' ); return false">File Requests</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dropbox.com/deleted_files', 'Deleted Files' ); return false">Deleted Files</a>
+                        </li>
+                        <li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li> 
+				<li onmouseenter="playAudio();">Apple Applications
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://www.icloud.com/','iCloud'); return false">Apple iCloud</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li>
+				<li onmouseenter="playAudio();">Apple Developers
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://developer.apple.com/','iCloudDev'); return false">Apple Developers</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li>
+				<li onmouseenter="playAudio();">IBM Developers
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://cloud.ibm.com/','ibmCloud'); return false">IBM Cloud</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li>  
+				<li onmouseenter="playAudio();">Mega Cloud
+				  <span class="arrow"></span>
+					<ul class="sublist-menu">
+						<li>
+							<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://mega.nz/','MegaCloud'); return false">Mega Cloud</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="divider"></li>                
+			</ul>
+		</li>

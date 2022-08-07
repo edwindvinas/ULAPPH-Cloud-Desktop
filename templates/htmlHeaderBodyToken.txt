@@ -1,0 +1,71 @@
+{{define "root"}}
+<!DOCTYPE HTML>
+<html lang="en-US" class="no-js">
+  <head>
+    <title>Guest Desktop - ULAPPH Cloud Desktop Website</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="author" content="ULAPPH Cloud Desktop" />
+    <link rel="os-touch-icon" href="images/custom_icon.ico"/>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="/static/css/home1.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/static/css/home2.css">
+    <!--<![endif]-->
+    <!--[if lt IE 9]>
+        <script src="/static/js/html5shiv.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" media="screen,projection,tv" href="/static/css/msgs.css" />
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <script type="text/javascript" language="javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+	
+	<script type="text/javascript" src="/static/js/soundmanager2.js"></script>
+	<script type="text/javascript" src="/static/js/vibrate.js"></script>
+  <script src="/static/js/jquery.linkify-1.0.js"></script>
+  <script>
+    $(function(){
+      jQuery('#warning').remove();
+      jQuery('body').linkify({
+          handleLinks: function (links) {
+              links
+                  .css('background', '#ff0')
+                  //.after(function (i) { return ' (link '+(i+1)+')'; });
+            }
+        });
+    });
+  </script>
+	<style>
+	#channel-area{
+		width: 100%;
+		position:relative;
+		vertical-align: top;
+		bottom:0px;
+		left:0px;
+		padding:6px;
+		background-color:{{.STR_FILLER10}};
+	}
+	html *
+	{
+	   color: #ffffff !important;
+	}
+	body {
+	  background: {{.STR_FILLER10}};
+	}
+	</style>
+  </head>
+  <body>
+    <center>
+	<div id="channel-area"><h1>{{.STR_FILLER3}}</h1>
+	</div>
+	<input type="hidden" id="chan-id" value="{{.STR_FILLER1}}">
+    <input type="hidden" id="token-id" value="{{.STR_FILLER2}}">	
+    <input type="hidden" id="auser" value="{{.STR_FILLER4}}">	
+    <input type="hidden" id="isDesktop" value="{{.STR_FILLER5}}">	
+    <input type="hidden" id="step" value="{{.STR_FILLER6}}">
+    <input type="hidden" id="targetURL" value="{{.STR_FILLER7}}">
+	<input type="hidden" id="ushare" value="{{.STR_FILLER8}}">
+	<input type="hidden" id="TITLE" value="{{.STR_FILLER9}}">
+{{end}}

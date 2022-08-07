@@ -1,0 +1,59 @@
+{{define "root"}}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Subtle Typography</title>
+
+	<style>
+	body {
+		background: #666;
+		padding: 1em;
+	}
+
+	h1 {
+		position: relative;
+		font-size: 200px;
+		margin-top: 0;
+		font-family: 'Myriad Pro', 'Myriad', helvetica, arial, sans-serif;
+		text-shadow: 2px 3px 3px #292929;
+		letter-spacing: -7px;
+		-webkit-text-stroke: 1px white;
+	
+	}
+	
+	
+
+	h1 a {
+		text-decoration: none;
+		color: #ffffff;
+		position: absolute;
+
+		-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,1)));
+		text-shadow: 0 2px 0 #e9e9e9;
+		-webkit-transition: all .3s;
+		-moz-transition: all .3s;
+		transition: all .3s;
+	}
+	
+	h1 a:hover {
+		color: #185a50;
+		-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), color-stop(50%, rgba(0,0,0,.3)), to(rgba(0,0,0,1)));
+		
+	}
+
+	h1:after {
+		color: #dbdbdb;
+		content : attr(data-title);
+	}
+	
+
+
+	</style>
+</head>
+<body>
+     <h1 data-title="{{.STR_FILLER1}}" contenteditable="true"> <a href="#">{{.STR_FILLER1}}</a> </h1>
+</body>
+</html>
+{{end}}

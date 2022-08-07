@@ -1,0 +1,271 @@
+<!DOCTYPE html
+<html>
+
+<head>
+    <script>
+        window.onerror = function(msg, url, line, col, error) {
+            var lineText = line == 0 ? "" : "<br /><span>Line: " + (line) + "</span>";
+            var errorMessage = msg + lineText;
+            window.parent.document.querySelector("#jsConsole .errorMessage").innerHTML = errorMessage;
+            return false;
+        }
+    </script>
+	<style>
+	.button {
+	  background-color: #4CAF50;
+	  border: none;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 30px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	}
+	</style>
+
+    <title>Motion Alarm</title>
+
+    <!-- The below script is courtesy of https://rawgit.com/Grapheme/graphemescope/master/lib/graphemescope.js -->
+	<!--https://code.sololearn.com/Wh2kR2rMg69I/?ref=app#html -->
+    <script type="text/javascript">
+        (function() {
+            var a, b;
+            b = function() {
+                return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(a) {
+                    return window.setTimeout(a, 1e3 / 30)
+                }
+            }(), window.Graphemescope = a = function() {
+                function a(a) {
+                    var c = this;
+                    this.parentElement = null != a ? a : window.document.body, this.enabled = !0, this.radiusFactor = 1, this.zoomFactor = 1, this.angleFactor = 0, this.zoomTarget = 1.2, this.angleTarget = .8, this.easeEnabled = !0, this.ease = .1, null == this.domElement && (this.domElement = document.createElement("canvas")), null == this.ctx && (this.ctx = this.domElement.getContext("2d")), this.alphaFactor = 1, this.alphaTarget = 1, this.parentElement.appendChild(this.domElement), this.oldResizeHandler = function() {}, null !== window.onresize && (this.oldResizeHandler = window.onresize), window.onresize = function() {
+                        return c.resizeHandler()
+                    }, this.resizeHandler(), b(function() {
+                        return c.animationFrame()
+                    })
+                }
+                return a.prototype.animationFrame = function() {
+                    var a = this;
+                    return b(function() {
+                        return a.animationFrame()
+                    }), this.enabled ? (this.update(), this.draw()) : void 0
+                }, a.prototype.resizeHandler = function() {
+                    return this.width = this.domElement.width = this.parentElement.offsetWidth, this.height = this.domElement.height = this.parentElement.offsetHeight, this.radius = .5 * this.radiusFactor * Math.min(this.width, this.height), this.radiusHeight = .5 * Math.sqrt(3) * this.radius, this.oldResizeHandler()
+                }, a.prototype.update = function() {
+                    return this.easeEnabled ? (this.angleFactor += (this.angleTarget - this.angleFactor) * this.ease, this.zoomFactor += (this.zoomTarget - this.zoomFactor) * this.ease, this.alphaFactor += (this.alphaTarget - this.alphaFactor) * this.ease) : (this.angleFactor = this.angleTarget, this.zoomFactor = this.zoomTarget, this.alphaFactor = this.alphaTarget)
+                }, a.prototype.drawImage = function(a) {
+                    var b, c;
+                    return this.ctx.save(), b = 2 / 3 * this.radiusHeight, c = this.zoomFactor * b / (.5 * Math.min(a.width, a.height)), this.ctx.translate(0, b), this.ctx.scale(c, c), this.ctx.rotate(2 * this.angleFactor * Math.PI), this.ctx.translate(-.5 * a.width, -.5 * a.height), this.ctx.fill(), this.ctx.restore()
+                }, a.prototype.drawCell = function(a) {
+                    var b, c, d;
+                    for (d = [], b = c = 0; 6 > c; b = ++c) this.ctx.save(), this.ctx.rotate(2 * b * Math.PI / 6), this.ctx.scale([-1, 1][b % 2], 1), this.ctx.beginPath(), this.ctx.moveTo(0, 0), this.ctx.lineTo(-.5 * this.radius, 1 * this.radiusHeight), this.ctx.lineTo(.5 * this.radius, 1 * this.radiusHeight), this.ctx.closePath(), this.drawImage(a), d.push(this.ctx.restore());
+                    return d
+                }, a.prototype.drawLayer = function(a) {
+                    var b, c, d, e, f, g, h, i, j, k, l, m;
+                    for (this.ctx.save(), this.ctx.translate(.5 * this.width, .5 * this.height), f = Math.ceil(.5 * this.height / this.radiusHeight), c = Math.ceil(.5 * this.width / (3 * this.radius)), d = function() {
+                            l = [];
+                            for (var a = -c; c >= -c ? c >= a : a >= c; c >= -c ? a++ : a--) l.push(a);
+                            return l
+                        }.apply(this), g = function() {
+                            m = [];
+                            for (var a = -f; f >= -f ? f >= a : a >= f; f >= -f ? a++ : a--) m.push(a);
+                            return m
+                        }.apply(this), h = 0, j = g.length; j > h; h++) {
+                        for (e = g[h], this.ctx.save(), this.ctx.translate(0, this.radiusHeight * e), Math.abs(e) % 2 && this.ctx.translate(1.5 * this.radius, 0), i = 0, k = d.length; k > i; i++) b = d[i], this.ctx.save(), this.ctx.translate(3 * b * this.radius, 0), this.drawCell(a), this.ctx.restore();
+                        this.ctx.restore()
+                    }
+                    return this.ctx.restore()
+                }, a.prototype.draw = function() {
+                    return null != this.imageProxy && (this.ctx.fillStyle = this.patternProxy, this.ctx.globalAlpha = 1 - this.alphaFactor, this.drawLayer(this.imageProxy)), null != this.image ? (this.ctx.fillStyle = this.pattern, this.ctx.globalAlpha = this.alphaFactor, this.drawLayer(this.image)) : void 0
+                }, a.prototype.setImageDirect = function(a) {
+                    return null != this.image && (this.imageProxy = this.image, this.patternProxy = this.pattern), this.image = a, this.pattern = this.ctx.createPattern(this.image, "repeat"), this.alphaFactor = 0
+                }, a.prototype.setImage = function(a) {
+                    var b, c = this;
+                    return "string" == typeof a ? (b = new Image, b.src = a, b.onload = function() {
+                        return c.setImageDirect(b)
+                    }) : this.setImageDirect(a)
+                }, a
+            }()
+        }).call(this);
+    </script>
+    <script type="text/javascript" src="/static/js/soundmanager2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/static/css/alertify.core.css" />
+    <link rel="stylesheet" href="/static/css/alertify.default.css" id="toggleCSS" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+        body {
+            /* Makes kaleidoscope fullscreen */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+        
+        .overlay {
+            background-color: black;
+            opacity: 0.9;
+            padding: 5px;
+            position: absolute;
+            top: 5px;
+            left: 0px;
+            z-index: 2;
+            font-family: "Roboto Condensed";
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        window.onload = alert("If you're using mobile, tilt your phone side to side and up and down to see it move! If you're on PC just hover with your mouse!");
+    </script>
+</head>
+
+<body>
+    <input type="button" id="toggle" class="button" value="Motion Alarm is disabled" />
+    <div id="container" style="height: 0px; width: 0px;"><canvas width="0" height="0"></canvas></div>
+	<script src="/js/alertify.min.js"></script>
+    <script>
+      localStorage["soundBusy"] = "Y";
+	  alertify.success("Set soundBusy=Y");
+      var wakeLockEnabled = false;
+      var toggleEl = document.querySelector("#toggle");
+      toggleEl.addEventListener('click', function() {
+        if (!wakeLockEnabled) {
+          localStorage["soundBusy"] = "N";
+		  alertify.success("Set soundBusy=N");
+          wakeLockEnabled = true;
+          toggleEl.value = "Motion Alarm is enabled";
+		  alertify.error("Motion Alarm is enabled");
+		  console.log(toggleEl.value);
+        } else {
+          localStorage["soundBusy"] = "Y";
+          wakeLockEnabled = false;
+          toggleEl.value = "Motion Alarm is disabled";
+		  alertify.log("Motion Alarm is disabled");
+		  soundManager.stopAll();
+		  console.log(toggleEl.value);
+        }
+      }, false);
+    </script>
+    <script type="text/javascript">
+        var images = [
+            "https://i.ytimg.com/vi/lt0WQ8JzLz4/maxresdefault.jpg",
+            "https://s-media-cache-ak0.pinimg.com/originals/3e/a3/03/3ea3035261cda442f086ee1f3b55dd46.jpg",
+            "https://s-media-cache-ak0.pinimg.com/originals/d8/78/ac/d878ac9bd86d4da1b9f75b8fc27d837a.jpg",
+            "https://cdn.spacetelescope.org/archives/images/large/heic1007a.jpg",
+            "https://s-media-cache-ak0.pinimg.com/originals/d6/0e/0b/d60e0b8cddad9cd53563de171e2e4af9--iphone-backgrounds-the-galaxy.jpg",
+            "https://s-media-cache-ak0.pinimg.com/originals/00/e1/98/00e198619bd23e2695a485901bd5471d--nebula-wallpaper-star-wallpaper.jpg",
+            "https://www.nasa.gov/images/content/612969main_pia15252-full_full.jpg",
+            "https://www.nasa.gov/sites/default/files/thumbnails/image/hs-2015-29-a-xlarge_web.jpg",
+            "https://i.ytimg.com/vi/NPjCwXyvTG8/maxresdefault.jpg",
+            "https://img.purch.com/w/660/aHR0cDovL3d3dy5zcGFjZS5jb20vaW1hZ2VzL2kvMDAwLzAyMy82Mzgvb3JpZ2luYWwvb3Jpb24tbmVidWxhLmpwZw=="
+        ];
+
+        var container = $("#container");
+        var scope = new Graphemescope(container[0]);
+
+        var index = 0;
+
+        function changePicture() {
+            scope.setImage(images[index]);
+            index = (index + 1) % images.length;
+        };
+
+        function soundAlarm() {
+			console.log("soundAlarm()");
+			alertify.log("soundAlarm()");
+            if (localStorage["soundBusy"] === "Y") {
+                return;
+            }
+            //alert("alarm sounded!");
+            var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+                // Internet Explorer 6-11
+            var isIE = /*@cc_on!@*/false || !!document.documentMode;
+                // Edge 20+
+            var isEdge = !isIE && !!window.StyleMedia;
+            var aSound = document.createElement('audio');
+            var root = location.protocol + '//' + location.host;
+            
+            if (isEdge == true || isIE == true || isSafari == true) {
+                soundManager.createSound({
+                    id: 'mySoundAC',
+                    volume: 99,
+                    url: root + "/static/audio/industrialAlarm.mp3"
+                });
+                soundManager.play('mySoundAC');
+                return;
+            }
+            soundManager.createSound({
+                id: 'mySoundAC',
+                volume: 99,
+                //url: root + "/static/audio/industrialAlarm.ogg"
+				url: root + "/static/audio/industrialAlarm.mp3"
+            });
+            soundManager.play('mySoundAC');
+            return;
+        };
+
+        //setInterval(changePicture, 10000);
+        changePicture();
+
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', function(event) {
+                var x = Math.round(event.beta);
+                var y = Math.round(event.gamma);
+                //detect Alarm
+                var difx = Math.abs(parseInt(localStorage["x"]) - parseInt(x));
+                var dify = Math.abs(parseInt(localStorage["y"]) - parseInt(y));
+                //alert("difx: "+difx);
+				console.log("difx: "+difx);
+				if (difx > 0) {
+					alertify.success("difx: "+difx);
+				}
+                //alert("dify: "+dify);
+				console.log("dify: "+dify);
+				if (dify > 0 ) {
+					alertify.success("dify: "+dify);
+				}
+                //save x & y
+                localStorage["x"] = x;
+                localStorage["y"] = y;
+                var factorx = y / $(window).width();
+                var factory = x / $(window).height();
+                scope.angleTarget = factorx + 2;
+                scope.zoomTarget = 0.5 + 4.0 * factory;
+                if (difx > 0 && dify > 0) {
+                    //value changed
+					console.log("value changed");
+					alertify.success("value changed");
+                    soundAlarm();
+                    //alert("motion detected!");
+					console.log("motion detected!");
+					alertify.error("motion detected!");
+                }
+            });
+        } else {
+            alert("Your device does not support device orientated motions.");
+			alertify.log("Your device does not support device orientated motions.");
+        }
+
+        $(window).mousemove(function(event) {
+            var factorx = event.pageX / $(window).width();
+            var factory = event.pageY / $(window).height()
+            scope.angleTarget = factorx;
+            scope.zoomTarget = 0.5 + 3.0 * factory;
+        });
+
+        var resizeHandler = function() {
+            container.height($(window).height());
+            container.width($(window).width());
+        };
+
+        $(window).resize(resizeHandler);
+        $(window).resize();
+        container.click(changePicture);
+    </script>
+</body>
+
+</html>

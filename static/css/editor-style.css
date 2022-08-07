@@ -1,0 +1,50 @@
+section:-webkit-full-screen
+{
+	float: none;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: 0 none;
+	background-color: #f00;
+}
+
+section:-moz-full-screen
+{
+	float: none;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: 0 none;
+}
+
+section:-ms-full-screen
+{
+	float: none;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: 0 none;
+}
+
+section:-o-full-screen
+{
+	float: none;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: 0 none;
+}
+
+section:full-screen
+{
+	float: none;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: 0 none;
+}

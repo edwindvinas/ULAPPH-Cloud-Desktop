@@ -1,0 +1,25 @@
+{{define "root"}}
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>News Sources</title>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="/static/lib/css/sol/sol.css">
+<script type="text/javascript" src="/static/lib/js/sol/sol.js"></script>
+<body>
+    <select name="SOURCE" id="SOURCE"><br>
+        <option value="Select Source">Select Source</option>
+        {{range .Ulapphs}}
+            <option value="{{.Url}}">{{.UserID}}({{.Picture}})</option>
+        {{end}}
+			</select>
+			<script type="text/javascript">
+			    $(function() {
+				
+				$('#SOURCE').searchableOptionList();
+			    });
+			</script>
+			<br>
+			<button onclick="setSource(); return false;">Set Source</button>
+  </body>
+</html>
+{{end}}

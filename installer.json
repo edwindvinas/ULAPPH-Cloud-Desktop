@@ -1,0 +1,23 @@
+{
+  "deployment": {
+        "files": {
+          "main.py": {
+                "sourceUrl": "https://storage.googleapis.com/admin-api-public-samples/hello_world/main.py"
+          }
+        }
+  },
+  "handlers": [
+        {
+          "script": {
+                "scriptPath": "main.app"
+          },
+          "urlRegex": "/.*"
+        }
+  ],
+  "runtime": "python27",
+  "threadsafe": true,
+  "id": "appengine-helloworld-201710151403",
+  "inboundServices": [
+        "INBOUND_SERVICE_WARMUP"
+  ]
+}

@@ -1,0 +1,240 @@
+{{define "root"}}
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>3D Text</title>
+
+    <!-- Le CSS -->
+    <style>
+
+		body {
+		  background-color: #11a9e2;
+		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0d86b3), to(#11a9e2));
+		  background-image: -moz-linear-gradient(#0d86b3, #11a9e2);
+		  background-repeat: no-repeat;
+		  padding: 100px;
+		  text-rendering: optimizeLegibility;
+		  font: 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		a {
+		  color: #fff;
+		  font-weight: bold;
+		  text-decoration: none;
+		  -webkit-transiton: .2s all linear;
+		}
+		a:hover {
+		  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+		}
+		h1, h2, p {
+		  color: #fff;
+		  color: rgba(255, 255, 255, 0.75);
+		  text-align: {{.STR_FILLER2}};
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		h1 {
+		  margin: 0;
+		  font: bold 100px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  color: #fff;
+		  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+		  -webkit-transition: .2s all linear;
+		}
+		h1:hover {
+		  cursor: text;
+		}
+		h1:focus {
+		  outline: none;
+		}
+		p {
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		h2 {
+		  margin: 30px 0 15px;
+		  font-size: 20px;
+		  font-weight: 200;
+		  line-height: 25px;
+		}
+		pre {
+		  background-color: rgba(0, 0, 0, 0.3);
+		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0.15)), to(rgba(0, 0, 0, 0)));
+		  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+		  width: 500px;
+		  margin: 30px auto;
+		  padding: 15px;
+		  color: #fff;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		  border-radius: 6px;
+		  -moz-border-radius: 6px;
+		  -webkit-border-radius: 6px;
+		  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		}
+		.influads_block {
+		  margin: 0 auto 20px;
+		  width: 180px;
+		  font-size: 12px;
+		  text-align: {{.STR_FILLER2}};
+		  line-height: 15px;
+		}
+		.influads_img {
+		  height: 90px;
+		  margin-bottom: 11px;
+		  margin-left: auto;
+		  margin-right: auto;
+		}
+		.influads_text {
+		  margin-bottom: 5px;
+		}
+		.influads_text_a, .influads_powered_link {
+		  font-weight: normal;
+		}
+		#rate-control {
+		  display: flex;
+		  align-items: center;
+		  gap: 1rem;
+		  margin: 1rem 0;
+		}
+
+	</style>
+	<script>
+		ulapphDebug("processing...");
+		//parse URL values
+		var urlParams;
+		var match,
+				pl     = /\+/g,  // Regex for replacing addition symbol with a space
+				search = /([^&=]+)=?([^&]*)/g,
+				decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+				query  = window.location.search.substring(1);
+
+		urlParams = {};
+		while (match = search.exec(query))
+		   urlParams[decode(match[1])] = decode(match[2]);
+		
+
+		var t = '';
+		var thisMsg = '';
+		var curWord = '';
+		function readAll() {
+			//speak all texts
+			const text = document.querySelector('#thisText');
+			speakMessage(text.textContent);
+			ulapphDebug("speaking all...");
+		}
+		function googleTranslate(e) {
+		    t = (document.all) ? document.selection.createRange().text : document.getSelection();
+		    ulapphDebug("=====googleTranslate==== ");
+		    if (t != "" && t != undefined) {
+		    	curWord = t;
+		    	ulapphDebug("Selected: "+t);
+			var thisTrans = "https://translate.google.com/?hl=fil&sl=en&tl=tl&text=" + t  + "&op=translate";
+			window.open(thisTrans, "transTab");
+		    } else {
+		    	if (curWord == "") {
+				const text = document.querySelector('#thisText');
+				curWord = text.textContent;
+				ulapphDebug("Selected: "+curWord);
+				var thisTrans = "https://translate.google.com/?hl=fil&sl=en&tl=tl&text=" + curWord  + "&op=translate";
+				window.open(thisTrans, "transTab");
+			} else {
+				ulapphDebug("Selected: "+curWord);
+				var thisTrans = "https://translate.google.com/?hl=fil&sl=en&tl=tl&text=" + curWord  + "&op=translate";
+				window.open(thisTrans, "transTab");
+			}
+		    }
+		};
+		function gText(e) {
+		    t = (document.all) ? document.selection.createRange().text : document.getSelection();
+		    ulapphDebug("=====getText==== ");
+		    if (t != "" && t != undefined) {
+		    	ulapphDebug("Selected: "+t);
+			var thisTrans = "https://translate.google.com/?hl=fil&sl=en&tl=tl&text=" + t  + "&op=translate";
+			window.open(thisTrans, "transTab");
+		    }
+		};
+		function speakMessage(thisMsg){	
+			ulapphDebug("speakMessage()");
+			ulapphDebug("thisMsg: "+thisMsg);
+			window.speechSynthesis.cancel();
+			if (('speechSynthesis' in window) || ('SpeechRecognition' in window)) {
+				var msg = new SpeechSynthesisUtterance();
+				const text = document.querySelector('#text');
+				const play = document.querySelector('#play');
+				const rate = document.querySelector('#rate');
+				msg.rate = rate.value;
+				msg.pitch = 1;
+				msg.text = thisMsg;
+				window.speechSynthesis.speak(msg);
+			}
+		};
+
+		function getWord() {
+		    ulapphDebug("=====getWord==== ");
+		    var sel, word = "";
+		    if (window.getSelection && (sel = window.getSelection()).modify) {
+			var selectedRange = sel.getRangeAt(0);
+			sel.collapseToStart();
+			sel.modify("move", "backward", "word");
+			sel.modify("extend", "forward", "word");
+			
+			word = sel.toString();
+			
+			// Restore selection
+			sel.removeAllRanges();
+			sel.addRange(selectedRange);
+		    } else if ( (sel = document.selection) && sel.type != "Control") {
+			var range = sel.createRange();
+			range.collapse(true);
+			range.expand("word");
+			word = range.text;
+		    }
+		    //alert(word);
+		    curWord = word;
+		    ulapphDebug("word: "+word);
+		    speakMessage(word);
+		    var str = word + " ";
+		    var thisWord = str.split('');
+		    ulapphDebug("thisWord: "+thisWord);
+		    var thisSpaced = thisWord.join(' ');
+		    ulapphDebug("thisSpaced: "+thisSpaced);
+		    speakMessage(thisSpaced);
+		    speakMessage(word);
+		}
+
+		function ulapphDebug(msg) {
+		    //comment out to disable console logs
+		    //ulapphDebug(msg);
+		}
+
+		document.onmouseup = gText;
+		if (!document.all) {
+			document.captureEvents(Event.MOUSEUP);
+		}
+
+
+	</script>
+  </head>
+  <body>
+	<div id="google_translate_element"></div>
+	<div id="rate-control">
+	  <label for="rate">Rate:</label>
+	  <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate">
+	</div>
+	<!--button id="play">Play</button-->
+	<button onclick="readAll()">Read All</button>
+	<button onclick="googleTranslate()">Translate</button>
+
+	<script type="text/javascript">
+	function googleTranslateElementInit() {
+	  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+	}
+	</script>
+
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    	<h1 id="thisText" contenteditable="true" onmouseup="getWord()">{{.STR_FILLER1}}</h1>
+  </body>
+</html>
+{{end}}

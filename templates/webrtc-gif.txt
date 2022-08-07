@@ -1,0 +1,167 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>WebRTC Gif Recording using MediaStreamRecorder</title>
+
+    <script src="/static/js/webrtc-MediaStreamRecorder.js"></script>
+    <script src="/static/js/webrtc-gif-recorder.js"></script>
+    
+    <!-- for Edige/FF/Chrome/Opera/etc. getUserMedia support -->
+    <script src="/static/js/webrtc-gumadapter.js"></script>
+
+    <link rel="stylesheet" href="/static/css/webrtc-style.css">
+
+    <style>
+        input {
+            border: 1px solid rgb(46, 189, 235);
+            border-radius: 3px;
+            font-size: 1em;
+            outline: none;
+            padding: .2em .4em;
+            width: 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+        <section class="experiment" style="padding: 5px;">
+            <label for="time-interval">Time Interval (milliseconds):</label>
+            <input type="text" id="time-interval" value="5000">
+
+            <button id="start-recording">Start</button>
+            <button id="stop-recording" disabled>Stop</button>
+
+            <button id="pause-recording" disabled>Pause</button>
+            <button id="resume-recording" disabled>Resume</button>
+
+            <br>
+            <br>
+
+            <label for="video-width">Video Width:</label>
+            <input type="text" id="video-width" value="320">
+
+            <label for="video-height">Video Height:</label>
+            <input type="text" id="video-height" value="240">
+        </section>
+
+        <section class="experiment">
+            <div id="videos-container">
+            </div>
+        </section>
+        <script>
+            function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
+                navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+            }
+
+            var mediaConstraints = {
+                video: true
+            };
+
+            document.querySelector('#start-recording').onclick = function() {
+                this.disabled = true;
+                captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+            };
+
+            document.querySelector('#stop-recording').onclick = function() {
+                this.disabled = true;
+                mediaRecorder.stop();
+                mediaRecorder.stream.stop();
+
+                document.querySelector('#pause-recording').disabled = true;
+                document.querySelector('#start-recording').disabled = false;
+            };
+
+            document.querySelector('#pause-recording').onclick = function() {
+                this.disabled = true;
+                mediaRecorder.pause();
+
+                document.querySelector('#resume-recording').disabled = false;
+            };
+
+            document.querySelector('#resume-recording').onclick = function() {
+                this.disabled = true;
+                mediaRecorder.resume();
+
+                document.querySelector('#pause-recording').disabled = false;
+            };
+
+            var mediaRecorder;
+
+            function onMediaSuccess(stream) {
+                var video = document.createElement('video');
+
+                var videoWidth = document.getElementById('video-width').value || 320;
+                var videoHeight = document.getElementById('video-height').value || 240;
+
+                video = mergeProps(video, {
+                    controls: true,
+                    width: videoWidth,
+                    height: videoHeight,
+                    src: URL.createObjectURL(stream)
+                });
+                video.play();
+
+                videosContainer.appendChild(video);
+                videosContainer.appendChild(document.createElement('hr'));
+
+                mediaRecorder = new MediaStreamRecorder(stream);
+                mediaRecorder.stream = stream;
+                mediaRecorder.mimeType = 'image/gif'; // this line is mandatory
+                mediaRecorder.videoWidth = videoWidth;
+                mediaRecorder.videoHeight = videoHeight;
+                mediaRecorder.ondataavailable = function(blob) {
+                    var a = document.createElement('a');
+                    a.target = '_blank';
+                    a.innerHTML = 'Open Recorded GIF No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
+
+                    a.href = URL.createObjectURL(blob);
+
+                    videosContainer.appendChild(a);
+                    videosContainer.appendChild(document.createElement('hr'));
+                };
+
+                var timeInterval = document.querySelector('#time-interval').value;
+                if (timeInterval) timeInterval = parseInt(timeInterval);
+                else timeInterval = 5 * 1000;
+
+                // get blob after specific time interval
+                mediaRecorder.start(timeInterval);
+
+                document.querySelector('#stop-recording').disabled = false;
+                document.querySelector('#pause-recording').disabled = false;
+            }
+
+            function onMediaError(e) {
+                console.error('media error', e);
+            }
+
+            var videosContainer = document.getElementById('videos-container');
+            var index = 1;
+
+            // below function via: http://goo.gl/B3ae8c
+            function bytesToSize(bytes) {
+                var k = 1000;
+                var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                if (bytes === 0) return '0 Bytes';
+                var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
+                return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+            }
+
+            // below function via: http://goo.gl/6QNDcI
+            function getTimeLength(milliseconds) {
+                var data = new Date(milliseconds);
+                return data.getUTCHours() + " hours, " + data.getUTCMinutes() + " minutes and " + data.getUTCSeconds() + " second(s)";
+            }
+
+            window.onbeforeunload = function() {
+                document.querySelector('#start-recording').disabled = false;
+            };
+        </script>
+</body>
+
+</html>
+{{end}}

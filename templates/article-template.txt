@@ -1,0 +1,670 @@
+{/* This is the article template. It defines how articles are formatted. */}
+
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.Title}}</title>
+	<meta name="description" content="{{.Subtitle}}" />
+	<meta name="keywords" content="{{.Title}} - {{.Subtitle}}"/>
+	<link rel="shortcut icon" href="/img/favicon.ico"/>
+	<!-- Bootstrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<script type="text/javascript" language="javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+	<!--meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" /-->
+    <!--link type="text/css" rel="stylesheet" href="/static/css/article.css"-->
+	<link rel="stylesheet" media="screen,projection,tv" href="css/modalWindow.css" />
+	<link rel="stylesheet" href="/static/lib/css/buttons/buttons.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
+	<style type="text/css">
+		body {
+			margin: 0;
+			font-family: Helvetica, Arial, sans-serif;
+			font-size: 16px;
+			background: {{.SlideColor}};
+		}
+		pre,
+		code {
+			font-family: Menlo, monospace;
+			font-size: 14px;
+		}
+		pre {
+			line-height: 18px;
+			margin: 0;
+			padding: 0;
+		}
+		a {
+			color: #375EAB;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		p, ul, ol {
+			margin: 20px;
+		}
+
+		h1, h2, h3, h4 {
+			margin: 20px 0;
+			padding: 0;
+			color: #375EAB;
+			font-weight: bold;
+		}
+		h1 {
+			font-size: 24px;
+		}
+		h2 {
+			font-size: 20px;
+			background: {{.ColorTo}};
+			padding: 2px 5px;
+		}
+		h3 {
+			font-size: 20px;
+		}
+		h3, h4 {
+			margin: 20px 5px;
+		}
+		h4 {
+			font-size: 16px;
+		}
+
+		div#heading {
+			float: left;
+			margin: 0 0 10px 0;
+			padding: 21px 0;
+			font-size: 20px;
+			font-weight: normal;
+		}
+
+		div#topbar {
+			background: {{.ColorFrom}};
+			height: 64px;
+			overflow: hidden;
+		}
+
+		body {
+			text-align: center;
+		}
+		div#page {
+			width: 100%;
+		}
+		div#page > .container,
+		div#topbar > .container {
+			text-align: left;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0 20px;
+			width: 900px;
+		}
+		div#page.wide > .container,
+		div#topbar.wide > .container {
+			width: auto;
+		}
+
+		.image {
+		  font-size: 16px;
+		  display: inline-block;
+		  width: 312px;
+		}
+		.image img {
+		  width: 100%;
+		  height: auto;
+		  display: block;
+		}
+		.image.fullscreen img {
+		  width: 100%;
+		  height: 100%;
+		}
+		.image.fullscreen {
+		  z-index: 9999;
+		  position: fixed;
+		  margin: 0 auto;
+		  width: 90%;
+		  height: 90%;
+		  top: 5%;
+		  left: 5%;
+		  background-color: #0FF;
+		}
+		@media (max-width: 1248px) { /*312x4*/
+		  .image {
+			width: 25%;
+		  }
+		}
+		@media (max-width: 936px) { /*312x3*/
+		  .image {
+			width: 33.3333%;
+		  }
+		}
+		@media (max-width: 624px) { /*312x2*/
+		  .image {
+			width: 50%;
+		  }
+		}
+		@media (max-width: 312px) { /*312x1*/
+		  .image {
+			width: 100%;
+		  }
+		}
+
+		
+		div#footer {
+			text-align: center;
+			color: #666;
+			font-size: 14px;
+			margin: 40px 0;
+		}
+
+		.author p {
+			margin: 20, 0, 0, 0px;
+		}
+
+		div.code,
+		div.output {
+			margin: 20px;
+			padding: 10px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+
+		div.code { background: #e9e9e9; }
+		div.output { background: black; }
+		div.output .stdout { color: #e6e6e6; }
+		div.output .stderr { color: rgb(244, 74, 63); }
+		div.output .system { color: rgb(255, 209, 77) }
+
+		.buttons {
+			margin-left: 20px;
+		}
+		div.output .buttons {
+			margin-left: 0;
+			margin-bottom: 10px;
+		}
+
+		#toc {
+			float: right;
+			margin: 0px 10px;
+			padding: 10px;
+			border: 1px solid #e5ecf9; 
+			background-color: white;
+			max-width: 33%;
+
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+
+		#toc ul, #toc a {
+			list-style-type: none;
+			padding-left: 10px;
+			color: black;
+			margin: 0px;
+		}
+		
+		input[type=checkbox].css-checkbox {
+									position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+								}
+
+								input[type=checkbox].css-checkbox + label.css-label {
+									padding-left:37px;
+									height:32px; 
+									display:inline-block;
+									background-repeat:no-repeat;
+									background-position: 0 0;
+									font-size:32px;
+									cursor:pointer;
+
+								}
+
+								input[type=checkbox].css-checkbox:checked + label.css-label {
+									background-position: 0 -32px;
+								}
+								label.css-label {
+						background-image:url(/img/checkbox.png);
+						-webkit-touch-callout: none;
+						-webkit-user-select: none;
+						-khtml-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+					}
+					
+		input[type=radio].css-checkbox {
+									position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+								}
+
+								input[type=radio].css-checkbox + label.css-label2 {
+									padding-left:41px;
+									height:36px; 
+									display:inline-block;
+									background-repeat:no-repeat;
+									background-position: 0 0;
+									font-size:36px;
+									cursor:pointer;
+
+								}
+
+								input[type=radio].css-checkbox:checked + label.css-label2 {
+									background-position: 0 -36px;
+								}
+								label.css-label2 {
+						background-image:url(/img/radiobutton.png);
+						-webkit-touch-callout: none;
+						-webkit-user-select: none;
+						-khtml-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+					}
+					
+		 .css-input { padding:10px; font-size:21px; border-style:double; border-radius:7px; border-width:4px; border-color:#336699; color:#336699; text-shadow:0px 0px 0px rgba(42,42,42,.75);  } 
+				 .css-input:focus { outline:none; } 
+
+	</style>
+    <meta charset='utf-8'>
+	<!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+	<!-- Bootstrap end-->
+	<link rel="stylesheet" href="/static/css/alertify.core.css" />
+	<link rel="stylesheet" href="/static/css/alertify.default.css" id="toggleCSS" />
+	<script src='/js/social.js'></script>
+	<script type="text/javascript">
+		var showToc = true;  // Showing TOC now, init to true
+
+		// Need an <a> with id="show-toc" to toggle the <div id="toc">'s
+		//   display="none|block" (init to "none").
+		function toggleTOC() {
+		   var elm = document.getElementById("show-toc");
+		   if (showToc) {
+			  document.getElementById("toc").style.display = "none";
+			  elm.innerHTML = "(SHOW)";
+		   } else {
+			  document.getElementById("toc").style.display = "block";
+			  elm.innerHTML = "(HIDE)";
+		   }
+		   showToc = !showToc; // toggle the flag
+		   return false;       // don't follow the link
+		}
+
+	</script>
+	<script type="text/javascript">
+		var notestat;
+		
+		document.addEventListener('keydown', handleBodyKeyDown, false);
+		
+		function handleBodyKeyDown(event) {
+		  // If we're in a code element, only handle pgup/down.
+		  var inCode = event.target.classList.contains("code");
+
+		  switch (event.keyCode) {
+			case 27: //escape key
+				if (!inCode) {
+					dispNotes();
+					event.preventDefault();
+				}
+				break;
+		  }
+		};
+		
+		function dispNotes() {
+			if (notestat == true) {
+				//save content
+				location.replace('#');
+				notestat = false;
+			} else {
+				location.replace('#' + 'notes');
+				notestat = true;
+			}
+			
+		};
+		
+		function sendNotes() {
+			alert("Saving notes... Please wait... This may take a while.");
+			
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {// code for IE6, IE5
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+
+			var urlParams;
+			var match,
+					pl     = /\+/g,  // Regex for replacing addition symbol with a space
+					search = /([^&=]+)=?([^&]*)/g,
+					decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+					query  = window.location.search.substring(1);
+
+			urlParams = {};
+			while (match = search.exec(query))
+			   urlParams[decode(match[1])] = decode(match[2]);
+			  
+			var notes_url = "";
+			notes_url = '/social?SO_FUNC=SIGN&TITLE=&REC_TYP=PositiveComment&SID=' + urlParams["SID"] + '&content=' + document.getElementById("editable2").innerHTML;
+			xmlhttp.open("POST",notes_url,true);
+			xmlhttp.send();
+
+			 xmlhttp.onreadystatechange=function()
+			  {
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{	
+					window.location.assign('/social?SID=' + urlParams["SID"] + '&SO_FUNC=SO_VIEW&TITLE=');
+				}
+				
+			}
+		};
+
+		function sendGmail() {
+			alert("Sending email... Opening a new window...");
+
+			var notes_url = "";
+			var root = location.protocol + '//' + location.host;
+			notes_url = 'https://mail.google.com/mail/?view=cm&tf=0&fs=1&su=' + 'Comments for ' + urlParams["SID"] + ' @ ' + root +  '&body=' + document.getElementById("editable2").innerHTML;
+			window.open(notes_url, '_blank');
+		};
+
+	</script>
+	<script type='text/javascript'>
+		var autoLikeSent = false;
+		var x = 0;
+		window.onscroll = function () {
+			x += 1;
+			//console.log(x);
+			if (x > 50) {
+				//console.log("auto-like page...");
+				autoLike({{.DocID}}, {{.SID}});				
+			}
+			
+		};
+		
+		function autoLike(docID, sid) {
+			if (autoLikeSent == false) {
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  xmlhttpAL=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  xmlhttpAL=new ActiveXObject('MSXML2.XMLHTTP.3.0');
+				  }
+				 var url = '/social?SO_FUNC=AUTO-LIKE&DOC_ID=' + docID + '&SID=' + sid;
+				xmlhttpAL.open("GET",url,true);
+				xmlhttpAL.send();
+				autoLikeSent = true;
+			}
+			return
+		}
+
+	</script>
+
+  </head>
+
+  <body>
+  
+	{{.Adverts4}}
+  
+	{{if eq .SocialFBCommentOn "Y"}}
+  	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	{{end}}
+
+    <div id="topbar" class="wide">
+      <div class="container">
+        <div id="heading">{{.Title}}
+          {{with .Subtitle}}{{.}}{{end}}
+        </div>
+      </div>
+    </div>
+    <div id="page" class="wide">
+      <div class="container">
+		<h5>TABLE OF CONTENTS [<a id="show-toc" href="#show-toc">HIDE</a>][<a href="{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}">View as Slide</a>]</h5>
+        {{with .Sections}}
+			<script type="text/javascript">
+				document.getElementById("show-toc").onclick = toggleTOC;
+			</script>
+          <div id="toc">
+            {{template "TOC" .}}
+          </div>
+        {{end}}
+
+        {{range .Sections}}
+          {{elem $.Template .}}
+        {{end}}{{/* of Section block */}}
+
+		<input type="hidden" id="feedbackMail" value="{{.FeedbackMail}}">
+                <input type="hidden" name="SID" value="{{.SID}}">
+		<div onscroll="myFunction()"></div>
+		<h3>Comments</h3>
+		<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments"><img src="/img/social_icon.png" title="Click to view comments" width=50 height=50></a>
+		[<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments">{{.SocialComments}}</a>]
+		<div>
+			<form action="/captcha?CC_FUNC=DISP&R=SOCIAL" method="post" target="{{.SID}}-comments">
+				<input type="hidden" name="SID" value="{{.SID}}">
+				<input type="hidden" name="SO_FUNC" value="SIGN">
+				<input type="hidden" name="TITLE" value="">
+				<textarea name="content" rows="10" cols="100" maxlength="500">I like the content of this article! Keep up the good work!</textarea> 
+				<br>
+				<!--input type="image" name="REC_TYP" value="PositiveComment" src="/img/social-plus.png" title="Give a positive comment" with=50 height=50-->
+				<button type="submit" class="button button-3d button-box button-jumbo" name="REC_TYP" value="PositiveComment" title="Click to give positive comment!"><i class="fa fa-thumbs-up"></i></button>
+				<!--input type="image" name="REC_TYP" value="NegativeComment" src="/img/social-minus.png" title="Give a negative comment" with=50 height=50-->
+				<button type="submit" class="button button-3d button-box button-jumbo" name="REC_TYP" value="NegativeComment" title="Click to give negative comment!"><i class="fa fa-thumbs-down"></i></button>
+			</form>
+		</div>
+		<!--h3>If not registered, <a href='' onclick="contactGmail();return false;">click here</a> to leave a message.</h3-->
+		
+		{{if eq .SocialFBCommentOn "Y"}}
+		<h3>Facebook Comments...</h3>
+		<div class="fb-like" data-href="{{.Host}}articles?TYPE=ARTICLE&amp;DOC_ID={{.DocID}}&amp;SID={{.SID}}" data-width="900" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+		<div class="fb-comments" data-href="{{.Host}}articles?TYPE=ARTICLE&amp;DOC_ID={{.DocID}}&amp;SID={{.SID}}" data-width="900" data-numposts="5"></div>
+		{{end}}
+		
+		{{if eq .PageAccessDispOn "Y"}}
+		<h3>Wanna know who accesses this page & from which location?</h3>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID={{.SID}}">View Access Logs for {{.SID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID={{.SID}}">View Access Locations for {{.SID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID=ULAPPH-NOTIFICATIONS-LOG&DATE=" target="unlx">View Access Logs for this ULAPPH Cloud Desktop</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID=ULAPPH-NOTIFICATIONS-MAP&SP_FUNC=MAP_TODAY_ALL" target="unmx">View Access Locations for this ULAPPH Cloud Desktop</a>
+		<br>
+		<img src="/img/icon-website.png">
+		{{end}}
+		
+		<!--h3>Sponsored Links</h3-->
+		{{.Adverts}}
+		
+		{{if eq .DispLastPageOn "Y"}}
+        {{if .Authors}}
+          <h2>Authors</h2>
+          {{range .Authors}}
+            <div class="author">
+              {{range .Elem}}{{elem $.Template .}}{{end}}
+            </div>
+          {{end}}
+		<br>
+		<h3>About Us</h3>
+		{{.AboutUs}}
+		<h3>[ <a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL">Index</a> ] [ <a href="/uwm">UWM</a> ] [ <a href="/?q=home">Carousel</a> ]  [ <a href="/desktop0#page">Desktop0</a> ] [ <a href="/?q=home">Register</a> ]</h3>
+		<p>
+		<a href="https://ulapph-public-1.appspot.com/articles?TYPE=ARTICLE&DOC_ID=3&SID=TDSARTL-3"><img src="https://lh3.googleusercontent.com/OIRp0mGr7ua7nekr0aF3jRTjdjJOzfTNl4WPhm0sF47CudZD0rZqa9oFRLU1FT1Cpdh45WVbQNEL6rkvTM79Ebv34cjO54D9=s100"></a>
+		<a href="https://golang.org/"><img src="/img/gopher.png" width=50 height=40></a><a href="https://cloud.google.com/"><img src="/img/google-cloud.png" width=50 height=50></a>
+		<a href="{{.SocialLinkPlus}}" title="ULAPPH Google Plus" target="gcommunity"><img src="/img/icon-comm.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkFB}}" title="ULAPPH Facebook" target="fcommunity"><img src="/img/facebook-icon.png" height=50 width=50/></a>
+		<a href="{{.SocialLinkTwitter}}" title="ULAPPH Twitter" target="twitter"><img src="/img/twitter-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkLinkedIn}}" title="ULAPPH LinkedIn" target="linkedin"><img src="/img/linkedin-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkYoutube}}" title="ULAPPH Youtube" target="ycommunity"><img src="/img/Youtube.png" height=50 width=50/></a>
+		<br>
+		Host: {{.Host}}
+		<br>
+		SID: {{.SID}}
+		<br>
+		Tools: 
+		<script>
+			document.write("/<a href=\"/editor?DOC_ID={{.DocID}}&SID=TDSARTL-{{.DocID}}\">Edit</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/admin-articles?FUNC_CODE=VIEW&DOC_ID={{.DocID}}\">Update</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}\">SlideView</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/uloc?LS_FUNC=ARTICLE_COPY&uReferrer=" + window.location.href + "\">Local Storage</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/wall?WALL_FUNC=ARTICLE_COPY&uReferrer=" + window.location.href + "\">Wall Copy</a>");
+		</script>
+		<br>
+		Version: {{.Build}}
+		{{end}}
+        {{end}}
+      </div>
+
+    </div>
+	
+	<div id="notes" class="modalDialog">
+		<script src="js/h5utils.js"></script>
+		<!--h3>You can type a note about this page...</h3-->
+		<a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL"><img src="/img/home2.png" title="Contents Index" width=50 height=50></a>
+		<a href="/admin-articles?FUNC_CODE=VIEW&DOC_ID={{.DocID}}&SID={{.SID}}">
+		<img src="/img/edit-icon.png" title="Edit Article" width=50 height=50></a> <!--a href="" onclick="sendNotes();return false;"><img src="/img/notes.png" title="Save As Comments" width=50 height=50></a> <a href="" onclick="sendGmail();return false;"><img src="/img/send-gmail.png" title="Send Comments to your Email" width=50 height=50></a--> <a href="{{.Host}}share?SH_FUNC=content&SID={{.SID}}" target="shareme"><img src="/img/sharethis.png" title="Share to social networks!" width=50 height=50></a><br>
+		<a href="{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}" style="color:red"><b>{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}</b></a><br>
+		<a href="{{.Host}}articles?TYPE=ARTICLE&DOC_ID={{.DocID}}&SID={{.SID}}" style="color:red"><b>{{.Host}}articles?TYPE=ARTICLE&DOC_ID={{.DocID}}&SID={{.SID}}</b></a>
+		<!--div>
+		  <section id="editable2" contenteditable="true">
+			<p>Personal Notepad about this Slide</p>
+			<ol>
+			  <li>When you press Escape key, this window will appear.</li>
+			  <li>You can put your notes that only you can see.</li>
+			  <li>This will be saved on your local.</li>
+			  <li>It will be displayed if you visit the same slide number again.</li>
+			  <li>It is like your sticky notes for this page.</li>
+			  <li>You can press the Send Comments icon so you can attach these as comments to this slides; anyone can see it.</li>
+			  <li>You can press the Send Email icon so you can send these comments to your Email.</li>
+			</ol>
+		  </section>
+		</div>
+		<script>
+			var editable = document.getElementById('editable2');
+			var storeName = encodeURIComponent({{.Host}}) + "-" + {{.SID}};
+			
+			addEvent(editable, 'blur', function () {
+			  // lame that we're hooking the blur event
+			  //localStorage.setItem('contenteditable', this.innerHTML);
+			  localStorage.setItem(storeName, this.innerHTML);
+			  document.designMode = 'off';
+			});
+
+			addEvent(editable, 'focus', function () {
+			  document.designMode = 'on';
+			});
+
+			addEvent(document.getElementById('clear'), 'click', function () {
+			  localStorage.clear();
+			  window.location = window.location; // refresh
+			});
+
+			//if (localStorage.getItem('contenteditable')) {
+			//  editable.innerHTML = localStorage.getItem('contenteditable');
+			//}
+			if (localStorage.getItem(storeName)) {
+			  editable.innerHTML = localStorage.getItem(storeName);
+			}
+
+		</script-->
+
+    <script src='/js/play.js'></script>
+	{{if ne .DOC_STAT "Personal"}}
+	{{if ne .FL_SHARED "N"}}
+	<!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{.AddThisPubId}}"></script-->
+	{{end}}
+	{{end}}
+	<script src="/static/js/alertify.min.js"></script>
+	<script src="/static/js/humanize.min.js"></script>
+	<script>
+		"use strict";
+		var
+		$ = function (id) {
+			return document.getElementById(id);
+		},
+		reset = function () {
+			$("toggleCSS").href = "/static/css/alertify.default.css";
+		};
+
+		var urlParams;
+		var match,
+				pl     = /\+/g,  // Regex for replacing addition symbol with a space
+				search = /([^&=]+)=?([^&]*)/g,
+				decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+				query  = window.location.search.substring(1);
+
+		urlParams = {};
+		while (match = search.exec(query))
+		   urlParams[decode(match[1])] = decode(match[2]);
+		
+		//alertify.set({ delay: 10000 });
+		//alertify.log("<!-- hitwebcounter Code START --><a href=\"https://www.hitwebcounter.com/htmltutorial.php\" target=\"_blank\"><img src=\"https://hitwebcounter.com/counter/counter.php?page=5997966&style=0001&nbdigits=9&type=page&initCount=0\" title=\"Free tracking counter\" Alt=\"Free tracking counter\"   border=\"0\" ></a><br/><!-- hitwebcounter.com --><a href=\"https://www.hitwebcounter.com/\" title=\"Free Web Counters\" target=\"_blank\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #707173; text-decoration: none ;\"><em>Free Web Counters</em></a>"); 
+		//alertify.log("<a href=\"/social?SO_FUNC=SO_VIEW&SID=" + urlParams["SID"] + "&TITLE=\"" + urlParams["TITLE"] + "\"" + "&CATEGORY=\"" + urlParams["CATEGORY"] + "\"\" target=\"" + urlParams["SID"] +  "\">" +"<img src=\"/img/emoticon-happy.png\" width=25 height=25><div id=\"numLikes\" style=\"display: inline\">?</div><img src=\"/img/emoticon-sad.png\"width=25 height=25><div id=\"numDisLikes\" style=\"display: inline\">?</div><img src=\"/img/social_icon.png\"width=25 height=25><div id=\"numComments\" style=\"display: inline\">?</div><a/>");
+		//alertify.log("<a href=\"/people" +  "\" target=notifications>"  + "<img src=\"/img/flags/PH.gif\" id=\"user-flag\" width=50 height=25><img src=\"/img/users-online.png\"width=25 height=25><div id=\"numOnline\" style=\"display: inline\">?</div><img src=\"/img/users-offline.png\"width=25 height=25><div id=\"numOffline\" style=\"display: inline\">?</div></a>");
+
+	</script>
+	{{if eq .SocialFBCommentOn "Y"}}
+	<script>
+		jQuery('#facebook').ajaxComplete(function(){
+		   //re-render the facebook icons (in a div with id of 'facebook')
+		   FB.XFBML.parse();
+		 });
+ 	</script>
+	{{end}}
+  </body>
+		<!--firebase js-->
+		<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCDJ7J54Nbt-LNCcA8q7avvuorZXMPQ7i4",
+    authDomain: "ulapph-firebase-78f65.firebaseapp.com",
+    databaseURL: "https://ulapph-firebase-78f65.firebaseio.com",
+    projectId: "ulapph-firebase-78f65",
+    storageBucket: "ulapph-firebase-78f65.appspot.com",
+    messagingSenderId: "114785673070"
+  };
+  firebase.initializeApp(config);
+		</script>
+    <script src="/static/js/tab8s.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script>
+    <script src="/static/js/tab9a.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script>
+ <script type="text/javascript" src="js/soundmanager2.js"></script>
+ <script type="text/javascript" src="js/channel-articles.js"></script>
+ <script src="/static/js/channel-firebase-sa.js"></script>
+ <script type="text/javascript">
+	//Hide table of contents by default
+	toggleTOC();
+ </script>
+ <script type="text/javascript" src="js/slides-articles-forms.js"></script>
+</html>
+{{end}}
+
+{{define "TOC"}}
+  <ul>
+  {{range .}}
+    <li><a href="#TOC_{{.FormattedNumber}}">{{.Title}}</a></li>
+    {{with .Sections}}{{template "TOC" .}}{{end}}
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "newline"}}
+{{/* No automatic line break. Paragraphs are free-form. */}}
+{{end}}

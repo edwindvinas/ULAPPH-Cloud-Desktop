@@ -1,0 +1,91 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+<head>
+<title>ULAPPH Tracker Selector</title>
+<meta name="author" content="ULAPPH Cloud Desktop" />
+<link rel="os-touch-icon" href="images/custom_icon.ico"/>
+<link rel="shortcut icon" href="/img/favicon.ico"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/static/img/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+</style>
+</head>
+<body>
+
+<h2>Select ULAPPH User</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for accounts.." title="Type in a name">
+
+<ul id="myUL">
+  {{range .Desktops}}
+  <li><a href="#" onclick="trackNow({{.Username}});return false;" title="{{.Username}}-{{.AntennaModel}}"><img src="{{.Picture}}" width="50" height="50">{{.Username}} - {{.AntennaModel}} - {{.Title}}</a></li>
+  {{end}}
+</ul>
+
+<script>
+function trackNow(user) {
+   var root = location.protocol + '//' + location.host;
+   var n = root.indexOf("ulapph.com");
+   if (n > 0) {
+	   root = "https://ulapph-portal.appspot.com";
+   }
+   var rlink = root + "/pwa/tracker/realtime.html?xuid=" + user + "&xhost=" + root + "/";
+   location.href = rlink;
+   return;
+}
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
+{{end}}

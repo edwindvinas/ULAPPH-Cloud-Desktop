@@ -1,0 +1,462 @@
+runtime: go116
+#basic_scaling:
+#  max_instances: 1
+#  idle_timeout: 10m
+instance_class: B1
+manual_scaling:
+  instances: 1
+
+handlers:
+- url: /
+  script: auto
+  secure: always
+#D0117
+#- url: /u
+#  script: auto
+#  secure: always
+
+- url: /bible
+  script: auto
+  secure: always
+
+############# CART ##################
+- url: /products
+  script: _go_app
+
+- url: /cart
+  script: _go_app
+
+- url: /process
+  script: _go_app
+  
+#####################################
+
+############# OAUTH2 ##################
+#- url: /oauth2/google/callback
+#  script: auto
+#  secure: always
+#
+#- url: /oauth2/github/callback
+#  script: auto
+#  secure: always
+#
+#- url: /oauth2/microsoft/call
+#  script: auto
+#  secure: always
+#
+#- url: /ws
+#  script: auto
+#  secure: always
+#
+#- url: /oauth2/microsoft/callback
+#  script: auto
+#  secure: always
+#
+#- url: /oauth2/microsoft/token
+#  script: auto
+#  secure: always
+#
+#- url: /oauth2/admin/callback
+#  script: auto
+#  secure: always
+############# OAUTH2 END ##################
+- url: /share
+  script: auto
+  secure: always
+
+- url: /todos
+  script: auto
+  secure: always
+
+- url: /captcha
+  script: auto
+  secure: always
+
+- url: /gps
+  script: auto
+  secure: always
+
+- url: /uwm
+  script: auto
+  secure: always
+
+- url: /stream
+  script: auto
+  secure: always
+
+- url: /uloc
+  script: auto
+  secure: always
+
+- url: /store
+  script: auto
+  secure: always
+
+- url: /chat
+  script: auto
+  secure: always
+
+- url: /rag
+  script: auto
+  secure: always
+
+- url: /rcg
+  script: auto
+  secure: always
+
+- url: /cache
+  script: auto
+  secure: always
+
+- url: /logout
+  script: auto
+  secure: always
+
+- url: /login
+  script: auto
+  secure: always
+
+- url: /sysmsg
+  script: auto
+  secure: always
+  
+- url: /registration
+  script: auto
+  secure: always
+
+- url: /create-channel
+  script: auto
+  secure: always
+
+- url: /message-channel
+  script: auto
+  secure: always
+
+- url: /tools
+  script: auto
+  secure: always
+
+- url: /commands
+  script: auto
+  secure: always
+  
+- url: /people
+  script: auto
+  secure: always
+
+- url: /otto
+  script: auto
+  secure: always
+  
+- url: /tree
+  script: auto
+  secure: always
+
+#- url: /utube
+#  script: auto
+#  secure: always
+
+- url: /search
+  script: auto
+  secure: always
+
+- url: /directory
+  script: auto
+  secure: always
+
+- url: /wall
+  script: auto
+  secure: always
+  
+- url: /infodb
+  script: auto
+  secure: always
+
+- url: /website
+  script: auto
+  secure: always
+
+- url: /slides
+  script: auto
+  secure: always
+
+- url: /articles
+  script: auto
+  secure: always
+
+- url: /editor
+  script: auto
+  secure: always
+
+- url: /presenter
+  script: auto
+  secure: always
+
+- url: /upload-slides 
+  script: auto
+  secure: always
+
+- url: /serve-slides/
+  script: auto
+  secure: always
+
+- url: /upload-articles 
+  script: auto
+  secure: always
+
+- url: /serve-articles/
+  script: auto
+  secure: always
+
+- url: /media
+  script: auto
+  secure: always
+
+- url: /things
+  script: auto
+  secure: always
+
+- url: /upload-media 
+  script: auto
+  secure: always
+
+- url: /serve-media/
+  script: auto
+  secure: always
+  
+- url: /compile
+  script: auto
+  secure: always
+  
+- url: /guestbook
+  script: auto
+  secure: always
+
+- url: /social
+  script: auto
+  secure: always
+
+- url: /comments
+  script: auto
+  secure: always
+  
+- url: /people-edit
+  script: auto
+  secure: always
+
+- url: /orgchart
+  script: auto
+  secure: always
+
+- url: /advertisement
+  script: auto
+  secure: always
+
+- url: /contact-us
+  script: auto
+  secure: always
+
+- url: /upload
+  script: auto
+  secure: always
+  
+- url: /serve/
+  script: auto
+  secure: always
+  
+- url: /upload-ads
+  script: auto
+  secure: always
+  
+- url: /serve-ads/
+  script: auto
+  secure: always
+  
+- url: /upload-people
+  script: auto
+  secure: always
+  
+- url: /serve-people/
+  script: auto
+  secure: always
+  
+- url: /click-ads/
+  script: auto
+  secure: always
+
+- url: /click-url/
+  script: auto
+  secure: always
+
+- url: /orch
+  script: auto
+  secure: always
+  
+- url: /stt
+  script: auto
+  secure: always
+  
+- url: /desktop0
+  script: auto
+  secure: always
+ 
+- url: /desktop
+  script: auto
+  secure: always
+  
+- url: /settings
+  script: auto
+  secure: always
+
+- url: /settings-display-screen
+  script: auto
+  secure: always
+
+- url: /admin-setup
+  script: auto
+  secure: always
+
+- url: /admin-icons
+  script: auto
+  secure: always
+  
+- url: /admin-ads
+  script: auto
+  secure: always
+  
+- url: /admin-slides
+  script: auto
+  secure: always
+
+- url: /admin-articles
+  script: auto
+  secure: always
+
+- url: /ulapph-router
+  script: auto
+  secure: always
+  #login: admin
+
+- url: /go
+  script: auto
+  secure: always
+
+- url: /goserve
+  script: auto
+  secure: always
+  
+- url: /notifications    
+  script: auto
+  secure: always
+  
+#- url: /bot    
+#  script: auto
+#  secure: always
+  
+#- url: /nlp    
+#  script: auto
+#  secure: always
+  
+- url: /_ah/queue/go/delay           
+  script: auto
+  secure: always
+  #login: admin
+
+- url: /static/
+  static_dir: static
+
+- url: /(.*\.(appcache|manifest))
+  mime_type: text/cache-manifest
+  static_files: static/\1
+  upload: static/(.*\.(appcache|manifest))
+
+- url: /(.*\.css)
+  mime_type: text/css
+  static_files: static/\1
+  upload: static/(.*\.css)
+
+- url: /(.*\.map)
+  mime_type: text/css
+  static_files: static/\1
+  upload: static/(.*\.map)
+
+- url: /(.*\.html)
+  mime_type: text/html
+  static_files: static/\1
+  upload: static/(.*\.html)
+
+- url: /(.*\.htm)
+  mime_type: text/html
+  static_files: static/\1
+  upload: static/(.*\.htm)
+
+- url: /(.*\.js)
+  mime_type: text/javascript
+  static_files: static/\1
+  upload: static/(.*\.js)
+
+- url: /(.*\.txt)
+  mime_type: text/plain
+  static_files: static/\1
+  upload: static/(.*\.txt)
+  
+- url: /(.*\.xml)
+  mime_type: application/xml
+  static_files: static/\1
+  upload: static/(.*\.xml)
+
+- url: /(.*\.swf)
+  mime_type: application/x-shockwave-flash
+  static_files: static/\1
+  upload: static/(.*\.swf)
+  
+# audio files
+- url: /(.*\.(wav))
+  mime_type: audio/x-wav
+  static_files: static/\1
+  upload: static/(.*\.(wav))
+
+- url: /(.*\.(mp3))
+  mime_type: audio/mpeg
+  static_files: static/\1
+  upload: static/(.*\.(mp3))
+
+- url: /(.*\.(ogg))
+  mime_type: audio/ogg
+  static_files: static/\1
+  upload: static/(.*\.(ogg))
+  
+# font files
+- url: /(.*\.(woff|woff2|ttf|eot))
+  mime_type: font/opentype
+  static_files: static/\1
+  upload: static/(.*\.(woff|woff2|ttf|eot))
+  
+# image files
+- url: /(.*\.(bmp|gif|ico|jpeg|jpg|png|pdf|svg))
+  static_files: static/\1
+  upload: static/(.*\.(bmp|gif|ico|jpeg|jpg|png|pdf|svg))
+
+- url: /(.*\.properties)
+  mime_type: text/plain
+  static_files: static/\1
+  upload: static/(.*\.properties)
+
+- url: /(.*\.json)
+#  mime_type: text/plain         
+  mime_type: application/json
+  static_files: static/\1
+  upload: static/(.*\.json)
+
+# index files
+- url: /(.+)/
+  static_files: static/\1/index.html
+  upload: static/(.+)/index.html
+
+# site root
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+
+- url: /.*
+  script: _go_app

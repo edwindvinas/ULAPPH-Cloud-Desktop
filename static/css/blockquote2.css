@@ -1,0 +1,44 @@
+	pre {
+	 white-space: pre-wrap;       /* css-3 */
+	 white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	 white-space: -pre-wrap;      /* Opera 4-6 */
+	 white-space: -o-pre-wrap;    /* Opera 7 */
+	 word-wrap: break-word;       /* Internet Explorer 5.5+ */
+     font-size: 30px;
+	}
+	.Read blockquote {
+	background:#f9f9f9;
+	border-left:10px solid #ccc;
+	margin:1.5em 10px;
+	padding:.5em 10px;
+	blockquote{background:#f9f9f9;border-left:10px solid #ccc;margin:1.5em 10px;padding:.5em 10px;quotes:"201C""201D""2018""2019";}
+	}
+	.Read blockquote:before {
+	color:#ccc;
+	content:open-quote;
+	font-size:4em;
+	line-height:.1em;
+	margin-right:.25em;
+	vertical-align:-.4em;
+	}
+	.Read blockquote p {
+	display:inline;
+	}
+	.Unread blockquote {
+	background:#8cd2e7;
+	border-left:10px solid #5bc0de;
+	margin:1.5em 10px;
+	padding:.5em 10px;
+	blockquote{background:#8cd2e7;border-left:10px solid #5bc0de;margin:1.5em 10px;padding:.5em 10px;quotes:"201C""201D""2018""2019";}
+	}
+	.Unread blockquote:before {
+	color:#5bc0de;
+	content:open-quote;
+	font-size:4em;
+	line-height:.1em;
+	margin-right:.25em;
+	vertical-align:-.4em;
+	}
+	.Unread blockquote p {
+	display:inline;
+	}

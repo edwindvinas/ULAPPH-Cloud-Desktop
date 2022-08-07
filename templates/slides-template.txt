@@ -1,0 +1,855 @@
+{/* This is the slide template. It defines how presentations are formatted. */}
+
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.Title}}</title>
+	<meta name="description" content="{{.Subtitle}}" />
+	<meta name="keywords" content="{{.Title}} - {{.Subtitle}}"/>
+	<link rel="shortcut icon" href="/static/img/favicon.ico"/>
+	<!--meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" /-->
+    <meta charset='utf-8'>
+	<link rel="stylesheet" href="/static/css/alertify.core.css" />
+	<link rel="stylesheet" href="/static/css/alertify.default.css" id="toggleCSS" />
+	<link rel="stylesheet" media="screen,projection,tv" href="/static/css/modalWindow.css" />
+	<link rel="stylesheet" href="/static/lib/css/buttons/buttons.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
+	<script src="/static/js/pace.min.js"></script>
+	<link href="/static/css/pace.css" rel="stylesheet" />
+	<style type="text/css">
+	@media screen {
+	  /* Framework */
+	  html {
+		height: 100%;
+	  }
+
+	  body {
+		margin: 0;
+		padding: 0;
+
+		display: block !important;
+
+		height: 100%;
+		min-height: 740px;
+
+		overflow-x: hidden;
+		overflow-y: auto;
+
+		background: {{.ColorTo}};
+		background: -o-radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+		background: -moz-radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+		background: -webkit-radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from({{.ColorFrom}}), to({{.ColorTo}}));
+
+		-webkit-font-smoothing: antialiased;
+	  }
+
+	  .slides {
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+
+		position: absolute;
+
+		-webkit-transform: translate3d(0, 0, 0);
+	  }
+
+	  .slides > article {
+		display: block;
+
+		position: absolute;
+		overflow: hidden;
+
+		width: 900px;
+		height: 700px;
+
+		left: 50%;
+		top: 50%;
+
+		margin-left: -450px;
+		margin-top: -350px;
+
+		padding: 40px 60px;
+
+		box-sizing: border-box;
+		-o-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+
+		border-radius: 10px;
+		-o-border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+
+		background-color: {{.SlideColor}};
+
+		border: 1px solid rgba(0, 0, 0, .3);
+
+		transition: transform .3s ease-out;
+		-o-transition: -o-transform .3s ease-out;
+		-moz-transition: -moz-transform .3s ease-out;
+		-webkit-transition: -webkit-transform .3s ease-out;
+	  }
+	  .slides.layout-widescreen > article {
+		margin-left: -550px;
+		width: 1100px;
+	  }
+	  .slides.layout-faux-widescreen > article {
+		margin-left: -550px;
+		width: 1100px;
+
+		padding: 40px 160px;
+	  }
+
+	  .slides.layout-widescreen > article:not(.nobackground):not(.biglogo),
+	  .slides.layout-faux-widescreen > article:not(.nobackground):not(.biglogo) {
+		background-position-x: 0, 840px;
+	  }
+
+	  /* Clickable/tappable areas */
+
+	  .slide-area {
+		z-index: 1000;
+
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 150px;
+		height: 700px;
+
+		left: 50%;
+		top: 50%;
+
+		cursor: pointer;
+		margin-top: -350px;
+
+		tap-highlight-color: transparent;
+		-o-tap-highlight-color: transparent;
+		-moz-tap-highlight-color: transparent;
+		-webkit-tap-highlight-color: transparent;
+	  }
+	  #prev-slide-area {
+		margin-left: -550px;
+	  }
+	  #next-slide-area {
+		margin-left: 400px;
+	  }
+	  .slides.layout-widescreen #prev-slide-area,
+	  .slides.layout-faux-widescreen #prev-slide-area {
+		margin-left: -650px;
+	  }
+	  .slides.layout-widescreen #next-slide-area,
+	  .slides.layout-faux-widescreen #next-slide-area {
+		margin-left: 500px;
+	  }
+
+	  /* Slides */
+
+	  .slides > article {
+		display: none;
+	  }
+	  .slides > article.far-past {
+		display: block;
+		transform: translate(-2040px);
+		-o-transform: translate(-2040px);
+		-moz-transform: translate(-2040px);
+		-webkit-transform: translate3d(-2040px, 0, 0);
+	  }
+	  .slides > article.past {
+		display: block;
+		transform: translate(-1020px);
+		-o-transform: translate(-1020px);
+		-moz-transform: translate(-1020px);
+		-webkit-transform: translate3d(-1020px, 0, 0);
+	  }
+	  .slides > article.current {
+		display: block;
+		transform: translate(0);
+		-o-transform: translate(0);
+		-moz-transform: translate(0);
+		-webkit-transform: translate3d(0, 0, 0);
+	  }
+	  .slides > article.next {
+		display: block;
+		transform: translate(1020px);
+		-o-transform: translate(1020px);
+		-moz-transform: translate(1020px);
+		-webkit-transform: translate3d(1020px, 0, 0);
+	  }
+	  .slides > article.far-next {
+		display: block;
+		transform: translate(2040px);
+		-o-transform: translate(2040px);
+		-moz-transform: translate(2040px);
+		-webkit-transform: translate3d(2040px, 0, 0);
+	  }
+
+	  .slides.layout-widescreen > article.far-past,
+	  .slides.layout-faux-widescreen > article.far-past {
+		display: block;
+		transform: translate(-2260px);
+		-o-transform: translate(-2260px);
+		-moz-transform: translate(-2260px);
+		-webkit-transform: translate3d(-2260px, 0, 0);
+	  }
+	  .slides.layout-widescreen > article.past,
+	  .slides.layout-faux-widescreen > article.past {
+		display: block;
+		transform: translate(-1130px);
+		-o-transform: translate(-1130px);
+		-moz-transform: translate(-1130px);
+		-webkit-transform: translate3d(-1130px, 0, 0);
+	  }
+	  .slides.layout-widescreen > article.current,
+	  .slides.layout-faux-widescreen > article.current {
+		display: block;
+		transform: translate(0);
+		-o-transform: translate(0);
+		-moz-transform: translate(0);
+		-webkit-transform: translate3d(0, 0, 0);
+	  }
+	  .slides.layout-widescreen > article.next,
+	  .slides.layout-faux-widescreen > article.next {
+		display: block;
+		transform: translate(1130px);
+		-o-transform: translate(1130px);
+		-moz-transform: translate(1130px);
+		-webkit-transform: translate3d(1130px, 0, 0);
+	  }
+	  .slides.layout-widescreen > article.far-next,
+	  .slides.layout-faux-widescreen > article.far-next {
+		display: block;
+		transform: translate(2260px);
+		-o-transform: translate(2260px);
+		-moz-transform: translate(2260px);
+		-webkit-transform: translate3d(2260px, 0, 0);
+	  }
+	}
+
+	@media print {
+	  /* Set page layout */
+	  @page {
+		size: A4 landscape;
+	  }
+
+	  body {
+		display: block !important;
+	  }
+
+	  .slides > article {
+		display: block;
+
+		position: relative;
+
+		page-break-inside: never;
+		page-break-after: always;
+
+		overflow: hidden;
+	  }
+
+	  h2 {
+		position: static !important;
+		margin-top: 400px !important;
+		margin-bottom: 100px !important;
+	  }
+
+	  div.code {
+		background: rgb(240, 240, 240);
+	  }
+
+	  /* Add explicit links */
+	  a:link:after, a:visited:after {
+	   content: " (" attr(href) ") ";
+	   font-size: 50%;
+	  }
+
+	  #help {
+		display: none;
+		visibility: hidden;
+	  }
+	}
+
+	/* Styles for slides */
+
+	.slides > article {
+	  font-family: 'Open Sans', Arial, sans-serif;
+
+	  color: black;
+	  text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+
+	  font-size: 26px;
+	  line-height: 36px;
+
+	  letter-spacing: -1px;
+	}
+
+	b {
+	  font-weight: 600;
+	}
+
+	a {
+	  color: rgb(0, 102, 204);
+	  text-decoration: none;
+	}
+	a:visited {
+	  color: rgba(0, 102, 204, .75);
+	}
+	a:hover {
+	  color: black;
+	}
+
+	p {
+	  margin: 0;
+	  padding: 0;
+
+	  margin-top: 20px;
+	}
+	p:first-child {
+	  margin-top: 0;
+	}
+
+	h1 {
+	  font-size: 60px;
+	  line-height: 60px;
+
+	  padding: 0;
+	  margin: 0;
+	  margin-top: 200px;
+	  margin-bottom: 5px;
+	  padding-right: 40px;
+
+	  font-weight: 600;
+
+	  letter-spacing: -3px;
+
+	  color: rgb(51, 51, 51);
+	}
+
+	h2 {
+	  font-size: 45px;
+	  line-height: 45px;
+
+	  position: absolute;
+	  bottom: 150px;
+
+	  padding: 0;
+	  margin: 0;
+	  padding-right: 40px;
+
+	  font-weight: 600;
+
+	  letter-spacing: -2px;
+
+	  color: rgb(51, 51, 51);
+	}
+
+	h3 {
+	  font-size: 30px;
+	  line-height: 36px;
+
+	  padding: 0;
+	  margin: 0;
+	  padding-right: 40px;
+
+	  font-weight: 600;
+
+	  letter-spacing: -1px;
+
+	  color: rgb(51, 51, 51);
+	}
+
+	ul {
+	  margin: 0;
+	  padding: 0;
+	  margin-top: 20px;
+	  margin-left: 1.5em;
+	}
+	li {
+	  padding: 0;
+	  margin: 0 0 .5em 0;
+	}
+
+	div.code {
+	  padding: 5px 10px;
+	  margin-top: 20px;
+	  margin-bottom: 20px;
+	  overflow: hidden;
+
+	  background: rgb(240, 240, 240);
+	  border: 1px solid rgb(224, 224, 224);
+	}
+	pre {
+	  margin: 0;
+	  padding: 0;
+
+	  font-family: 'Droid Sans Mono', 'Courier New', monospace;
+	  font-size: 18px;
+	  line-height: 24px;
+	  letter-spacing: -1px;
+
+	  color: black;
+	}
+
+	code {
+	  font-size: 95%;
+	  font-family: 'Droid Sans Mono', 'Courier New', monospace;
+
+	  color: black;
+	}
+
+	article > .image {
+	  text-align: center;
+	  margin-top: 40px;
+	}
+
+	table {
+	  width: 100%;
+	  border-collapse: collapse;
+	  margin-top: 40px;
+	}
+	th {
+	  font-weight: 600;
+	  text-align: left;
+	}
+	td,
+	th {
+	  border: 1px solid rgb(224, 224, 224);
+	  padding: 5px 10px;
+	  vertical-align: top;
+	}
+
+	p.link {
+	  margin-left: 20px;
+	}
+
+	/* Code */
+	div.code {
+	  outline: 0px solid transparent;
+	}
+	div.playground {
+	  position: relative;
+	}
+	div.output {
+	  position: absolute;
+	  left: 50%;
+	  top: 50%;
+	  right: 40px;
+	  bottom: 40px;
+	  background: #202020;
+	  padding: 5px 10px;
+	  z-index: 2;
+
+	  border-radius: 10px;
+	  -o-border-radius: 10px;
+	  -moz-border-radius: 10px;
+	  -webkit-border-radius: 10px;
+
+	}
+	div.output pre {
+	  margin: 0;
+	  padding: 0;
+	  background: none;
+	  border: none;
+	  width: 100%;
+	  height: 100%;
+	  overflow: auto;
+	}
+	div.output .stdout, div.output pre {
+	  color: #e6e6e6;
+	}
+	div.output .stderr, div.output .error {
+	  color: rgb(255, 200, 200);
+	}
+	div.output .system, div.output .exit {
+	  color: rgb(255, 230, 120)
+	}
+	.buttons {
+	  position: relative;
+	  float: right;
+	  top: -60px;
+	  right: 10px;
+	}
+	div.output .buttons {
+	  position: absolute;
+	  float: none;
+	  top: auto;
+	  right: 5px;
+	  bottom: 5px;
+	}
+
+	/* Presenter details */
+	.presenter {
+	  margin-top: 20px;
+	}
+	.presenter p,
+	.presenter .link {
+	  margin: 0;
+	  font-size: 28px;
+	  line-height: 1.2em;
+	}
+
+	/* Output resize details */
+	.ui-resizable-handle {
+	  position: absolute;
+	}
+	.ui-resizable-n {
+	  cursor: n-resize;
+	  height: 7px;
+	  width: 100%;
+	  top: -5px;
+	  left: 0;
+	}
+	.ui-resizable-w {
+	  cursor: w-resize;
+	  width: 7px;
+	  left: -5px;
+	  top: 0;
+	  height: 100%;
+	}
+	.ui-resizable-nw {
+	  cursor: nw-resize;
+	  width: 9px;
+	  height: 9px;
+	  left: -5px;
+	  top: -5px;
+	}
+	iframe {
+	  border: none;
+	}
+	figcaption {
+	  color: #666;
+	  text-align: center;
+	  font-size: 0.75em;
+	}
+
+	#help {
+	  font-family: 'Open Sans', Arial, sans-serif;
+	  text-align: center;
+	  color: white;
+	  background: #000;
+	  opacity: 0.5;
+	  position: fixed;
+	  bottom: 25px;
+	  left: 50px;
+	  right: 50px;
+	  padding: 20px;
+
+	  border-radius: 10px;
+	  -o-border-radius: 10px;
+	  -moz-border-radius: 10px;
+	  -webkit-border-radius: 10px;
+	}
+	
+	input[type=checkbox].css-checkbox {
+								position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+							}
+
+							input[type=checkbox].css-checkbox + label.css-label {
+								padding-left:37px;
+								height:32px; 
+								display:inline-block;
+								background-repeat:no-repeat;
+								background-position: 0 0;
+								font-size:32px;
+								cursor:pointer;
+
+							}
+
+							input[type=checkbox].css-checkbox:checked + label.css-label {
+								background-position: 0 -32px;
+							}
+							label.css-label {
+					background-image:url(/img/checkbox.png);
+					-webkit-touch-callout: none;
+					-webkit-user-select: none;
+					-khtml-user-select: none;
+					-moz-user-select: none;
+					-ms-user-select: none;
+					user-select: none;
+				}
+				
+		input[type=radio].css-checkbox {
+									position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+								}
+
+								input[type=radio].css-checkbox + label.css-label2 {
+									padding-left:41px;
+									height:36px; 
+									display:inline-block;
+									background-repeat:no-repeat;
+									background-position: 0 0;
+									font-size:36px;
+									cursor:pointer;
+
+								}
+
+								input[type=radio].css-checkbox:checked + label.css-label2 {
+									background-position: 0 -36px;
+								}
+								label.css-label2 {
+						background-image:url(/img/radiobutton.png);
+						-webkit-touch-callout: none;
+						-webkit-user-select: none;
+						-khtml-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+					}
+				
+	 .css-input { padding:10px; font-size:21px; border-style:double; border-radius:7px; border-width:4px; border-color:#336699; color:#336699; text-shadow:0px 0px 0px rgba(42,42,42,.75);  } 
+			 .css-input:focus { outline:none; } 
+
+
+	</style>
+	<link rel="stylesheet" href="/static/css/blockquote3.css"/>
+	<!--script src="/static/js/humanize.min.js"></script-->
+    <script src='/static/js/slides.js'></script>
+	<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+  </head>
+
+  <body style='display: none'>
+	{{.Adverts2}}
+	{{.Adverts3}}
+    <input type="hidden" id="slidetone" value="{{.SlideTone}}">
+	<input type="hidden" id="autosl2art" value="{{.AutoSlide2Article}}">
+    <input type="hidden" id="mstat" value="auto">	
+	<input type="hidden" id="feedbackMail" value="{{.FeedbackMail}}">
+	<input type="hidden" name="SID" value="{{.SID}}">
+    <section class='slides layout-widescreen'> 
+      <article>
+        <h1>{{.Title}}</h1>
+		<input type="hidden" id="TITLE" value="{{.Title}}">
+		<input type="hidden" id="AUTO" value="{{.SYS_OPEN_AUTO}}">
+        {{with .Subtitle}}<h3>{{.}}</h3>{{end}}
+        {{if not .Time.IsZero}}<h3>{{.Time.Format "2 January 2006"}}</h3>{{end}}
+        {{range .Authors}}
+          <div class="presenter">
+            {{range .TextElem}}{{elem $.Template .}}{{end}}
+          </div>
+        {{end}}
+      </article>
+      
+  {{range $i, $s := .Sections}}
+  <!-- start of slide {{$s.Number}} -->
+      <article>
+      {{if $s.Elem}}
+        <h3>{{$s.Title}}</h3>
+        {{range $s.Elem}}{{elem $.Template .}}{{end}}
+      {{else}}
+        <h2>{{$s.Title}}</h2>
+      {{end}}
+      </article>
+  <!-- end of slide {{$i}} -->
+  {{end}}{{/* of Slide block */}}
+  
+	<article>
+		<h3>Comments</h3>
+		<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments"><img src="/static/img/social_icon.png" title="Click to view comments" width=50 height=50></a>
+		[<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments">{{.SocialComments}}</a>]
+		<div>
+			<form action="/captcha?CC_FUNC=DISP&R=SOCIAL" method="post" target="{{.SID}}-comments">
+				<input type="hidden" name="SO_FUNC" value="SIGN">
+				<input type="hidden" name="TITLE" value="">
+				<textarea name="content" rows="10" cols="100" maxlength="500">I like the content of this article! Keep up the good work!</textarea> 
+				<br>
+				<button type="submit" class="button button-3d button-box button-jumbo" name="REC_TYP" value="PositiveComment" title="Click to give positive comment!"><i class="fa fa-thumbs-up"></i></button>
+				<button type="submit" class="button button-3d button-box button-jumbo" name="REC_TYP" value="NegativeComment" title="Click to give negative comment!"><i class="fa fa-thumbs-down"></i></button>
+			</form>
+		</div>	
+	</article>
+
+	{{if eq .SocialFBCommentOn "Y"}}
+	<article>
+		<h3>Facebook Comments...</h3>
+		<iframe src="/social?SO_FUNC=FB_LIKE&SID={{.SID}}&DOC_ID={{.DocID}}" height="100" width="1000"></iframe>
+		<iframe src="/social?SO_FUNC=FB_COMS&SID={{.SID}}&DOC_ID={{.DocID}}" height="500" width="1000"></iframe>
+	</article>
+	{{end}}
+	
+	{{if eq .PageAccessDispOn "Y"}}
+	<article>
+		<br>
+		<img src="/static/img/icon-website.png" width="100" height="100">
+		<h3>Access Logs</h3>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID=TDSSLIDE-{{.DocID}}" target="unl">View Access Logs for TDSSLIDE-{{.DocID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID=TDSSLIDE-{{.DocID}}" target="unm">View Access Locations for TDSSLIDE-{{.DocID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID=ULAPPH-NOTIFICATIONS-LOG&DATE=" target="unlx">View Access Logs for this ULAPPH Cloud Desktop</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID=ULAPPH-NOTIFICATIONS-MAP&SP_FUNC=MAP_TODAY_ALL" target="unmx">View Access Locations for this ULAPPH Cloud Desktop</a>
+	</article>
+	{{end}}
+	<article>
+		<br>
+		<img src="/static/img/ulapph-icons-ulap18-social.png" width="100" height="100">
+		<h3>Social Network</h3>
+		<br>
+			<a href="{{.SocialLinkYoutube}}"><span class="fa fa-youtube" width="70" height="70"></span></a>	Youtube
+			<br>
+			<a href="{{.SocialLinkFB}}"><span class="fa fa-facebook" width="70" height="70"></span></a> Facebook
+			<br>
+			<a href="{{.SocialLinkTwitter}}"><span class="fa fa-twitter" width="70" height="70"></span></a> Twitter
+			<br>
+			<a href="{{.SocialLinkLinkedIn}}"><span class="fa fa-linkedin" width="70" height="70"></span></a> LinkedIn
+			<br>
+			<a href="{{.SocialLinkPlus}}"><span class="fa fa-google-plus" width="70" height="70"></span></a> Google Plus
+	</article>
+	<!--article>
+		<h3>Sponsored Links</h3>
+		<iframe src="/social?SO_FUNC=ADVERTS" height="600" width="1000"></iframe>
+	</article-->
+	
+	{{if eq .DispLastPageOn "Y"}}
+      <article>
+        <h3>Thank you</h1>
+        {{range .Authors}}
+          <div class="presenter">
+            {{range .Elem}}{{elem $.Template .}}{{end}}
+          </div>
+        {{end}}
+		<h3>About Us</h3>
+		{{.AboutUs}}
+		<h3>[ <a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL">Index</a> ] [ <a href="/uwm">UWM</a> ] [ <a href="/?q=home">Carousel</a> ]  [ <a href="/desktop0#page">Desktop0</a> ] [ <a href="/?q=home">Register</a> ] [ <a href="/logout">Logout</a> ]</h3>
+		<p>
+		<a href="https://ulapph-public-1.appspot.com/articles?TYPE=ARTICLE&DOC_ID=3&SID=TDSARTL-3"><img src="https://lh3.googleusercontent.com/OIRp0mGr7ua7nekr0aF3jRTjdjJOzfTNl4WPhm0sF47CudZD0rZqa9oFRLU1FT1Cpdh45WVbQNEL6rkvTM79Ebv34cjO54D9=s100"></a>
+		<a href="https://golang.org/"><img src="/static/img/gopher.png" width=50 height=40></a><a href="https://cloud.google.com/"><img src="/static/img/google-cloud.png" width=50 height=50></a>
+		<a href="{{.SocialLinkPlus}}" title="ULAPPH Google Plus" target="gcommunity"><img src="/static/img/icon-comm.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkFB}}" title="ULAPPH Facebook" target="fcommunity"><img src="/static/img/facebook-icon.png" height=50 width=50/></a>
+		<a href="{{.SocialLinkTwitter}}" title="ULAPPH Twitter" target="twitter"><img src="/static/img/twitter-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkLinkedIn}}" title="ULAPPH LinkedIn" target="linkedin"><img src="/static/img/linkedin-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkYoutube}}" title="ULAPPH Youtube" target="ycommunity"><img src="/static/img/Youtube.png" height=50 width=50/></a>
+		<hr>
+		Host: {{.Host}}
+		<br>
+		SID: {{.SID}}
+		<br>
+		Tools: 
+		<script>
+			document.write("/<a href=\"/presenter?TYPE=SLIDE&MODE=PRESENTER&PARM=AUTO&SECS=10&DOC_ID={{.DocID}}\">Presenter</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/editor?DOC_ID={{.DocID}}&SID=TDSSLIDE-{{.DocID}}\">Edit</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/admin-slides?FUNC_CODE=VIEW&DOC_ID={{.DocID}}\">Update</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/articles?TYPE=ARTICLE&DOC_ID={{.DocID}}&SID={{.SID}}\">ArticleView</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/uloc?LS_FUNC=SLIDE_COPY&uReferrer=" + window.location.href + "\">Local Storage</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/wall?WALL_FUNC=SLIDE_COPY&uReferrer=" + window.location.href + "\">Wall Copy</a>");
+		</script>
+		<br>
+		Arrow keys: UP=Tools Menu; DOWN=AutoPlay On/Off; LEFT/RIGHT = Move slides
+		<br>
+		Version: {{.Build}}
+      </article>
+	  {{end}}
+	  
+	{{if ne .DOC_STAT "Personal"}}
+	{{if ne .FL_SHARED "N"}}
+	<!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{.AddThisPubId}}"></script-->
+	{{end}}
+	{{end}}
+	<script src="/static/js/alertify.min.js"></script>
+    <div id="help">
+	  {{.SID}}<br>
+	  {{.Title}}
+    </div>
+	
+	<div id="notes" class="modalDialog">
+		<a href="#close" title="Close" class="close">X</a>
+		<script src="/static/js/h5utils.js"></script>
+		<!--h3>You can type a note about this page...</h3-->
+		<a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL">Contents Index</a>
+		<a href="/admin-slides?FUNC_CODE=VIEW&DOC_ID={{.DocID}}&SID={{.SID}}">Edit Slide</a> <a href="{{.Host}}share?SH_FUNC=content&SID={{.SID}}" target="shareme">Share to social networks!</a><br>
+		<a href="{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}" class="button button-glow button-rounded button-highlight">Slide Link</a>
+		<a href="{{.Host}}articles?TYPE=ARTICLE&DOC_ID={{.DocID}}&SID={{.SID}}" class="button button-glow button-rounded button-royal">Article Link</a>
+        {{with .Sections}}
+			{{template "TOC" .}}
+        {{end}}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+
+		$(window).on('wheel', function(e) {
+
+			var delta = e.originalEvent.deltaY;
+
+			if (delta > 0) {
+				nextSlide();
+			} else {
+				prevSlide();
+			}
+
+			return false; // this line is only added so the whole page won't scroll in the demo
+		});
+		});
+	</script>
+  </body>
+  {{if .PlayEnabled}}
+		<!--firebase js-->
+		<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCDJ7J54Nbt-LNCcA8q7avvuorZXMPQ7i4",
+    authDomain: "ulapph-firebase-78f65.firebaseapp.com",
+    databaseURL: "https://ulapph-firebase-78f65.firebaseio.com",
+    projectId: "ulapph-firebase-78f65",
+    storageBucket: "ulapph-firebase-78f65.appspot.com",
+    messagingSenderId: "114785673070"
+  };
+  firebase.initializeApp(config);
+		</script>
+  <script src='/static/js/play.js'></script>
+  <!--script src="/static/js/tab6.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+  <!--script src="/static/js/tab6r.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+  <!--script src="/static/js/tab8s.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+  <!--script src="/static/js/tab9r.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+ <script type="text/javascript" src="/static/js/soundmanager2.js"></script>
+ <script type="text/javascript" src="/static/js/channel-slides.js"></script>
+ <script src="/static/js/channel-firebase-sa.js"></script>
+ <script src='/static/js/autoslide2art.js'></script>
+ <script type="text/javascript" src="/static/js/slides-articles-forms.js"></script>
+	<script src="/static/js/jquery.lazyload.js"></script>
+	<!--lazy load js-->
+	  <script type="text/javascript" charset="utf-8">
+	  $(function() {
+		  console.log("lazyload ok");
+		  $("img.lazy").lazyload({
+			  event : "sporty"
+		  });
+	  });
+	  $(window).bind("load", function() {
+		  console.log("lazyload ok");
+		  var timeout = setTimeout(function() { $("img.lazy").trigger("sporty"); }, 5000);
+	  });
+	  </script>	
+	<!--lazy load js END-->
+  {{end}}
+</html>
+{{end}}
+
+{{define "TOC"}}
+  <ul>
+  {{range .}}
+	{{if ne .Title ""}}
+		<a href="#" onclick="gotoSlide({{.FormattedNumber}}); return false;" class="button button-glow button-border button-rounded button-primary">{{.Title}}</a>
+	{{end}}
+    {{with .Sections}}{{template "TOC" .}}{{end}}
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "newline"}}
+<br>
+{{end}}

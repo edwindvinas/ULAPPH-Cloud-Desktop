@@ -1,0 +1,48 @@
+{{define "root"}}
+<!DOCTYPE HTML>
+<html lang="en-US" class="no-js">                                                                                              
+  <head>                                                                                                                           
+    <title>Over Quota Error - AppEngine - {{.STR_FILLER1}}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">                                                               
+    <meta name="description"   content="This AppEngine cloud application has reached AppEngine Quota Limits - {{.STR_FILLER1}}" />
+    <meta name="author" content="ULAPPH Cloud Desktop" />                                                                                     
+    <link rel="os-touch-icon" href="images/custom_icon.ico"/>                                                                        
+    <link rel="shortcut icon" href="img/favicon.ico"/>    
+    <link rel="stylesheet" media="screen,projection,tv" href="css/modalWindow.css"/>
+    <link rel="stylesheet" media="screen,projection,tv" href="css/msgs.css" /> 
+    <link rel="stylesheet" href="/static/lib/css/buttons/buttons.css">	
+  </head>                                                                                                                             
+  <body bgcolor="#E6E6FA">
+	<h1>Sorry, we have reached usage limit today... we will be back promise!</h1>
+	<div class="error">[U00000] OVER QUOTA ERROR: Apologies, this cloud desktop has reached AppEngine Quota Limits!</div>
+	<div class="warning2">What is over quota error? This App Engine application can consume resources up to certain quotas. With these quotas, App Engine ensures that this application won't exceed the set budget, and that other applications running on App Engine won't impact this application's performance.</div>
+	<div class="info2">{{.STR_FILLER2}}</div>
+	<div class="success2">
+	List of ULAPPH Cloud Desktop servers you can visit:<br>
+	<a href="https://ulapph-sites.appspot.com/directory?DIR_FUNC=sites" class="button button-3d button-caution">View ULAPPH Directory</a>
+	</div>
+	<div class="success2">
+	List of ULAPPH Trending Contents:<br>
+	<a href="https://ulapph-sites.appspot.com/social?SO_FUNC=show-trending" class="button button-3d button-royal">View ULAPPH Trending</a> | <a href="https://ulapph-sites.appspot.com/social?SO_FUNC=show-whats-new" class="button button-3d button-royal">View ULAPPH Whats New!</a>
+	</div>
+	<div class="info2">
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+	<input type="hidden" name="cmd" value="_s-xclick">
+	<input type="hidden" name="hosted_button_id" value="LU67BQXCRCF6G">
+	<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+	<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+	</form>
+	</div>
+	<div class="info2">
+	If you are an administrator, <a href="/ulapph-router?RTR_FUNC=TASK_ADS_SLOTS">click here</a> to test if quota has been reset.
+	</div>
+    <br>
+	<br>
+	&copy; 2014-2017 ULAPPH Cloud Desktop. All rights reserved.
+    <br>
+    <br>
+    <a href="http://ulapph-public-1.appspot.com/articles?TYPE=ARTICLE&DOC_ID=3&SID=TDSARTL-3"><img src="http://lh3.googleusercontent.com/OIRp0mGr7ua7nekr0aF3jRTjdjJOzfTNl4WPhm0sF47CudZD0rZqa9oFRLU1FT1Cpdh45WVbQNEL6rkvTM79Ebv34cjO54D9=s100"></a>
+	<a href="https://golang.org/"><img src="/img/gopher.png" width=50 height=40></a><a href="https://cloud.google.com/"><img src="/img/google-cloud.png" width=50 height=50></a>
+  </body>  
+</html>
+{{end}} 

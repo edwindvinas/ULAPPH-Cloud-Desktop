@@ -1,0 +1,160 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Share Social - ULAPPH Cloud Desktop's Social Sharing Tool</title>
+  <meta name="description" content="ULAPPH Cloud Desktop's Share Social is a tool for sharing windows, slides, articles and custom links to multiple social media sites" />
+  <meta name="keywords" content="ULAPPH Share Social, Facebook, Twitter, Google Plus, LinkedIn, Buffer, Digg, Reddit, StumbleUpon, Delicious, Live Journal, MySpace, EverNote, Flipboard, Instapaper, Yahoo Mail, FriendFeed, NewsVine, Get Pocket, Skype, Telegram, VK, OKru, Douban, Baidu, Qzone, Xing, Renren, Weibo"/>
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <script type="text/javascript" language="javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/static/lib/css/buttons/buttons.css">
+  <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+</head>
+<body>
+<!--STR_FILLER1 is the URL-->
+<!--STR_FILLER2 is the post-->
+{{if eq .STR_FILLER1 "" }}
+	<a href="#" class="button button-block button-rounded button-large">Share Social</b></a>
+	<form action="/share?SH_FUNC=all" method="post">
+		<textarea name="title" rows="2" cols="100" maxlength="255" placeholder="Enter title..."></textarea>
+		<br>
+		<textarea name="url" rows="2" cols="100" maxlength="255" placeholder="Enter URL..."></textarea> 
+		<br>
+		<button type="submit" class="button button-glow button-rounded button-raised button-primary">Go</button>
+		<button type="submit" onclick="openSites();return false;" class="button button-glow button-rounded button-raised">Open</button>
+	</form>
+{{else if eq .STR_FILLER2 ""}}
+	<a href="#" class="button button-block button-rounded button-large">Share Social</b></a>
+	<form action="/share?SH_FUNC=all" method="post">
+		<textarea name="title" rows="2" cols="100" maxlength="255" placeholder="Enter title..."></textarea>
+		<br>
+		<textarea name="url" rows="2" cols="100" maxlength="255" placeholder="Enter URL..."></textarea> 
+		<br>
+		<button type="submit" class="button button-glow button-rounded button-raised button-primary">Go</button>
+	</form>
+{{else}}
+  <center>
+  <!--a href="{{.STR_FILLER1}}" target="{{.STR_FILLER2}}-info" class="button button-block button-rounded button-large">You are about to share <b>{{.STR_FILLER2}}</b></a-->
+  <a href="{{.STR_FILLER1}}" target="{{.STR_FILLER2}}-info" class="button button-block button-rounded button-large"><b>{{.STR_FILLER2}}</b></a>
+  <a href="{{.STR_FILLER1}}" target="{{.STR_FILLER2}}-info" class="button button-block button-rounded button-large">{{.STR_FILLER1}}</a>
+  <a href="https://www.facebook.com/sharer.php?u={{.STR_FILLER1}}" title="facebook" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Facebook
+  </a>
+  <a href="https://twitter.com/intent/tweet?url={{.STR_FILLER1}}&text={{.STR_FILLER2}}&via=ULAPPH&hashtags=MOTD"title="twitter" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Twitter
+  </a>
+  <!--a href="https://plus.google.com/share?url={{.STR_FILLER1}}" title="google-plus" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-google-plus"></i>
+  </a-->
+  <a href="https://pinterest.com/pin/create/bookmarklet/?media={{.STR_FILLER1}}&url={{.STR_FILLER1}}&is_video=&description={{.STR_FILLER2}}" title="pinterest" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Pinterest
+  </a>
+  <a href="https://www.linkedin.com/shareArticle?url={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="linkedin" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		LinkedIn
+  </a>
+  <!--a href="https://buffer.com/add?text={{.STR_FILLER2}}&url={{.STR_FILLER1}}" title="buffer" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-buffer"></i>
+  </a-->
+  <a href="http://digg.com/submit?url={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="digg" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Digg
+  </a>
+  <a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{.STR_FILLER1}}&title={{.STR_FILLER2}}&caption={{.STR_FILLER2}}" title="tumblr" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Tumblr
+  </a>
+  <a href="https://reddit.com/submit?url={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="reddit" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Reddit
+  </a>
+  <!--a href="http://www.stumbleupon.com/submit?url={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="sumbleupon" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-sumbleupon"></i>
+  </a-->
+  <!--a href="https://delicious.com/save?v=5&provider=ULAPPH&noui&jump=close&url={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="delicious" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-delicious"></i>
+  </a-->
+  <a href="https://www.blogger.com/blog-this.g?u={{.STR_FILLER1}}&n={{.STR_FILLER2}}&t={{.STR_FILLER2}}" title="blogger" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		RSS
+  </a>
+  <!--a href="http://www.livejournal.com/update.bml?subject={{.STR_FILLER1}}&event={{.STR_FILLER2}}" title="livejournal" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-livejournal"></i>
+  </a-->
+  <!--a href="https://myspace.com/post?u={{.STR_FILLER1}}&t={{.STR_FILLER2}}&c={{.STR_FILLER2}}" title="myspace" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-myspace"></i>
+  </a-->
+  <!--a href="http://compose.mail.yahoo.com/?body={{.STR_FILLER1}}" title="yahoo" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-yahoo"></i>
+  </a-->
+  <a href="https://www.yammer.com/messages/new?login=true&trk_event=yammer_share&status={{.STR_FILLER1}}" title="yammer" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Yammer
+  </a> 
+  <!--a href="http://friendfeed.com/?url={{.STR_FILLER1}}" title="friendfeed" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-friendfeed"></i>
+  </a-->
+  <!--a href="http://www.newsvine.com/_tools/seed&save?u={{.STR_FILLER1}}" title="newsvine" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-newsvine"></i>
+  </a-->
+  <!--a href="http://www.evernote.com/clip.action?url={{.STR_FILLER1}}" title="evernote" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-evernote"></i>
+  </a-->
+  <!--a href="https://getpocket.com/save?url={{.STR_FILLER1}}" title="getpocket" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-getpocket"></i>
+  </a-->
+  <!--a href="https://share.flipboard.com/bookmarklet/popout?v=2&title={{.STR_FILLER1}}&url={{.STR_FILLER1}}" title="flipboard" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-flipboard"></i>
+  </a-->
+  <!--a href="http://www.instapaper.com/edit?url={{.STR_FILLER1}}&title={{.STR_FILLER2}}&description={{.STR_FILLER2}}" title="instapaper" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-instapaper"></i>
+  </a-->
+  <!--a href="http://line.me/R/msg/text/?{{.STR_FILLER1}}" title="line-me" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-line-me"></i>
+  </a-->
+  <!--a href="https://web.skype.com/share?url={{.STR_FILLER1}}" title="skype" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		Skype
+  </a-->
+  <!--a href="https://telegram.me/share/url?url={{.STR_FILLER1}}&text={{.STR_FILLER2}}" title="telegram" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-telegram"></i>
+  </a-->
+  <!--a href="http://vk.com/share.php?url={{.STR_FILLER1}}" title="vk" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-vk"></i>
+  </a-->
+  <!--a href="https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="okru" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-okru"></i>
+  </a-->
+  <!--a href="http://www.douban.com/recommend/?url={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="douban" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-douban"></i>
+  </a-->
+  <!--a href="http://cang.baidu.com/do/add?it={{.STR_FILLER2}}&iu={{.STR_FILLER1}}" title="baidu" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-baidu"></i>
+  </a-->
+  <!--a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{.STR_FILLER1}}" title="qzone" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-qzone"></i>
+  </a-->
+  <!--a href="https://www.xing.com/app/user?op=share&url={{.STR_FILLER1}}" title="xing" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-xing"></i>
+  </a-->
+  <!--a href="http://widget.renren.com/dialog/share?resourceUrl={{.STR_FILLER1}}&srcUrl={{.STR_FILLER1}}&title={{.STR_FILLER2}}" title="renren" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-renren"></i>
+  </a-->
+  <!--a href="http://service.weibo.com/share/share.php?url={{.STR_FILLER1}}&appkey=&title={{.STR_FILLER2}}&pic=&ralateUid=" title="weibo" target="ulapphshare" class="button button-primary button-box button-giant button-longshadow-right">
+		<i class="fa fa-weibo"></i>
+  </a-->
+  </center>
+{{end}}
+
+<script>
+function openSites() {
+	window.open("https://www.facebook.com/", "_blank");
+	window.open("https://twitter.com/", "_blank");
+	window.open("https://plus.google.com", "_blank");
+	window.open("https://pinterest.com", "_blank");
+	window.open("https://www.linkedin.com", "_blank");
+	window.open("http://digg.com", "_blank");
+	window.open("https://www.tumblr.com", "_blank");
+	window.open("https://reddit.com", "_blank");
+	window.open("https://www.blogger.com", "_blank");
+	window.open("https://www.yammer.com", "_blank");
+	window.open("https://web.skype.com", "_blank");
+};
+</script>
+</body>
+</html>
+{{end}}

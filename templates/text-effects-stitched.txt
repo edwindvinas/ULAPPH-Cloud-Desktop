@@ -1,0 +1,39 @@
+{{define "root"}}
+<body>
+ 
+	<style>
+		body {
+			background: #21303b;
+			color: #fff;
+		}
+
+		h2 {
+			font-size: 70px;
+			line-height: 190px;
+			font-family: Helvetica, sans-serif;
+			font-weight: bold;
+			text-align: {{.STR_FILLER2}};
+		}
+
+		#container {
+			/*stitching*/
+			outline: 1px dashed #98abb9;
+			outline-offset: -5px;
+			
+			background-color: #556068;
+			height: 200px;
+			width: 400px;
+			margin: 100px auto;
+			
+			/*shadow*/
+			-webkit-box-shadow: 2px 2px 2px #000;
+			-moz-box-shadow: 2px 2px 2px #000;
+			box-shadow: 2px 2px 2px #000;
+		}
+	</style>
+    <div id="container">
+    	<h2 contenteditable="true">{{.STR_FILLER1}}</h2>
+    </div>
+ 
+</body>
+{{end}}

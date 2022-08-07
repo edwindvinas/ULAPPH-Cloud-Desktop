@@ -1,0 +1,282 @@
+{{define "root"}}
+<html>
+<head>
+<title>ULAPPH Countdown Timer - {{.STR_FILLER1}}</title>
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<script type="text/javascript" src="/static/js/jquery-1.11.0.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<style>
+
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans'), local('DroidSans'), url(/static/fonts/droid.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Droid Sans Bold'), local('DroidSans-Bold'), url(/static/fonts/droid-bold.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+    text-align: center;
+    background: {{.STR_FILLER5}};
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-family: "Droid Sans", arial, verdana, sans-serif;
+    font-weight: 700;
+    color: {{.STR_FILLER3}};
+    margin: 20px 20px 20px 20px;
+}
+
+.clock {
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+
+}
+
+.clock > div {
+    padding: 10px;
+    border-radius: 3px;
+    background: {{.STR_FILLER3}};
+    display: inline-block;
+}
+
+.clock div > span {
+    padding: 15px;
+    border-radius: 3px;
+    background: {{.STR_FILLER4}};
+    display: inline-block;
+}
+
+.smalltext {
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+
+ 
+
+.bss-slides {
+  background: #000;
+  position: relative;
+  display: block;
+  margin: 0;
+}
+
+.bss-slides figure {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.bss-slides figure:first-child {
+  position: relative;
+}
+
+.bss-slides figure img {
+  opacity: 0;
+  -webkit-transition: opacity 1.2s;
+  transition: opacity 1.2s;
+  position: relative;
+}
+
+.bss-slides .bss-show {
+  z-index: 3;
+}
+
+.bss-slides .bss-show img {
+  opacity: 1;
+}
+
+.fixed-container {
+    z-index: 5;
+    position: fixed;
+    bottom: 150px;
+    width: 100%;
+}
+
+.flex-container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+}
+
+.clock-container {
+    top: 40px;
+    position: relative;
+    padding: 10px;
+    border-radius: 3px;
+    background: {{.STR_FILLER5}};
+    display: inline-block;
+    padding-bottom: 40px;
+}
+</style>
+<script type="text/javascript" src="/static/js/soundmanager2.js"></script>
+</head>
+
+<body>
+	<div class="flex-container">
+		<div class="clock-container">
+			<h1 id="title" contenteditable="true">{{.STR_FILLER1}}</h1>
+			<div class="clock" id="clockdiv">
+			  <div>
+				<span class="days"></span>
+				<div class="smalltext">DD</div>
+			  </div>
+			  <div>
+				<span class="hours"></span>
+				<div class="smalltext">HH</div>
+			  </div>
+			  <div>
+				<span class="minutes"></span>
+				<div class="smalltext">MM</div>
+			  </div>
+			  <div>
+				<span class="seconds"></span>
+				<div class="smalltext">SS</div>
+			  </div>
+			</div>
+		</div>
+		<div>
+			<a href="/tools?FUNC=WIDGET&t=CountDownWidget&title={{.STR_FILLER1}}&date={{.STR_FILLER2}}">Link</a>
+			| <a href="/tools?FUNC=WIDGET&t=CountDownGet">New</a>
+			| 
+			<div id=msg></div>
+			<input type=hidden id=mute>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+function getTimeRemaining(endtime){
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor( (t/1000) % 60 );
+  var minutes = Math.floor( (t/1000/60) % 60 );
+  var hours = Math.floor( (t/(1000*60*60)) % 24 );
+  var days = Math.floor( t/(1000*60*60*24) );
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+function initializeClock(id, endtime){
+
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+
+  function updateClock(){
+    var t = getTimeRemaining(endtime);
+
+    daysSpan.innerHTML = t.days;
+    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+    if(t.total<=0){
+      clearInterval(timeinterval);
+	  //red text
+	  var f = document.getElementById('title');
+	  f.style.color = "red";
+	  //soundnow
+	  soundAlarm();
+	  
+	  //blink
+		setInterval(function() {
+		    f.style.display = (f.style.display == 'none' ? '' : 'none');
+		}, 5000); 
+
+	  //sound again
+		setInterval(function() {
+			soundAlarm();
+		}, 20000); 
+	
+    }
+  }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock,1000);
+}
+
+function muteSound() {
+	document.getElementById("mute").value = "Y";
+}
+
+function soundAlarm() {
+	console.log("soundAlarm()");
+	if (document.getElementById("mute").value == "Y") {
+		return;
+	} 
+	
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+        // Internet Explorer 6-11
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        // Edge 20+
+    var isEdge = !isIE && !!window.StyleMedia;
+
+	console.log("countdown alarm...");
+	var aSound = document.createElement('audio');
+	var root = location.protocol + '//' + location.host;
+	
+	document.getElementById("msg").innerHTML = "<p><a href=\"#\" onclick=muteSound() title=\"Mute Sound\">Mute</a></p>";
+	
+	/*if (isEdge == true || isIE == true || isSafari == true) {
+		console.log("isEdge browser...");
+		soundManager.createSound({
+			id: 'mySoundAC',
+			volume: 95,
+			url: root + "/static/audio/alarmclock.mp3"
+		});
+		//playSound('mySoundAC');
+        soundManager.play('mySoundAC');	
+		return;
+	}*/
+	soundManager.createSound({
+		id: 'mySoundAC',
+		volume: 95,
+		url: root + "/static/audio/alarmclock.mp3"
+	});
+	console.log("play audio...");
+	soundManager.play('mySoundAC');
+	//alert
+	var about = document.getElementById('title').innerHTML;
+	//alert("Time is up! RE: "+about);
+	console.log("alert title...");
+	document.title = "Time is up >> " + document.title;
+	return;
+};
+
+//var date = new Date('10/17/2016 05:00:00 AM');
+var date = new Date('{{.STR_FILLER2}}');
+initializeClock('clockdiv', date.toString());
+</script>
+</html>
+{{end}}

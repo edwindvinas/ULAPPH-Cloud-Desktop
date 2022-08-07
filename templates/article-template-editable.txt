@@ -1,0 +1,728 @@
+{/* This is the article template. It defines how articles are formatted. */}
+
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.Title}}</title>
+	<meta name="description" content="{{.Subtitle}}" />
+	<meta name="keywords" content="{{.Title}} - {{.Subtitle}}"/>
+	<link rel="stylesheet" media="screen,projection,tv" href="css/modalWindow.css" />
+	<link rel="stylesheet" href="/static/lib/css/buttons/buttons.css">
+	<!--editable css files -->
+    <link rel="stylesheet" href="/static/lib/css/contenteditable/normalize.css">
+    <link rel="stylesheet" href="/static/lib/css/contenteditable/demo.css">
+    <link rel="stylesheet" href="/static/lib/css/contenteditable/medium-editor.min.css">
+    <link rel="stylesheet" href="/static/lib/css/contenteditable/default.css">
+    <link href="/static/lib/css/contenteditable/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/lib/css/contenteditable/medium-editor-insert-plugin.min.css">
+	<script src="/static/js/pace.min.js"></script>
+	<link href="/static/css/pace.css" rel="stylesheet" />
+	<!--editable css -->
+    <style>
+        .medium-insert-images figure figcaption,
+        .mediumInsert figure figcaption,
+        .medium-insert-embeds figure figcaption,
+        .mediumInsert-embeds figure figcaption {
+            font-size: 12px;
+            line-height: 1.2em;
+        }
+        .medium-insert-images-slideshow figure {
+            width: 100%;
+        }
+        .medium-insert-images-slideshow figure img {
+            margin: 0;
+        }
+        .medium-insert-images.medium-insert-images-grid.small-grid figure {
+            width: 12.5%;
+        }
+        @media (max-width: 750px) {
+            .medium-insert-images.medium-insert-images-grid.small-grid figure {
+                width: 25%;
+            }
+        }
+        @media (max-width: 450px) {
+            .medium-insert-images.medium-insert-images-grid.small-grid figure {
+                width: 50%;
+            }
+        }
+    </style>
+	<!--article css -->
+	<style type="text/css">
+		pre,
+		code {
+			font-family: Menlo, monospace;
+			font-size: 14px;
+		}
+		pre {
+			line-height: 18px;
+			margin: 0;
+			padding: 0;
+		}
+		div#footer {
+			text-align: center;
+			color: #666;
+			font-size: 14px;
+			margin: 40px 0;
+		}
+
+		.author p {
+			margin: 20, 0, 0, 0px;
+		}
+
+		div.code,
+		div.output {
+			margin: 20px;
+			padding: 10px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+
+		div.code { background: #e9e9e9; }
+		div.output { background: black; }
+		div.output .stdout { color: #e6e6e6; }
+		div.output .stderr { color: rgb(244, 74, 63); }
+		div.output .system { color: rgb(255, 209, 77) }
+
+		.buttons {
+			margin-left: 20px;
+		}
+		div.output .buttons {
+			margin-left: 0;
+			margin-bottom: 10px;
+		}
+
+		#toc {
+			float: none;
+			margin: 0px 10px;
+			padding: 10px;
+			border: 1px solid #e5ecf9; 
+			background-color: white;
+			max-width: 100%;
+
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+
+		#toc ul, #toc a {
+			list-style-type: none;
+			padding-left: 10px;
+			color: black;
+			margin: 0px;
+		}
+		
+		input[type=checkbox].css-checkbox {
+									position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+								}
+
+								input[type=checkbox].css-checkbox + label.css-label {
+									padding-left:37px;
+									height:32px; 
+									display:inline-block;
+									background-repeat:no-repeat;
+									background-position: 0 0;
+									font-size:32px;
+									cursor:pointer;
+
+								}
+
+								input[type=checkbox].css-checkbox:checked + label.css-label {
+									background-position: 0 -32px;
+								}
+								label.css-label {
+						background-image:url(/static/img/checkbox.png);
+						-webkit-touch-callout: none;
+						-webkit-user-select: none;
+						-khtml-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+					}
+					
+		input[type=radio].css-checkbox {
+									position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+								}
+
+								input[type=radio].css-checkbox + label.css-label2 {
+									padding-left:41px;
+									height:36px; 
+									display:inline-block;
+									background-repeat:no-repeat;
+									background-position: 0 0;
+									font-size:36px;
+									cursor:pointer;
+
+								}
+
+								input[type=radio].css-checkbox:checked + label.css-label2 {
+									background-position: 0 -36px;
+								}
+								label.css-label2 {
+						background-image:url(/static/img/radiobutton.png);
+						-webkit-touch-callout: none;
+						-webkit-user-select: none;
+						-khtml-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+					}
+					
+		 .css-input { padding:10px; font-size:21px; border-style:double; border-radius:7px; border-width:4px; border-color:#336699; color:#336699; text-shadow:0px 0px 0px rgba(42,42,42,.75);  } 
+				 .css-input:focus { outline:none; } 
+
+
+	</style>
+	<!--back to top css-->
+	<style>
+		.cd-top {
+		  display: inline-block;
+		  height: 40px;
+		  width: 40px;
+		  position: fixed;
+		  bottom: 100px;
+		  right: 10px;
+		  z-index: 10;
+		  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+		  /* image replacement properties */
+		  overflow: hidden;
+		  text-indent: 100%;
+		  white-space: nowrap;
+		  background: rgba(116, 229, 116, 0.8) url(/static/img/logoutg.png) no-repeat center 50%;
+		  visibility: hidden;
+		  opacity: 0;
+		  -webkit-transition: opacity .3s 0s, visibility 0s .3s;
+		  -moz-transition: opacity .3s 0s, visibility 0s .3s;
+		  transition: opacity .3s 0s, visibility 0s .3s;
+		}
+		.cd-top.cd-is-visible, .cd-top.cd-fade-out, .no-touch .cd-top:hover {
+		  -webkit-transition: opacity .3s 0s, visibility 0s 0s;
+		  -moz-transition: opacity .3s 0s, visibility 0s 0s;
+		  transition: opacity .3s 0s, visibility 0s 0s;
+		}
+		.cd-top.cd-is-visible {
+		  /* the button becomes visible */
+		  visibility: visible;
+		  opacity: 1;
+		}
+		.cd-top.cd-fade-out {
+		  /* if the user keeps scrolling down, the button is out of focus and becomes less visible */
+		  opacity: .5;
+		}
+		.no-touch .cd-top:hover {
+		  background-color: #e86256;
+		  opacity: 1;
+		}
+		@media only screen and (min-width: 768px) {
+		  .cd-top {
+			right: 20px;
+			bottom: 20px;
+		  }
+		}
+		@media only screen and (min-width: 1024px) {
+		  .cd-top {
+			height: 60px;
+			width: 60px;
+			right: 30px;
+			bottom: 30px;
+		  }
+		}
+	</style>
+	<!--alertify-->
+	<link rel="stylesheet" href="/static/css/alertify.core.css" />
+	<link rel="stylesheet" href="/static/css/alertify.default.css" id="toggleCSS" />
+	<link rel="stylesheet" href="/static/css/blockquote3.css"/>
+	<script type="text/javascript">
+		var showToc = true;  // Showing TOC now, init to true
+
+		// Need an <a> with id="show-toc" to toggle the <div id="toc">'s
+		//   display="none|block" (init to "none").
+		function toggleTOC() {
+		   var elm = document.getElementById("show-toc");
+		   if (showToc) {
+			  document.getElementById("toc").style.display = "none";
+			  elm.innerHTML = "Show";
+		   } else {
+			  document.getElementById("toc").style.display = "block";
+			  elm.innerHTML = "Hide";
+		   }
+		   showToc = !showToc; // toggle the flag
+		   return false;       // don't follow the link
+		}
+
+	</script>
+	
+	<!--script type="text/javascript">
+		var notestat;
+		
+		document.addEventListener('keydown', handleBodyKeyDown, false);
+		
+		function handleBodyKeyDown(event) {
+		  // If we're in a code element, only handle pgup/down.
+		  var inCode = event.target.classList.contains("code");
+
+		  switch (event.keyCode) {
+			case 27: //escape key
+				if (!inCode) {
+					dispNotes();
+					event.preventDefault();
+				}
+				break;
+		  }
+		};
+		
+		function dispNotes() {
+			if (notestat == true) {
+				//save content
+				location.replace('#');
+				notestat = false;
+			} else {
+				location.replace('#' + 'notes');
+				notestat = true;
+			}
+			
+		};
+		
+		function sendNotes() {
+			alert("Saving notes... Please wait... This may take a while.");
+			
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {// code for IE6, IE5
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+
+			var urlParams;
+			var match,
+					pl     = /\+/g,  // Regex for replacing addition symbol with a space
+					search = /([^&=]+)=?([^&]*)/g,
+					decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+					query  = window.location.search.substring(1);
+
+			urlParams = {};
+			while (match = search.exec(query))
+			   urlParams[decode(match[1])] = decode(match[2]);
+			  
+			var notes_url = "";
+			notes_url = '/social?SO_FUNC=SIGN&TITLE=&REC_TYP=PositiveComment&SID=' + urlParams["SID"] + '&content=' + document.getElementById("editable2").innerHTML;
+			xmlhttp.open("POST",notes_url,true);
+			xmlhttp.send();
+
+			 xmlhttp.onreadystatechange=function()
+			  {
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{	
+					window.location.assign('/social?SID=' + urlParams["SID"] + '&SO_FUNC=SO_VIEW&TITLE=');
+				}
+				
+			}
+		};
+
+		function sendGmail() {
+			alert("Sending email... Opening a new window...");
+
+			var notes_url = "";
+			var root = location.protocol + '//' + location.host;
+			notes_url = 'https://mail.google.com/mail/?view=cm&tf=0&fs=1&su=' + 'Comments for ' + urlParams["SID"] + ' @ ' + root +  '&body=' + document.getElementById("editable2").innerHTML;
+			window.open(notes_url, '_blank');
+		};
+
+	</script-->
+	
+	<script type='text/javascript'>
+		var autoLikeSent = false;
+		var x = 0;
+		window.onscroll = function () {
+			x += 1;
+			//console.log(x);
+			if (x > 50) {
+				//console.log("auto-like page...");
+				autoLike({{.DocID}}, {{.SID}});				
+			}
+			
+		};
+		
+		function autoLike(docID, sid) {
+			if (autoLikeSent == false) {
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  xmlhttpAL=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  xmlhttpAL=new ActiveXObject('MSXML2.XMLHTTP.3.0');
+				  }
+				 var url = '/social?SO_FUNC=AUTO-LIKE&DOC_ID=' + docID + '&SID=' + sid;
+				xmlhttpAL.open("GET",url,true);
+				xmlhttpAL.send();
+				autoLikeSent = true;
+			}
+			return
+		}
+
+	</script>
+	
+  </head>
+
+  <body>
+  
+	{{.Adverts4}}
+  
+	{{if eq .SocialFBCommentOn "Y"}}
+  	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	{{end}}
+  
+  <!----------------------------->
+    <!--a href="#" onclick="saveContent();"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 5000;" src="/static/img/save-cloud.png" alt="Save Updates"></a-->
+
+    <div id="container">
+
+        <div class="editable" data-placeholder="Type some text">
+		<!------------------------>
+		<!---start editable------->
+		<!------------------------>
+		
+        <h2>{{.Title}}</h2>
+		<h3>{{with .Subtitle}}{{.}}</h3>{{end}}		
+		
+		<h5>TABLE OF CONTENTS [<a id="show-toc" href="#show-toc">Hide</a>][<a href="{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}">Slide</a>]</h5>
+        {{with .Sections}}
+			<script type="text/javascript">
+				document.getElementById("show-toc").onclick = toggleTOC;
+			</script>
+			<div id="toc">
+			{{template "TOC" .}}
+			</div>
+        {{end}}
+		
+        {{range .Sections}}
+          {{elem $.Template .}}
+        {{end}}{{/* of Section block */}}
+		
+		
+		<!------------------------>
+		<!-----end editable------->
+		<!------------------------>
+        </div>
+		
+		
+		<input type="hidden" id="feedbackMail" value="{{.FeedbackMail}}">
+		<div onscroll="myFunction()"></div>
+		<!--h3>Comments</h3>
+		<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments">Click to view comments</a>
+		[<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments">{{.SocialComments}}</a>]
+		<div>
+			<form action="/captcha?CC_FUNC=DISP&R=SOCIAL" method="post" target="{{.SID}}-comments">
+				<input type="hidden" name="SID" value="{{.SID}}">
+				<input type="hidden" name="SO_FUNC" value="SIGN">
+				<input type="hidden" name="TITLE" value="">
+				<textarea name="content" rows="10" cols="100" maxlength="500">I like the content of this article! Keep up the good work!</textarea> 
+				<br>
+				<input type="image" name="REC_TYP" value="PositiveComment" src="/static/img/social-plus.png" title="Give a positive comment" with=50 height=50>
+				<button type="submit" class="button button-3d button-box button-jumbo" name="REC_TYP" value="PositiveComment" title="Click to give positive comment!"><i class="fa fa-thumbs-up"></i></button>
+				<input type="image" name="REC_TYP" value="NegativeComment" src="/static/img/social-minus.png" title="Give a negative comment" with=50 height=50>
+				<button type="submit" class="button button-3d button-box button-jumbo" name="REC_TYP" value="NegativeComment" title="Click to give negative comment!"><i class="fa fa-thumbs-down"></i></button>
+			</form>
+		</div-->
+		<!--h3>If not registered, <a href='' onclick="contactGmail();return false;">click here</a> to leave a message.</h3-->
+		
+		{{if eq .SocialFBCommentOn "Y"}}
+		<!--h3>Facebook Comments...</h3>
+		<div class="fb-like" data-href="{{.Host}}articles?TYPE=ARTICLE&amp;DOC_ID={{.DocID}}&amp;SID={{.SID}}" data-width="900" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+		<div class="fb-comments" data-href="{{.Host}}articles?TYPE=ARTICLE&amp;DOC_ID={{.DocID}}&amp;SID={{.SID}}" data-width="900" data-numposts="5"></div-->
+		{{end}}
+		
+		{{if eq .PageAccessDispOn "Y"}}
+		<br>
+		<img src="/static/img/icon-website.png" width="60" height="60">
+		<h3>Access Logs</h3>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID={{.SID}}">View Access Logs for {{.SID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID={{.SID}}">View Access Locations for {{.SID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID=ULAPPH-NOTIFICATIONS-LOG&DATE=" target="unlx">View Access Logs for this ULAPPH Cloud Desktop</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID=ULAPPH-NOTIFICATIONS-MAP&SP_FUNC=MAP_TODAY_ALL" target="unmx">View Access Locations for this ULAPPH Cloud Desktop</a>
+		{{end}}
+		
+		<!--h3>Sponsored Links</h3-->
+		{{.Adverts}}
+		
+		{{if eq .DispLastPageOn "Y"}}
+        {{if .Authors}}
+          <h2>Authors</h2>
+          {{range .Authors}}
+            <div class="author">
+              {{range .Elem}}{{elem $.Template .}}{{end}}
+            </div>
+          {{end}}
+		<br>
+		<h3>About Us</h3>
+		{{.AboutUs}}
+		<h3>[ <a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL">Index</a> ] [ <a href="/uwm">UWM</a> ] [ <a href="/?q=home">Carousel</a> ]  [ <a href="/desktop0#page">Desktop0</a> ] [ <a href="/?q=home">Register</a> ]</h3>
+		<p>
+		<a href="https://ulapph-public-1.appspot.com/articles?TYPE=ARTICLE&DOC_ID=3&SID=TDSARTL-3"><img src="https://lh3.googleusercontent.com/OIRp0mGr7ua7nekr0aF3jRTjdjJOzfTNl4WPhm0sF47CudZD0rZqa9oFRLU1FT1Cpdh45WVbQNEL6rkvTM79Ebv34cjO54D9=s100"></a>
+		<a href="https://golang.org/"><img src="/static/img/gopher.png" width=50 height=40></a><a href="https://cloud.google.com/"><img src="/static/img/google-cloud.png" width=50 height=50></a>
+		<a href="{{.SocialLinkPlus}}" title="ULAPPH Google Plus" target="gcommunity"><img src="/static/img/icon-comm.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkFB}}" title="ULAPPH Facebook" target="fcommunity"><img src="/static/img/facebook-icon.png" height=50 width=50/></a>
+		<a href="{{.SocialLinkTwitter}}" title="ULAPPH Twitter" target="twitter"><img src="/static/img/twitter-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkLinkedIn}}" title="ULAPPH LinkedIn" target="linkedin"><img src="/static/img/linkedin-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkYoutube}}" title="ULAPPH Youtube" target="ycommunity"><img src="/static/img/Youtube.png" height=50 width=50/></a>
+		<br>
+		Host: {{.Host}}
+		<br>
+		SID: {{.SID}}
+		<br>
+		Tools: 
+		<script>
+			document.write("/<a href=\"/editor?DOC_ID={{.DocID}}&SID=TDSARTL-{{.DocID}}\">Edit</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/admin-articles?FUNC_CODE=VIEW&DOC_ID={{.DocID}}\">Update</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}\">SlideView</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/uloc?LS_FUNC=ARTICLE_COPY&uReferrer=" + window.location.href + "\">Local Storage</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/wall?WALL_FUNC=ARTICLE_COPY&uReferrer=" + window.location.href + "\">Wall Copy</a>");
+		</script>
+		<br>
+		Version: {{.Build}}
+		{{end}}
+        {{end}}
+	
+		<div id="notes" class="modalDialog">
+			<a href="#close" title="Close" class="close">X</a>
+			<script src="js/h5utils.js"></script>
+			<a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL">Contents Index</a> <a href="/admin-articles?FUNC_CODE=VIEW&DOC_ID={{.DocID}}&SID={{.SID}}">Edit Article</a><a href="{{.Host}}share?SH_FUNC=content&SID={{.SID}}" target="shareme">Share to social networks!</a><br>
+			<a href="{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}" class="button button-glow button-rounded button-highlight">Slide Link</a>
+			<a href="{{.Host}}articles?TYPE=ARTICLE&DOC_ID={{.DocID}}&SID={{.SID}}" class="button button-glow button-rounded button-royal">Article Link</a>
+        {{with .Sections}}
+			{{template "TOC2" .}}
+        {{end}}
+		</div>
+
+		<script src='/js/play.js'></script>
+		{{if ne .DOC_STAT "Personal"}}
+		{{if ne .FL_SHARED "N"}}
+		<!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{.AddThisPubId}}"></script-->
+		{{end}}
+		{{end}}
+		<script src="/static/js/alertify.min.js"></script>
+		<!--script src="/static/js/humanize.min.js"></script-->
+		<!--script>
+			"use strict";
+			var
+			$ = function (id) {
+				return document.getElementById(id);
+			},
+			reset = function () {
+				$("toggleCSS").href = "/static/css/alertify.default.css";
+			};
+
+			var urlParams;
+			var match,
+					pl     = /\+/g,  // Regex for replacing addition symbol with a space
+					search = /([^&=]+)=?([^&]*)/g,
+					decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+					query  = window.location.search.substring(1);
+
+			urlParams = {};
+			while (match = search.exec(query))
+			   urlParams[decode(match[1])] = decode(match[2]);
+
+		</script-->
+		{{if eq .SocialFBCommentOn "Y"}}
+		<script>
+			jQuery('#facebook').ajaxComplete(function(){
+			   //re-render the facebook icons (in a div with id of 'facebook')
+			   FB.XFBML.parse();
+			 });
+		</script>
+		{{end}}
+
+        <footer>
+            <!--a href="https://github.com/orthes/medium-editor-insert-plugin"><span class="fa fa-github"></span></a>
+			<a href="{{.SocialLinkYoutube}}"><span class="fa fa-youtube"></span></a>
+			<a href="{{.SocialLinkFB}}"><span class="fa fa-facebook"></span></a>
+			<a href="{{.SocialLinkTwitter}}"><span class="fa fa-twitter"></span></a>
+			<a href="{{.SocialLinkLinkedIn}}"><span class="fa fa-linkedin"></span></a>
+			<a href="{{.SocialLinkPlus}}"><span class="fa fa-google-plus"></span></a-->
+        </footer>
+        <footer>
+            Autogenerated by <a href="https://goo.gl/8PJbT8">ULAPPH Cloud Desktop</a>
+        </footer>
+    </div>
+	
+	<!--original article scripts -->
+	<!------------------------------------->
+			<!--firebase js-->
+			<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+			<script>
+			  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCDJ7J54Nbt-LNCcA8q7avvuorZXMPQ7i4",
+    authDomain: "ulapph-firebase-78f65.firebaseapp.com",
+    databaseURL: "https://ulapph-firebase-78f65.firebaseio.com",
+    projectId: "ulapph-firebase-78f65",
+    storageBucket: "ulapph-firebase-78f65.appspot.com",
+    messagingSenderId: "114785673070"
+  };
+  firebase.initializeApp(config);
+			</script>
+		<script src="/static/js/tab8s.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script>
+		<!--script src="/static/js/tab9a.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+	 <script type="text/javascript" src="js/soundmanager2.js"></script>
+	 <script type="text/javascript" src="js/channel-articles.js"></script>
+	 <script src="/static/js/channel-firebase-sa.js"></script>
+	<!-------------------------------------->
+
+	<!--- content editable scripts -->
+    <script src="/static/lib/js/contenteditable/jquery.min.js"></script>
+    <script src="/static/lib/js/contenteditable/jquery.ui.widget.js"></script>
+    <script src="/static/lib/js/contenteditable/jquery.iframe-transport.js"></script>
+    <script src="/static/lib/js/contenteditable/jquery.fileupload.js"></script>
+    <script src="/static/lib/js/contenteditable/medium-editor.js"></script>
+    <script src="/static/lib/js/contenteditable/handlebars.runtime.min.js"></script>
+    <script src="/static/lib/js/contenteditable/jquery-sortable-min.js"></script>
+
+    <script src="/static/lib/js/contenteditable/jquery.cycle2.min.js"></script>
+    <script src="/static/lib/js/contenteditable/jquery.cycle2.center.min.js"></script>
+
+    <script src="/static/lib/js/contenteditable/medium-editor-insert-plugin.min.js"></script>
+
+    <script>
+        var editor = new MediumEditor('.editable'
+            );
+
+        $(function () {
+            $('.editable').mediumInsert({
+                editor: editor,
+                addons: {
+                    images: {
+                        uploadScript: null,
+                        deleteScript: null,
+                        captionPlaceholder: 'Type caption for image',
+                        styles: {
+                            slideshow: {
+                                label: '<span class="fa fa-play"></span>',
+                                added: function ($el) {
+                                    $el
+                                        .data('cycle-center-vert', true)
+                                        .cycle({
+                                            slides: 'figure'
+                                        });
+                                },
+                                removed: function ($el) {
+                                    $el.cycle('destroy');
+                                }
+                            }
+                        },
+                        actions: null
+                    }
+                }
+            });
+        });
+		
+		function saveContent() {
+			alert("save content to cloud!");
+		};
+    </script>
+    <script type="text/javascript" src="js/slides-articles-forms.js"></script>
+	<script>
+		jQuery(document).ready(function($){
+			// browser window scroll (in pixels) after which the "back to top" link is shown
+			var offset = 300,
+				//browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+				offset_opacity = 1200,
+				//duration of the top scrolling animation (in ms)
+				scroll_top_duration = 700,
+				//grab the "back to top" link
+				$back_to_top = $('.cd-top');
+
+			//hide or show the "back to top" link
+			$(window).scroll(function(){
+				( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+				if( $(this).scrollTop() > offset_opacity ) { 
+					$back_to_top.addClass('cd-fade-out');
+				}
+			});
+
+			//smooth scroll to top
+			$back_to_top.on('click', function(event){
+				event.preventDefault();
+				$('body,html').animate({
+					scrollTop: 0 ,
+					}, scroll_top_duration
+				);
+			});
+
+		});
+	</script>
+	<script type="text/javascript">
+		//Hide table of contents by default
+		//toggleTOC();
+		//Set to not editable
+		var divs = document.getElementsByClassName("editable");
+		divs[0].setAttribute('contenteditable', 'false');
+		console.log("set uneditable");
+	</script>
+	<script src="/static/js/jquery.lazyload.js"></script>
+	<!--lazy load js-->
+	  <script type="text/javascript" charset="utf-8">
+	  $(function() {
+	      console.log("lazyload ok");
+		  $("img.lazy").lazyload({
+			  event : "sporty"
+		  });
+	  });
+	  $(window).bind("load", function() {
+	      console.log("lazyload ok");
+		  var timeout = setTimeout(function() { $("img.lazy").trigger("sporty"); }, 5000);
+	  });
+	  </script>	
+	<!--lazy load js END-->
+	<a href="#0" class="cd-top">Top</a>
+ </body>
+ 
+</html>
+{{end}}
+
+{{define "TOC"}}
+  <ul>
+  {{range .}}
+    <li><a href="#TOC_{{.FormattedNumber}}">{{.Title}}</a></li>
+    {{with .Sections}}{{template "TOC" .}}{{end}}
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "TOC2"}}
+  <ul>
+  {{range .}}
+	{{if ne .Title ""}}
+		<a href="#TOC_{{.FormattedNumber}}" class="button button-glow button-border button-rounded button-primary">{{.Title}}</a>
+	{{end}}
+    {{with .Sections}}{{template "TOC2" .}}{{end}}
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "newline"}}
+{{/* No automatic line break. Paragraphs are free-form. */}}
+{{end}}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>News Monitor</title>
+
+    
+    <style>
+
+		body {
+		  background-color: #11a9e2;
+		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0d86b3), to(#11a9e2));
+		  background-image: -moz-linear-gradient(#0d86b3, #11a9e2);
+		  background-repeat: no-repeat;
+		  padding: 100px;
+		  text-rendering: optimizeLegibility;
+		  font: 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		a {
+		  color: #fff;
+		  font-weight: bold;
+		  text-decoration: none;
+		  -webkit-transiton: .2s all linear;
+		}
+		a:hover {
+		  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+		}
+		h1, h2, p {
+		  color: #fff;
+		  color: rgba(255, 255, 255, 0.75);
+		  text-align: left;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		h1 {
+		  margin: 0;
+		  font: bold 100px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  color: #fff;
+		  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+		  -webkit-transition: .2s all linear;
+		}
+		h1:hover {
+		  cursor: text;
+		}
+		h1:focus {
+		  outline: none;
+		}
+		p {
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		}
+		h2 {
+		  margin: 30px 0 15px;
+		  font-size: 20px;
+		  font-weight: 200;
+		  line-height: 25px;
+		}
+		pre {
+		  background-color: rgba(0, 0, 0, 0.3);
+		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0.15)), to(rgba(0, 0, 0, 0)));
+		  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+		  width: 500px;
+		  margin: 30px auto;
+		  padding: 15px;
+		  color: #fff;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		  border-radius: 6px;
+		  -moz-border-radius: 6px;
+		  -webkit-border-radius: 6px;
+		  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+		}
+		.influads_block {
+		  margin: 0 auto 20px;
+		  width: 180px;
+		  font-size: 12px;
+		  text-align: left;
+		  line-height: 15px;
+		}
+		.influads_img {
+		  height: 90px;
+		  margin-bottom: 11px;
+		  margin-left: auto;
+		  margin-right: auto;
+		}
+		.influads_text {
+		  margin-bottom: 5px;
+		}
+		.influads_text_a, .influads_powered_link {
+		  font-weight: normal;
+		}
+
+	</style>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87908378-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-87908378-2');
+	</script>
+  </head>
+
+  <body>
+    <h1 contenteditable="true" id="news"></h1>
+  </body>
+  <script>
+    var root = location.protocol + '//' + location.host;
+    funcnews = function () {
+        console.log("funcnews()");
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xhr=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+        xhr=new ActiveXObject('MSXML2.XMLHTTP.3.0');
+        }
+        var url = localStorage[root+"newsapiurl"];
+        if (url == undefined) {
+            url = "";
+        }
+        xhr.open("GET","/social?SO_FUNC=NEWSAPI&url=" + url, true);
+        xhr.send();
+
+        xhr.onreadystatechange=function()
+        {
+        if (xhr.readyState==4 && xhr.status==200)
+            {
+            var currVal = xhr.responseText;
+                console.log(currVal);
+                var jsonData = JSON.parse(currVal);
+                var totalResults = jsonData['totalResults'];
+                console.log("totalResults: "+totalResults);
+                var newsObj = jsonData['articles'];
+                console.log("newsObj: "+newsObj);
+                localStorage[root+"newsobj"] = JSON.stringify(newsObj);
+            }
+        }
+        return;
+    }
+    //sequentially display news items
+    var curIndex = 0;
+    funcshow = function () {
+        var locObj = localStorage[root+"newsobj"];
+        console.log("locObj: "+locObj);
+        var jsonData = JSON.parse(locObj);
+        var FL_FOUND = false;
+        var numTry = 0;
+        while (FL_FOUND == false && numTry <= 100) {
+            if (curIndex >= jsonData.length) {
+                curIndex = 0;
+            }
+            var thisItem = jsonData[curIndex];
+            console.log("thisItem: "+thisItem);
+            numTry = numTry + 1;
+            if (thisItem) {                
+                var title = thisItem["title"];
+                var desc = thisItem["description"];
+                var url = thisItem["url"];
+                var img = thisItem["urlToImage"];
+                if (title !== "" && desc !== "" && img !== "") {
+                    FL_FOUND = true;
+                    //display
+                    document.getElementById("news").innerHTML = title + " -- " + desc;
+                    //speak message
+                    speakMessage(title + " " + desc);
+                    curIndex = curIndex + 1;
+                    //show image & link
+                    setTimeout(function() {document.getElementById("news").innerHTML = "<a href=\"" + url + "\" target=\"" + title + "\"><img src=\"" + img + "\" width=\"100%\" height=\"100%\"></a>";}, 40000);
+                    //speak time
+                    speakTime();
+                }
+            }
+        }
+    }
+    //speakMessage
+    function speakMessage(thisMsg){
+        if (('speechSynthesis' in window) || ('SpeechRecognition' in window)) {
+                var msg = new SpeechSynthesisUtterance();
+                msg.rate = 1;
+                msg.pitch = 1;
+                msg.text = thisMsg;
+                window.speechSynthesis.speak(msg);
+        }
+    }
+    function speakTime(){
+            if (('speechSynthesis' in window) || ('SpeechRecognition' in window)) {
+                    var Digital=new Date()
+                    var nowIs = formatDate2(Digital);
+                    var nowNa = 'Time now is '+nowIs;
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.rate = 1;
+                    msg.pitch = 1;
+                    msg.text = nowNa;
+                    window.speechSynthesis.speak(msg);
+            }
+    }
+
+    function formatDate2(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+
+    //retrieve news now
+    funcnews();
+    //show news after 10s
+    setTimeout(function() {funcshow()}, 5000)
+    //regular intervals
+    setInterval(function(){ funcnews()}, 1800000);
+    setInterval(function(){ funcshow()}, 60000);
+  </script>
+</html>

@@ -1,0 +1,260 @@
+{/* This is the slide template. It defines how presentations are formatted. */}
+
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.Title}}</title>
+	<meta name="description" content="{{.Subtitle}}" />
+	<meta name="keywords" content="{{.Title}} - {{.Subtitle}}"/>
+	<link rel="shortcut icon" href="/img/favicon.ico"/>
+	<!--meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" /-->
+    <meta charset='utf-8'>
+	<link rel="stylesheet" href="/static/css/alertify.core.css" />
+	<link rel="stylesheet" href="/static/css/alertify.default.css" id="toggleCSS" />
+	<link rel="stylesheet" media="screen,projection,tv" href="css/modalWindow.css" />
+	<script src="/static/js/humanize.min.js"></script>
+    <script src='/js/slides.js'></script>
+  </head>
+
+  <body style='display: none'>
+  
+	{{.Adverts2}}
+	{{.Adverts3}}
+  
+	<input type="hidden" id="slidetone" value="{{.SlideTone}}">
+	<input type="hidden" id="mstat" value="auto">
+	<input type="hidden" id="feedbackMail" value="{{.FeedbackMail}}">
+    <section class='slides layout-widescreen'> 
+      <article>
+        <h1>{{.Title}}</h1>
+		<input type="hidden" id="TITLE" value="{{.Title}}">
+        {{with .Subtitle}}<h3>{{.}}</h3>{{end}}
+        {{if not .Time.IsZero}}<h3>{{.Time.Format "2 January 2006"}}</h3>{{end}}
+        {{range .Authors}}
+          <div class="presenter">
+            {{range .TextElem}}{{elem $.Template .}}{{end}}
+          </div>
+        {{end}}
+      </article>
+      
+  {{range $i, $s := .Sections}}
+  <!-- start of slide {{$s.Number}} -->
+      <article>
+      {{if $s.Elem}}
+        <h3>{{$s.Title}}</h3>
+        {{range $s.Elem}}{{elem $.Template .}}{{end}}
+      {{else}}
+        <h2>{{$s.Title}}</h2>
+      {{end}}
+      </article>
+  <!-- end of slide {{$i}} -->
+  {{end}}{{/* of Slide block */}}
+  
+	<article>
+		<h3>Comments</h3>
+		<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments"><img src="/img/social_icon.png" title="Click to view comments" width=50 height=50></a>
+		[<a href="/social?SID={{.SID}}&SO_FUNC=SO_VIEW&TITLE={{.Title}}" target="{{.SID}}-comments">{{.SocialComments}}</a>]
+		<div>
+			<form action="/captcha?CC_FUNC=DISP&R=SOCIAL" method="post" target="{{.SID}}-comments">
+				<input type="hidden" name="SID" value="{{.SID}}">
+				<input type="hidden" name="SO_FUNC" value="SIGN">
+				<input type="hidden" name="TITLE" value="">
+				<textarea name="content" rows="10" cols="100" maxlength="500"></textarea> 
+				<br>
+				<input type="image" name="REC_TYP" value="PositiveComment" src="/img/social-plus.png" title="Give a positive comment" with=50 height=50>
+				<input type="image" name="REC_TYP" value="NegativeComment" src="/img/social-minus.png" title="Give a negative comment" with=50 height=50>
+			</form>
+		</div>
+		<!--h3>If not registered, <a href='' onclick="contactGmail();return false;">click here</a> to leave a message.</h3-->
+	</article>
+	
+	<!--article>
+		<h3>Wanna like or comment in Facebook?</h3>
+		<iframe src="/social?SO_FUNC=FB_LIKE&SID={{.SID}}&DOC_ID={{.DocID}}" height="100" width="1000"></iframe>
+		<iframe src="/social?SO_FUNC=FB_COMS&SID={{.SID}}&DOC_ID={{.DocID}}" height="500" width="1000"></iframe>
+	</article-->
+	
+	<article>
+		<h3>Wanna know who accesses this page & from which location?</h3>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID=TDSSLIDE-{{.DocID}}" target="unl">View Access Logs for TDSSLIDE-{{.DocID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID=TDSSLIDE-{{.DocID}}" target="unm">View Access Locations for TDSSLIDE-{{.DocID}}</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID=ULAPPH-NOTIFICATIONS-LOG&DATE=" target="unlx">View Access Logs for this ULAPPH Cloud Desktop</a>
+		<br>
+		<a href="/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID=ULAPPH-NOTIFICATIONS-MAP&SP_FUNC=MAP_TODAY_ALL" target="unmx">View Access Locations for this ULAPPH Cloud Desktop</a>
+		<br>
+		<img src="/img/icon-website.png">
+	</article>
+	
+      <article>
+        <h3>Thank you</h1>
+        {{range .Authors}}
+          <div class="presenter">
+            {{range .Elem}}{{elem $.Template .}}{{end}}
+          </div>
+        {{end}}
+		<br>
+		<h3>About Us</h3>
+		{{.AboutUs}}
+		<h3>[ <a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL">Index</a> ] [ <a href="/uwm">UWM</a> ] [ <a href="/?q=home">Carousel</a> ]  [ <a href="/desktop0#page">Desktop0</a> ] [ <a href="/?q=home">Register</a> ] [ <a href="/logout">Logout</a> ]</h3>
+		<p>
+		<a href="http://ulapph-public-1.appspot.com/articles?TYPE=ARTICLE&DOC_ID=3&SID=TDSARTL-3"><img src="http://lh3.googleusercontent.com/OIRp0mGr7ua7nekr0aF3jRTjdjJOzfTNl4WPhm0sF47CudZD0rZqa9oFRLU1FT1Cpdh45WVbQNEL6rkvTM79Ebv34cjO54D9=s100"></a>
+		<a href="http://golang.org/"><img src="/img/gopher.png" width=50 height=40></a><a href="http://cloud.google.com/"><img src="/img/google-cloud.png" width=50 height=50></a>
+		<a href="{{.SocialLinkPlus}}" title="ULAPPH Google Plus" target="gcommunity"><img src="/img/icon-comm.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkFB}}" title="ULAPPH Facebook" target="fcommunity"><img src="/img/facebook-icon.png" height=50 width=50/></a>
+		<a href="{{.SocialLinkTwitter}}" title="ULAPPH Twitter" target="twitter"><img src="/img/twitter-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkLinkedIn}}" title="ULAPPH LinkedIn" target="linkedin"><img src="/img/linkedin-icon.png" height=50 width=50/></a> 
+		<a href="{{.SocialLinkYoutube}}" title="ULAPPH Youtube" target="ycommunity"><img src="/img/Youtube.png" height=50 width=50/></a>
+		<br>
+		<hr>
+		Host: {{.Host}}
+		<br>
+		SID: {{.SID}}
+		<br>
+		Tools: <a href="/presenter?TYPE=SLIDE&MODE=PRESENTER&PARM=AUTO&SECS=10&DOC_ID={{.DocID}}">Presenter</a>
+		<script>
+			document.write("/<a href=\"/uloc?LS_FUNC=SLIDE_COPY&uReferrer=" + window.location.href + "\">Local Storage</a>");
+		</script>
+		<script>
+			document.write("/<a href=\"/wall?WALL_FUNC=SLIDE_COPY&uReferrer=" + window.location.href + "\">Wall Copy</a>");
+		</script>
+		<br>
+		Arrow keys: UP=Tools Menu; DOWN=AutoPlay On/Off; LEFT/RIGHT = Move slides
+		<br>
+		Version: {{.Build}}
+      </article>
+	  
+	<!--article>
+		<h3>Sponsored Links</h3>
+		<iframe src="/social?SO_FUNC=ADVERTS" height="600" width="1000"></iframe>
+	</article-->
+	{{if ne .DOC_STAT "Personal"}}
+	{{if ne .FL_SHARED "N"}}
+	<!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{.AddThisPubId}}"></script-->
+	{{end}}
+	{{end}}
+	<script src="/static/js/alertify.min.js"></script>
+	<script>
+		"use strict";
+		var
+		$ = function (id) {
+			return document.getElementById(id);
+		},
+		reset = function () {
+			$("toggleCSS").href = "/static/css/alertify.default.css";
+		};
+
+		var urlParams;
+		var match,
+				pl     = /\+/g,  // Regex for replacing addition symbol with a space
+				search = /([^&=]+)=?([^&]*)/g,
+				decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+				query  = window.location.search.substring(1);
+
+		urlParams = {};
+		while (match = search.exec(query))
+		   urlParams[decode(match[1])] = decode(match[2]);
+	
+		//alertify.set({ delay: 10000 });
+		//alertify.log("<a href=\"/social?SO_FUNC=SO_VIEW&SID=" + urlParams["SID"] + "&TITLE=\"" + urlParams["TITLE"] + "\"" + "&CATEGORY=\"" + urlParams["CATEGORY"] + "\"\" target=\"" + urlParams["SID"] +  "\">" + "Click here to rate/comment!</a>");		
+		//alertify.log("<a href=\"/invitation#invite\">Invite your friend to ULAPPH!</a>");
+		//alertify.log("<!-- hitwebcounter Code START --><a href=\"http://www.hitwebcounter.com/htmltutorial.php\" target=\"_blank\"><img src=\"http://hitwebcounter.com/counter/counter.php?page=5997966&style=0001&nbdigits=9&type=page&initCount=0\" title=\"Free tracking counter\" Alt=\"Free tracking counter\"   border=\"0\" ></a><br/><!-- hitwebcounter.com --><a href=\"http://www.hitwebcounter.com/\" title=\"Free Web Counters\" target=\"_blank\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #707173; text-decoration: none ;\"><em>Free Web Counters</em></a>"); 
+		//alertify.log("<img src=\"/img/emoticon-happy.png\"width=25 height=25><div id=\"numLikes\" style=\"display: inline\">?</div><img src=\"/img/emoticon-sad.png\"width=25 height=25><div id=\"numDisLikes\" style=\"display: inline\">?</div><img src=\"/img/social_icon.png\"width=25 height=25><div id=\"numComments\" style=\"display: inline\">?</div>");
+		//alertify.log("<a href=\"/people" +  "\" target=notifications>"  + "<img src=\"/img/flags/PH.gif\" id=\"user-flag\" width=50 height=25><img src=\"/img/users-online.png\"width=25 height=25><div id=\"numOnline\" style=\"display: inline\">?</div><img src=\"/img/users-offline.png\"width=25 height=25><div id=\"numOffline\" style=\"display: inline\">?</div></a>");
+		
+	</script>
+    <div id="help">
+	  <!--
+	  <a href="{{.Host}}articles?TYPE=ARTICLE&DOC_ID={{.DocID}}&SID={{.SID}}" title="View as Article"><img src="/img/ulapph-icons-articles.png" height="50" width="50"/></a><br>
+      Use the left and right arrow keys or click the left and right
+      edges of the page to navigate between slides.<br>
+      (Press UP to display tools; or DOWN to pause/play; or ESC to display notes.)
+	  -->
+	  {{.SID}}<br>
+	  {{.Title}}
+    </div>
+	
+	<div id="notes" class="modalDialog">
+		<script src="js/h5utils.js"></script>
+		<h3>You can type a note about this page...</h3>
+		<a href="/infodb?DB_FUNC=VIEWER-SLIDES-ALL"><img src="/img/home2.png" title="Contents Index" width=50 height=50></a> <a href="/admin-slides?FUNC_CODE=VIEW&DOC_ID={{.DocID}}"><img src="http://lh3.googleusercontent.com/aGZaWYabEl0XmH-TK8HP4VXaloT8dCFRJz9fw_pLrU91_kEunLV5jtX8AgBp0zQMl4S6LDF1kSLZTsRN9cQzepNGu9Q" title="Edit Slide" width=50 height=50></a> <a href="" onclick="sendNotes();return false;"><img src="/img/notes.png" title="Save As Comments" width=50 height=50></a> <a href="" onclick="sendGmail();return false;"><img src="/img/send-gmail.png" title="Send Comments to your Email" width=50 height=50></a><br>
+		<a href="{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}" style="color:red"><b>{{.Host}}slides?TYPE=SLIDE&DOC_ID={{.DocID}}&SID={{.SID}}</b></a>
+		<div>
+		  <section id="editable2" contenteditable="true">
+			<p>Personal Notepad about this Slide</p>
+			<ol>
+			  <li>When you press Escape key, this window will appear.</li>
+			  <li>You can put your notes that only you can see.</li>
+			  <li>This will be saved on your local.</li>
+			  <li>It will be displayed if you visit the same slide number again.</li>
+			  <li>It is like your sticky notes for this page.</li>
+			  <li>You can press the Send Comments icon so you can attach these as comments to this slides; anyone can see it.</li>
+			  <li>You can press the Send Email icon so you can send these comments to your Email.</li>
+			</ol>
+		  </section>
+		</div>
+		<script>
+			var editable = document.getElementById('editable2');
+			var storeName = encodeURIComponent({{.Host}}) + "-" + {{.SID}};
+			
+			addEvent(editable, 'blur', function () {
+			  // lame that we're hooking the blur event
+			  //localStorage.setItem('contenteditable', this.innerHTML);
+			  localStorage.setItem(storeName, this.innerHTML);
+			  document.designMode = 'off';
+			});
+
+			addEvent(editable, 'focus', function () {
+			  document.designMode = 'on';
+			});
+
+			addEvent(document.getElementById('clear'), 'click', function () {
+			  localStorage.clear();
+			  window.location = window.location; // refresh
+			});
+
+			//if (localStorage.getItem('contenteditable')) {
+			//  editable.innerHTML = localStorage.getItem('contenteditable');
+			//}
+			if (localStorage.getItem(storeName)) {
+			  editable.innerHTML = localStorage.getItem(storeName);
+			}
+
+		</script>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+
+		$(window).on('wheel', function(e) {
+
+			var delta = e.originalEvent.deltaY;
+
+			if (delta > 0) {
+				nextSlide();
+			} else {
+				prevSlide();
+			}
+
+			return false; // this line is only added so the whole page won't scroll in the demo
+		});
+		});
+	</script>	
+  </body>
+  {{if .PlayEnabled}} 
+  <script src='/js/play.js'></script>
+  <!--script src="/static/js/tab6.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+  <!--script src="/static/js/tab6r.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+  <!--script src="/static/js/tab8s.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+  <!--script src="/static/js/tab9r.js?alignment=left&amp;color=00BCBA" type="text/javascript"></script-->
+ <script type="text/javascript" src="js/soundmanager2.js"></script>
+  {{end}}
+</html>
+{{end}}
+
+{{define "newline"}}
+<br>
+{{end}}

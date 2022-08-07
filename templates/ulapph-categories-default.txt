@@ -1,0 +1,24 @@
+#<Basic Desktops>
+	  <option value="desktop0">0:My Ulap</option>
+	  <option value="desktop1">1:Life</option>
+	  <option value="desktop2">2:Education</option>
+	  <option value="desktop3">3:Career</option>
+	  <option value="desktop4">4:Personal</option>
+	  <option value="desktop5">5:Ancestry</option>
+	  <option value="desktop6">6:Awards</option>
+	  <option value="desktop7">7:Inventions</option>
+	  <option value="desktop8">8:Research</option>
+	  <option value="desktop9">9:Toastmasters</option>
+	  <option value="desktop10">10:Teaching</option>
+	  <option value="desktop11">11:Companies</option>
+	  <option value="desktop12">12:Travels</option>
+	  <option value="desktop13">13:Books</option>
+	  <option value="desktop14">14:Government</option>
+	  <option value="desktop15">15:Citizenship</option>
+	  <option value="desktop16">16:Certifications</option>
+	  <option value="desktop17">17:Societies</option>
+	  <option value="desktop18">18:Mentors</option>
+	  <option value="desktop19">19:Tips&Tricks></option>
+	  <option value="desktop20">20:Legacy</option>
+	  <option value="desktop21">21:Golang-Programming</option>
+#</Basic Desktops>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JSON Web Tokens Debugger</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="codemirror.css" type="text/css" media="all">
+    <link rel="stylesheet" href="lint.css" type="text/css" media="all">
+    <link rel="stylesheet" href="budicon.css" type="text/css" media="all">
+    <link rel="stylesheet" href="app.css" type="text/css" media="all">
+    <link rel="search" type="application/opensearchdescription+xml" title="JWT.io" href="opensearch.xml">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <section id="debugger-io" class="debugger-jwt">
+        <div class="container">
+            <h1>JWT Debugger</h1>
+            <div class="jwt-playground">
+                <div class="selections">
+                    <div class="token-type"><span>Token</span>
+                        <div class="hide"><label><input type="radio" name="token-type" value="id_token" checked=""></label><label><input type="radio" name="token-type" value="access_token"></label></div>
+                        <div class="jwt-select"><select><option name="token-type" value="id_token" selected="">id_token</option><option name="token-type" value="access_token">access_token</option></select></div>
+                    </div>
+                    <div class="algorithm"><span>Algorithm</span>
+                        <div class="hide"><label><input type="radio" name="algorithm" value="HS256" checked=""></label><label><input type="radio" name="algorithm" value="RS256"></label></div>
+                        <div class="jwt-select"><select><option name="algorithm" value="HS256" selected="">HS256</option><option name="algorithm" value="RS256">RS256</option></select></div>
+                    </div>
+                </div>
+                <div class="algorithm-code">
+                    <div class="tab-nav">
+                        <div class="tab-link current"><a href="#encoded-jwt">Encoded<small>paste a token here</small></a></div>
+                        <div class="tab-link"><a href="#decoded-jwt">Decoded<small>edit the payload and secret (only HS256 supported)</small></a></div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="encoded-jwt" class="box-content current">
+                            <div class="input js-input"></div>
+                        </div>
+                        <div id="decoded-jwt" class="box-content">
+                            <div class="output">
+                                <div class="jwt-explained jwt-header">
+                                    <p class="text-line">HEADER:<span>ALGORITHM & TOKEN TYPE</span></p>
+                                    <div class="js-header"></div>
+                                </div>
+                                <div class="jwt-explained jwt-payload">
+                                    <p class="text-line">PAYLOAD:<span>DATA</span></p>
+                                    <div class="js-payload"></div>
+                                </div>
+                                <div class="jwt-explained jwt-signature">
+                                    <p class="text-line">VERIFY SIGNATURE</p>
+                                    <pre class="pre-encode HS256">HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  <input type="text" name="secret" value="secret">
+)<span class="is-base64-encoded-label"> <input id="is-base64-encoded" type="checkbox" name="is-base64-encoded"><label for="is-base64-encoded">secret base64 encoded</label></span></pre>
+                                    <pre class="pre-encode RS256">RSASHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  <textarea rows="4" name="public-key" placeholder="Public Key or Certificate. Enter it in plain text only if you want to verify a token"></textarea>,
+  <textarea rows="5" name="private-key" placeholder="Private Key (RSA). Enter the it in plain text only if you want to generate a new token. The key never leaves your browser."></textarea>
+)
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="validation-status js-signature"></div>
+            </div>
+        </div>
+    </section>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="E-v1.js" async></script>
+    <script src="zepto.js"></script>
+    <script src="jsonlint.js"></script>
+    <script src="index.js"></script>
+    <script src="codemirror.js"></script>
+    <script src="javascript.js"></script>
+    <script src="lint.js"></script>
+    <script src="javascript-lint.js"></script>
+    <script src="json-lint.js"></script>
+    <script src="index.js"></script>
+    <script src="index.js"></script>
+    <script src="jwt_mode.js"></script>
+    <script src="jwt.js"></script>
+    <script src="isotope.pkgd.min.js"></script>
+    <script src="flipclock.js"></script>
+    <script src="accordion.js"></script>
+    <script src="highlight.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

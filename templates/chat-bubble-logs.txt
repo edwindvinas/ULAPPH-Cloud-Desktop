@@ -1,0 +1,67 @@
+{{define "root"}}
+<!doctype html>
+<html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>ULAPPH Bot Logs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/setup.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/says.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/reply.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/typing.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/input.css">
+	<style>
+	body {
+		background: #dcdde0;
+	}
+	.bubble-container {
+		height: 100vh;
+	}
+	</style>
+</head>
+<body onload="redirectLogin()">
+
+<!-- container element for chat window -->
+{{.HTM_FILLER1}}
+
+<!-- import the JavaScript file -->
+<script src="/static/lib/js/chat-bubble/Bubbles.js"></script>
+<script>
+    function redirectLogin() {
+        var urlParams;
+        var match,
+                pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query  = window.location.search.substring(1);
+
+        urlParams = {};
+        while (match = search.exec(query))
+        urlParams[decode(match[1])] = decode(match[2]);
+        if (urlParams["UID"] == "" || urlParams["UID"] == undefined) {
+            var root = location.protocol + '//' + location.host;
+            var redURL = root + "/login?continue=" + encodeURIComponent(location.href);
+            location.href= redURL;
+        }
+    };
+</script>
+<script>
+// initialize by constructing a named function...
+var chatWindow = new Bubbles(
+  document.getElementById("chat"), // ...passing HTML container element...
+  "chatWindow" // ...and name of the function as a parameter
+)
+//bug
+//remove extra bubble-wrap
+var x = document.getElementsByClassName("bubble-wrap");
+if (x.length > 1) {
+	x[1].remove();
+}
+var y = document.getElementsByClassName("input-wrap");
+if (y.length > 0) {
+	y[0].remove();
+}
+
+</script>
+</body></html>
+{{end}}
+

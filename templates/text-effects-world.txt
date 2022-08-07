@@ -1,0 +1,45 @@
+{{define "root"}}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Text Gradients</title>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+	<style>
+	body {
+		background: #292929;
+		padding: 1em;
+	}
+	
+	h1 {
+		position: relative;
+		font-size: 200px;
+		margin-top: 0;
+		font-family: 'Lobster', helvetica, arial;
+		text-align: {{.STR_FILLER2}};
+	}
+	
+	h1 a {
+		text-decoration: none;
+		color: #666;
+		position: absolute;
+		
+		-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), color-stop(50%, rgba(0,0,0,.5)), to(rgba(0,0,0,1)));
+	}
+	
+	h1:after {
+		content : '{{.STR_FILLER1}}';
+		color: #d6d6d6;
+		text-shadow: 0 1px 0 white;
+	}
+	
+	</style>
+</head>
+<body>
+     <h1 contenteditable="true"> <a href="#">{{.STR_FILLER1}}</a></h1>
+</body>
+</html>	
+{{end}}

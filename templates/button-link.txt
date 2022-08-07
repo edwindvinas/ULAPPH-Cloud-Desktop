@@ -1,0 +1,5 @@
+{{define "root"}}
+
+<html><head><link rel="stylesheet" href="/static/lib/css/buttons/buttons.css"></head><body><center><span class="button-wrap"><a href="{{.STR_FILLER2}}" target="BL-{{.STR_FILLER1}}" class="button button-pill button-raised button-primary">{{.STR_FILLER1}}</a></span></center></body></html>
+
+{{end}}

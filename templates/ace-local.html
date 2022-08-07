@@ -1,0 +1,40 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<title>Ace Local Editor</title>
+<style>
+#editor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+</style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<div id="editor">{{.STR_FILLER1}}</div>
+<input type="hidden" id="UID" value="{{.STR_FILLER2}}">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js'></script>
+<script id="rendered-js">
+	var editor = ace.edit("editor");
+	editor.session.setUseWrapMode(true);
+	editor.setTheme("ace/theme/monokai");
+	editor.getSession().setMode("ace/mode/javascript");
+	//# sourceURL=pen.js
+</script>
+<script type="text/javascript" src="/static/js/keyEvents4.js"></script>
+</body>
+</html>
+{{end}}

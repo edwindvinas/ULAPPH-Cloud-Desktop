@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ULAPPH News</title>
+
+	<!-- for mobile screens -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- pwa manifest -->
+    <link rel="manifest" href="/static/pwa/news/manifest.json?v=1">
+
+	<!-- stylesheets are conveniently separated into components -->
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/setup.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/says.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/reply.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/typing.css">
+	<link rel="stylesheet" media="all" href="/static/lib/css/chat-bubble/input.css">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87908378-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-87908378-2');
+	</script>
+	<style>
+	body {
+		background: #dcdde0;
+	}
+	.bubble-container {
+		height: 100vh;
+	}
+	.bubble-container .input-wrap textarea {
+		margin: 0;
+		width: calc(100% - 30px);
+	}
+	</style>
+    <script src="/static/js/jquery-1.11.1.min.js"></script>
+    <script>
+        function redirectLogin() {
+            var urlParams;
+            var match,
+                    pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                    search = /([^&=]+)=?([^&]*)/g,
+                    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                    query  = window.location.search.substring(1);
+
+            urlParams = {};
+            while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+            if (urlParams["UID"] == "") {
+                var root = location.protocol + '//' + location.host;
+                var redURL = root + "/login?continue=" + location.href;
+                location.href= redURL;
+            }
+        };
+    </script>
+</head>
+<body onload="redirectLogin()">
+
+<!-- container element for chat window -->
+<div id="chat"></div>
+
+<!-- import the JavaScript file -->
+<script src="/static/lib/js/chat-bubble/Bubbles.js"></script>
+<script>
+var urlParams;
+var match,
+		pl     = /\+/g,  // Regex for replacing addition symbol with a space
+		search = /([^&=]+)=?([^&]*)/g,
+		decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+		query  = window.location.search.substring(1);
+
+urlParams = {};
+while (match = search.exec(query))
+   urlParams[decode(match[1])] = decode(match[2]);
+
+// initialize by constructing a named function...
+// ...and add text processing plugin:
+var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
+  // the one that we care about is inputCallbackFn()
+  // this function returns an object with some data that we can process from user input
+  // and understand the context of it
+
+  // this is an example function that matches the text user typed to one of the answer bubbles
+  // this function does no natural language processing
+  // this is where you may want to connect this script to NLC backend.
+  inputCallbackFn: function(o) {
+    // add error conversation block & recall it if no answer matched
+    var miss = function() {
+      //ulapph
+    console.log("call nlp backend");
+	//call nlp
+    if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xhr=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xhr=new ActiveXObject('MSXML2.XMLHTTP.3.0');
+	  } 
+	console.log(o);
+	//xhr.open("POST","/nlp?p=" + o.input + "&UID=" +urlParams["UID"], true); 
+	//var KNOWLEDGE_BASE = "TDSMEDIA-76413";
+    var KNOWLEDGE_BASE = "ULAPPH-COMMON-KB";
+	var FL_DEBUG = "N";
+    if (urlParams["DEBUG"] != "") {
+        FL_DEBUG = urlParams["DEBUG"];
+    }
+	//xhr.open("POST","/nlp?nlpFunc=nlpProse&p=" + o.input + "&SID=" + KNOWLEDGE_BASE + "&DEBUG=" + FL_DEBUG, true); 
+    xhr.open("POST","/nlp?nlpFunc=nlpProse&p=" + o.input + "&SID=" + KNOWLEDGE_BASE + "&DEBUG=" + FL_DEBUG, true);
+	xhr.send();
+	
+	 xhr.onreadystatechange=function()
+	  {
+	  if (xhr.readyState==4 && xhr.status==200)
+		{
+		var currVal = xhr.responseText;
+			console.log(currVal);
+			
+			switch (currVal) {
+				case "nlp-success-invalid-function":
+					chatWindow.talk(convo, currVal);
+					break;
+				case "nlp-failed":
+					chatWindow.talk(convo, currVal);
+					break;
+				default:
+				    console.log("currVal: " + currVal);
+				    var res = currVal.split("@888@");
+				    if (res.length > 0) {
+                        var i;
+                        for (i = 0; i < res.length; i++) { 
+                          var thisResp = res[i];
+            				  chatWindow.talk(
+            				    {
+            				      "default-response": {
+            				        says: [thisResp],
+            				        reply: []
+            				      }
+            				    },
+            				    "default-response"
+            				  )
+                        }
+                    } else {
+        				  chatWindow.talk(
+        				    {
+        				      "default-response": {
+        				        says: [currVal],
+        				        reply: []
+        				      }
+        				    },
+        				    "default-response"
+        				  )
+                    }
+			}
+			return;
+		}
+	  }
+    }
+
+    // do this if answer found
+    var match = function(key) {
+      setTimeout(function() {
+        chatWindow.talk(convo, key) // restart current convo from point found in the answer
+      }, 600)
+    }
+
+    // sanitize text for search function
+    var strip = function(text) {
+      return text.toLowerCase().replace(/[\s.,\/#!$%\^&\*;:{}=\-_'"`~()]/g, "")
+    }
+
+    // search function
+    var found = false
+    o.convo[o.standingAnswer].reply.forEach(function(e, i) {
+      strip(e.question).includes(strip(o.input)) && o.input.length > 0
+        ? (found = e.answer)
+        : found ? null : (found = false)
+    })
+    found ? match(found) : miss()
+  }
+}) // done setting up chat-bubble
+
+// conversation object defined separately, but just the same as in the
+// "Basic chat-bubble Example" (1-basics.html)
+var botUrl = window.location.href;
+var convo = {
+  ice: {
+    says: ["Hi, I'm ULAPPH news Bot!", 
+    		"<a href=\"" + botUrl + "\" title=\"Click to restart ULAPPH bot!\"><img src=\"/static/pwa/news/news.gif\" width=\"100%\" height=\"100%\"></a>", 
+    		"Type any text or click button below."
+    	],
+	  reply: [
+        {
+            question: "Set Topic",
+            answer: "SefuncSetTopic"
+        },{
+            question: "Set Country",
+            answer: "funcSetCountry"
+        },{
+            question: "Countries",
+            answer: "funcCountries"
+        },{
+            question: "Sources",
+            answer: "funcSources"
+        },{
+            question: "Open News",
+            answer: "funcnews"
+        },
+        {
+            question: "User Guide",
+            answer: "funcUserGuide"
+        }
+	  ]
+  },
+  "nlp-success-invalid-function": {
+	  says: ["Apologies, I don't get that!", "What would like to do?"],
+	  reply: [
+	    {
+	      question: "Open Search Widget",
+	      answer: "nlpSucceedsOpenSearchWidget"
+	    },
+	    {
+	      question: "List functions",
+	      answer: "iceListFunctions"
+	    },
+	    {
+	      question: "Start Over",
+	      answer: "ice"
+	    }
+	  ]
+	},
+  "nlp-failed": {
+      says: ["Sorry I can't understand you!", "What would like to do?"],
+      reply: [
+	    {
+	      question: "Click desktop & press Escape",
+	      answer: "nlpSucceedsOpenSearchWidget"
+	    },
+        {
+	      question: "Start Over",
+	      answer: "ice"
+        }
+      ]
+    } // end conversation object
+}
+
+funcnews = function () {
+    location.href = "/static/pwa/news/monitor.html";
+    return;
+}
+
+funcSources = function () {
+    //check if localstorage
+    var root = location.protocol + '//' + location.host;
+    var sources = localStorage[root+"newssources"];
+    if (sources !== "" && sources !=  undefined) {
+            console.log("getting from ls...");
+            chatWindow.talk(
+            {
+                "news-sources": {
+                says: [sources],
+                reply: [{
+                        question: "Set Topic",
+                        answer: "SefuncSetTopic"
+                    },{
+                        question: "Set Country",
+                        answer: "funcSetCountry"
+                    },{
+                        question: "Countries",
+                        answer: "funcCountries"
+                    },{
+                        question: "Sources",
+                        answer: "funcSources"
+                    },{
+                        question: "Open News",
+                        answer: "funcnews"
+                    },
+                    {
+                        question: "User Guide",
+                        answer: "funcUserGuide"
+                    }]
+                }
+            },
+            "news-sources"
+        )
+        return;
+    } else {
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xhr=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+        xhr=new ActiveXObject('MSXML2.XMLHTTP.3.0');
+        }
+        var url = "https://newsapi.org/v2/sources";
+        xhr.open("GET","/social?SO_FUNC=NEWSAPI-SOURCES&url=" + url, true);
+        xhr.send();
+
+        xhr.onreadystatechange=function()
+        {
+        if (xhr.readyState==4 && xhr.status==200)
+            {
+            var currVal = xhr.responseText;
+                console.log(currVal);
+                localStorage[root+"newssources"] = currVal;
+                chatWindow.talk(
+                {
+                    "news-sources": {
+                    says: [currVal],
+                    reply: [{
+                            question: "Set Topic",
+                            answer: "SefuncSetTopic"
+                        },{
+                            question: "Set Country",
+                            answer: "funcSetCountry"
+                        },{
+                            question: "Countries",
+                            answer: "funcCountries"
+                        },{
+                            question: "Sources",
+                            answer: "funcSources"
+                        },{
+                            question: "Open News",
+                            answer: "funcnews"
+                        },
+                        {
+                            question: "User Guide",
+                            answer: "funcUserGuide"
+                        }]
+                    }
+                },
+                "news-sources"
+            )
+            }
+        }
+        return;
+    }
+}
+
+funcCountries = function () {
+    //check if localstorage
+    var root = location.protocol + '//' + location.host;
+    var sources = localStorage[root+"newscountries"];
+    if (sources !== "" && sources !=  undefined) {
+            console.log("getting from ls...");
+            chatWindow.talk(
+            {
+                "news-sources": {
+                says: [sources],
+                reply: [{
+                        question: "Set Topic",
+                        answer: "SefuncSetTopic"
+                    },{
+                        question: "Set Country",
+                        answer: "funcSetCountry"
+                    },{
+                        question: "Countries",
+                        answer: "funcCountries"
+                    },{
+                        question: "Sources",
+                        answer: "funcSources"
+                    },{
+                        question: "Open News",
+                        answer: "funcnews"
+                    },
+                    {
+                        question: "User Guide",
+                        answer: "funcUserGuide"
+                    }]
+                }
+            },
+            "news-sources"
+        )
+        return;
+    } else {
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xhr=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+        xhr=new ActiveXObject('MSXML2.XMLHTTP.3.0');
+        }
+        xhr.open("GET","/social?SO_FUNC=NEWSAPI-COUNTRIES", true);
+        xhr.send();
+
+        xhr.onreadystatechange=function()
+        {
+        if (xhr.readyState==4 && xhr.status==200)
+            {
+            var currVal = xhr.responseText;
+                console.log(currVal);
+                localStorage[root+"newscountries"] = currVal;
+                chatWindow.talk(
+                {
+                    "news-sources": {
+                    says: [currVal],
+                    reply: [{
+                            question: "Set Topic",
+                            answer: "SefuncSetTopic"
+                        },{
+                            question: "Set Country",
+                            answer: "funcSetCountry"
+                        },{
+                            question: "Countries",
+                            answer: "funcCountries"
+                        },{
+                            question: "Sources",
+                            answer: "funcSources"
+                        },{
+                            question: "Open News",
+                            answer: "funcnews"
+                        },
+                        {
+                            question: "User Guide",
+                            answer: "funcUserGuide"
+                        }]
+                    }
+                },
+                "news-sources"
+            )
+            }
+        }
+        return;
+    }
+}
+
+function setSource() {
+    var e = document.getElementById("SOURCE");
+    var value = e.options[e.selectedIndex].value;
+    var text = e.options[e.selectedIndex].text;
+    var sid = e.value;
+    console.log("sid: "+sid);
+    var url = "https://newsapi.org/v2/top-headlines?sources=" + sid;
+    var root = location.protocol + '//' + location.host;
+    localStorage[root+"newsapiurl"] = url;
+    var currVal = "News source has been set to <b>" + text + "</b>!";
+    chatWindow.talk(
+        {
+            "news-sources": {
+            says: [currVal],
+            reply: [{
+                    question: "Set Topic",
+                    answer: "SefuncSetTopic"
+                },{
+                    question: "Set Country",
+                    answer: "funcSetCountry"
+                },{
+                    question: "Countries",
+                    answer: "funcCountries"
+                },{
+                    question: "Sources",
+                    answer: "funcSources"
+                },{
+                    question: "Open News",
+                    answer: "funcnews"
+                },
+                {
+                    question: "User Guide",
+                    answer: "funcUserGuide"
+                }]
+            }
+        },
+        "news-sources"
+    )
+    return;
+}
+
+function setCountry(sid) {
+    console.log("sid: "+sid);
+    var url = "https://newsapi.org/v2/top-headlines?country=" + sid;
+    var root = location.protocol + '//' + location.host;
+    localStorage[root+"newsapiurl"] = url;
+    var currVal = "News source has been set to <b>" + sid + "</b>!";
+    chatWindow.talk(
+        {
+            "news-sources": {
+            says: [currVal],
+            reply: [{
+                    question: "Set Topic",
+                    answer: "SefuncSetTopic"
+                },{
+                    question: "Set Country",
+                    answer: "funcSetCountry"
+                },{
+                    question: "Countries",
+                    answer: "funcCountries"
+                },{
+                    question: "Sources",
+                    answer: "funcSources"
+                },{
+                    question: "Open News",
+                    answer: "funcnews"
+                },
+                {
+                    question: "User Guide",
+                    answer: "funcUserGuide"
+                }]
+            }
+        },
+        "news-sources"
+    )
+    return;
+}
+
+function funcSetCountry() {
+    var sid = prompt("Please enter country abbreviation:", "ph");
+    console.log("sid: "+sid);
+    var url = "https://newsapi.org/v2/top-headlines?country=" + sid;
+    var root = location.protocol + '//' + location.host;
+    localStorage[root+"newsapiurl"] = url;
+    var currVal = "News source has been set to <b>" + sid + "</b>!";
+    chatWindow.talk(
+        {
+            "news-sources": {
+            says: [currVal],
+            reply: [{
+                    question: "Set Topic",
+                    answer: "SefuncSetTopic"
+                },{
+                    question: "Set Country",
+                    answer: "funcSetCountry"
+                },{
+                    question: "Countries",
+                    answer: "funcCountries"
+                },{
+                    question: "Sources",
+                    answer: "funcSources"
+                },{
+                    question: "Open News",
+                    answer: "funcnews"
+                },
+                {
+                    question: "User Guide",
+                    answer: "funcUserGuide"
+                }]
+            }
+        },
+        "news-sources"
+    )
+    return;
+}
+
+function SefuncSetTopic() {
+    var sid = prompt("Please enter search keyword:", "business");
+    console.log("sid: "+sid);
+    var url = "https://newsapi.org/v2/everything?q=" + sid;
+    var root = location.protocol + '//' + location.host;
+    localStorage[root+"newsapiurl"] = url;
+    var currVal = "Will give you news related to <b>" + sid + "</b>!";
+    chatWindow.talk(
+        {
+            "news-sources": {
+            says: [currVal],
+            reply: [{
+                    question: "Set Topic",
+                    answer: "SefuncSetTopic"
+                },{
+                    question: "Set Country",
+                    answer: "funcSetCountry"
+                },{
+                    question: "Countries",
+                    answer: "funcCountries"
+                },{
+                    question: "Sources",
+                    answer: "funcSources"
+                },{
+                    question: "Open News",
+                    answer: "funcnews"
+                },
+                {
+                    question: "User Guide",
+                    answer: "funcUserGuide"
+                }]
+            }
+        },
+        "news-sources"
+    )
+    return;
+}
+
+//auto-redirect after x seconds
+setTimeout(function() {funcnews()}, 300000)
+  
+// pass JSON to your function and you're done!
+chatWindow.talk(convo)
+</script>
+<!--pwa service worker registration-->
+<script src="/static/pwa/news/main.js"></script>
+</body>

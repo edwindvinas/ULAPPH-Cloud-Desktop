@@ -1,0 +1,35 @@
+
+<html>
+<head>
+    <title>ULAPPH Realtime Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/static/pwa/tracker/leaflet.css" />
+    <link rel="stylesheet" href="/static/pwa/tracker/site.css" />
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87908378-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-87908378-2');
+	</script>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="/static/pwa/tracker/leaflet.js"></script>
+    <script src="/static/pwa/tracker/leaflet-realtime.js"></script>
+    <script src="/static/pwa/tracker/index.js"></script>
+    <!--geo uploader-->
+    <script src="/static/js/geolatlon.js"></script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+	<script type="text/javascript" language="javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/static/lib/css/buttons/buttons.css">
+	<script type="text/javascript" src="/static/js/jquery-2.1.1.js"></script>
+	<link rel="stylesheet" href="/static/css/sol.css">
+	<script type="text/javascript" src="/static/js/sol.js"></script>
+</head>
+<body>
+<b>Hello, {{.STR_FILLER3}}!</b>
+<hr>
+<!--p>Enter URL and title:</p-->
+<!--span class="button-wrap">
+<a href="#" onclick="editUWMSettings(); return false;" class="button button-pill button-raised button-highlight">Edit Desktop: {{.STR_FILLER1}}</a>
+</span>
+{{if ne .STR_FILLER2 ""}}
+<span class="button-wrap">
+<a href="#" onclick="editTopicSettings({{.STR_FILLER2}}); return false;" class="button button-pill button-raised button-caution">Edit Topics: {{.STR_FILLER1}}</a>
+</span><a href="/stream?STR_FUNC=RUN_TOPICS&u={{.STR_FILLER2}}" target="{{.STR_FILLER1}}" title="Click to run topics search"><img src="/img/run.png" width="32" height="32"></a>
+{{end}}
+{{if ne .STR_FILLER2 ""}}
+<span class="button-wrap">
+<a href="#" onclick="editBotSettings({{.STR_FILLER2}}); return false;" class="button button-pill button-raised button-royal">Edit Bot: {{.STR_FILLER1}}</a>
+</span>
+{{end}}
+-->
+{{if ne .STR_FILLER2 ""}}
+<a href="/people-edit?EditPeopleFunc=EDIT_WINDOWS_SUBUWM&u={{.STR_FILLER2}}">Edit UWM Settings</a> |
+<a href="/people-edit?EditPeopleFunc=EDIT_TOPICS_SUBUWM&u={{.STR_FILLER2}}">Edit Topic Settings</a> |
+<a href="/people-edit?EditPeopleFunc=EDIT_BOT_SUBUWM&u={{.STR_FILLER2}}">Edit Chatbot Settings</a>
+{{end}}
+
+<br>
+<input type="hidden" id="UID" value={{.STR_FILLER3}}>
+<div id="stat-area"></div>
+<div id="text-area" contenteditable="true"></div>
+<style scoped>
+  #text-area { margin-bottom: 10px; }
+  [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
+  [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
+</style>
+
+<form id="frm1" action="">
+  URL: <input type="text" id="url">Sample: https://www.sample.com/link<br>
+  Title: <input type="text" id="title">Sample: Sample Website<br>
+  {{if ne .BOOL_FILLER1 false}}
+  You may also select below:<br>
+	<form name="text-css" action="#" method="post">
+		<select name="TO" multiple id="my-select" onchange="myFunction()">
+		{{.HTM_FILLER1}}
+		</select>
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			// initialize sol
+				$('#my-select').searchableOptionList({
+					maxHeight: '200px'
+				});
+		});
+		
+		function myFunction() {
+			var x = document.getElementById("my-select").value;
+			console.log(x);
+			document.getElementById("url").value = x;
+			var t = getSelectedText("my-select");
+			document.getElementById("title").value = t;
+			console.log(t);
+		}
+		
+		function getSelectedText(elementId) {
+			var elt = document.getElementById(elementId);
+
+			if (elt.selectedIndex == -1)
+				return null;
+
+			return elt.options[elt.selectedIndex].text;
+		}
+
+	</script>
+  {{end}}
+  Auto-open: <input type="checkbox" id="auto"><br>
+  Auto-open-confirm: <input type="checkbox" id="open_confirm"><br>
+  Show Button Only: <input type="checkbox" id="button"><br>
+  Tile windows: <input type="checkbox" id="tile"><br>
+  UWM Wallpaper Only: <input type="checkbox" id="uwmranw"><br>
+  Fixed Wallpaper: <input type="text" id="wallp" maxlength=500><br><br>
+  {{if ne .STR_FILLER2 ""}}
+  Show UWM Random Wallpapers Only: <input type="checkbox" id="uwmranw"><br>
+  {{end}}
+  <input type="button" onclick="copyToUWM();return false;" value="Generate HTML Codes"> Or [<a href="/admin-icons">Choose from Icons</a>]
+  <br>
+  <br>
+  <p>After adding target URLs and titles, copy the code and goto <a href="#" onclick="editUWMSettings(); return false;" >UWM Settings</a> and append the new settings. You may also <a href="/admin-setup?ADMIN_FUNC=EDIT_CATEGORY_LIST">Edit Desktop List</a> in order to add or edit desktop categories. If the list above is not complete, try to <a href="#" onclick="clearLocalIndex();return false;" title="Click to reset menu">reset</a> the list.
+</form>
+  <hr>
+  <div id="desktopLinks"></div>
+    <!--append links-->
+  <hr>
+  <div id="wallpLinks"></div>
+    <!--add shortcut to wallpaper-->
+<script>
+    var root = location.protocol + '//' + location.host;
+    var wallpUrl = localStorage[root+"UWM_WALLP"+"uwm"+{{.STR_FILLER2}}];
+    if (wallpUrl !== "") {
+        var qrLink = "https://chart.googleapis.com/chart?cht=qr&chs=340x340&chl=" + wallpUrl+ "&choe=UTF-8";
+        var shLink = root+"/share?SH_FUNC=all&title=ULAPPHSocial&url="+wallpUrl;
+        var qrLinkS = "https://chart.googleapis.com/chart?cht=qr&chs=340x340&chl=" + shLink+ "&choe=UTF-8";
+        var remWpLink = root + "/media?FUNC_CODE=ADD_REM_RAN_WP&MEDIA_ID=&URL=" + wallpUrl;
+        var wallpDiv = "<h1>Wallpaper</h1><ul><li><a href=\""+wallpUrl+"\">View Image Link</a></li><li><a href=\""+qrLink+"\">Scan QR Only</a></li><li><a href=\""+qrLinkS+"\">Scan QR & Share</a></li><li><a href=\""+remWpLink+"\">Remove from Wallpapers</a></li></ul>";
+        document.getElementById("wallpLinks").innerHTML = wallpDiv;
+    }
+</script>
+<script>
+	//parse URL values
+	var urlParams;
+	var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			query  = window.location.search.substring(1);
+
+	urlParams = {};
+	while (match = search.exec(query))
+	   urlParams[decode(match[1])] = decode(match[2]);
+	   
+	var d = urlParams["n"];
+	if(typeof(Storage) !== "undefined") {
+		var root = location.protocol + '//' + location.host;
+		document.getElementById("desktopLinks").innerHTML = localStorage[root+"uwm"+d];
+	}
+</script>
+
+<script>
+
+function clearLocalIndex() {
+	window.location.assign("/tools?FUNC=WIDGET&t=ULAPPHStart&clear=true");
+	return;
+};
+
+function copyToUWM() {
+
+	var u = document.getElementById("url");
+	var link = u.value;
+	var t = document.getElementById("title");
+	var title = t.value;
+	var e = document.getElementById("text-area");
+	var currHTML = e.innerHTML;
+	var link2 = link.replace("http://", "https://");
+	var mid = makeid();
+	
+	if (document.getElementById('auto').checked) {
+		e.innerHTML = currHTML + "&lt;!--" + title + "--&gt;" + "<br>" + "&lt;script type=\"text/javascript\"&gt;windowManager.openWindow('" + link2 + "','" + title + "');&lt;/script&gt;" + "<br>" + "<br>";
+	} else if (document.getElementById('open_confirm').checked) {
+		e.innerHTML = currHTML + "&lt;!--" + title + "--&gt;" + "<br>" + "&lt;script type=\"text/javascript\"&gt;if (confirm('Open new window for " + title + "?') == true){windowManager.openWindow('" + link2 + "','" + title + "');}&lt;/script&gt;" + "<br>" + "<br>";
+	} else if (document.getElementById('button').checked) {
+		var res = encodeURIComponent(link);
+		var res2 = encodeURIComponent(title);
+		var rlink = "/tools?FUNC=WIDGET&t=ButtonLink&url=" + res + "&title=" + res2;
+		e.innerHTML = currHTML + "&lt;!--" + title + "--&gt;" + "<br>" + "&lt;input type=\"hidden\" value=\"'" + rlink + "', 500, 300, 'left', 'top', {title: '" + title + "', icon: '/static/img/jswm-web.png'}\" size=\"60\" id=\"" + "ulapph-" + mid + "\" /&gt;&lt;script type=\"text/javascript\"&gt;eval('windowManager.openURI(' + $('" + "ulapph-" + mid + "').value + ');');&lt;/script&gt;" + "<br>" + "<br>";
+	} else {
+		e.innerHTML = currHTML + "&lt;!--" + title + "--&gt;" + "<br>" + "&lt;input type=\"hidden\" value=\"'" + link2 + "', 500, 300, 'left', 'top', {title: '" + title + "', icon: '/static/img/jswm-web.png'}\" size=\"60\" id=\"" + "ulapph-" + mid + "\" /&gt;&lt;script type=\"text/javascript\"&gt;eval('windowManager.openURI(' + $('" + "ulapph-" + mid + "').value + ');');&lt;/script&gt;" + "<br>" + "<br>";
+	}
+
+	document.getElementById("stat-area").innerHTML = "<a href=\"#\" onclick=\"appendUWMSettings({{.STR_FILLER2}});return false;\"><img id=\"saveicon\" src=\"/img/cloud-save.png\" width=\"48\" height=\"48\" title=\"Append to UWM Settings\"></a>";
+	return;
+}
+
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+function editUWMSettings() {
+	var root = location.protocol + '//' + location.host;
+	parent.postMessage("ULAPPH-SYS-UPD@888@EDIT_WINDOWS_SUBUWM",root);
+}
+
+function appendUWMSettings(desktop) {
+	if (desktop == undefined || desktop == "undefined") {
+		desktop = "main";
+	}
+	console.log("appendUWMSettings desktop: "+desktop);
+	var e = document.getElementById("saveicon");
+	var curImg = e.src;
+	//show saver image
+	e.src = "/img/cloud-saver.gif";
+	
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+
+	var formData = new FormData();
+	var UID = document.getElementById("UID").value;
+	if (UID == "" || UID == undefined) {
+		alert("Sorry, you cannot save your changes because you are not logged in.")
+		//var e = document.getElementById("saveicon");
+		e.src = curImg;
+		window.open(root, '_blank');
+		return;
+	}
+	formData.append("UID", UID);
+	formData.append("AP_FUNC", "APPEND-UWM");
+	//flag if tile/cascade
+	var isTile = document.getElementById("tile").checked;
+	console.log("isTile: "+isTile);
+	if (isTile == true) {
+		formData.append("ARR", "tile");
+    } else {
+    	formData.append("ARR", "cascade");
+    }
+    //set wallpaper
+	var wpurl = document.getElementById("wallp").value;
+	var wpuwmonly = document.getElementById("uwmranw").checked;
+	console.log("wpurl: "+wpurl);
+    	formData.append("WALLP", wpurl);
+    	formData.append("WPUWMONLY", wpuwmonly);
+	var thisContent = document.getElementById("text-area").innerText;
+	if (thisContent == "" || thisContent == undefined) {
+		alert("Error! No data to save!");
+		e.src = "/img/success.png";
+		return;
+	}
+	console.log("thisContent: "+thisContent);
+	formData.append("TEXT", thisContent);
+	
+	var uploadURL = "/editor?EDIT_FUNC=APPEND&UWM="+desktop;
+	console.log(uploadURL);
+	xmlhttp.open("POST", uploadURL);
+	xmlhttp.send(formData);
+	 xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			//clear local storage
+			var localStorageKey =  location.host + "-ace-" + xmlhttp.responseText;
+			localStorage.setItem(localStorageKey, "");
+			console.log("cleared storage! -> "+localStorageKey);
+			document.getElementById("text-area").innerText = "";
+			//alert(xmlhttp.responseText);
+			//alert("Successful operation!");
+			console.log("Successful operation!");
+			e.src = "/img/success.png";
+			return;
+		}
+		
+	  if (xmlhttp.readyState==4 && xmlhttp.status==400)
+		{
+			//alert("Error in saving data!");
+			console.log("Error in saving data!");
+			e.src = "/img/error.png";
+			return;
+		}
+
+	 }
+
+}
+
+function editTopicSettings(desktop) {
+	var root = location.protocol + '//' + location.host;
+	var link = "/people-edit?EditPeopleFunc=EDIT_TOPICS_SUBUWM&u=" + desktop;
+	parent.postMessage("ULAPPH-SYS-UPD@888@SYS_OPEN_WINDOW@888@"+link,root);
+}
+
+function editBotSettings(desktop) {
+	var root = location.protocol + '//' + location.host;
+	var link = "/people-edit?EditPeopleFunc=EDIT_BOT_SUBUWM&u=" + desktop;
+	parent.postMessage("ULAPPH-SYS-UPD@888@SYS_OPEN_WINDOW@888@"+link,root);
+}
+</script>
+
+</body>
+</html>
+{{end}}

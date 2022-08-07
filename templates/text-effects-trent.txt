@@ -1,0 +1,64 @@
+{{define "root"}}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>CSS3 Background-Clip Text & @font-face</title>
+	<!-- stylesheets -->
+	<style>
+		/* Reset
+		-------------------------------------------------------------- */
+		html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;margin:0;padding:0;}
+		table{border-collapse:separate;border-spacing:0;margin-bottom:1.4em;}
+		caption,th,td{text-align:left;font-weight:400;}
+		blockquote:before,blockquote:after,q:before,q:after{content:"";}
+		blockquote,q{quotes:;}
+		a img{border:none;}
+
+		/* Page
+		-------------------------------------------------------------- */
+		body 		{color: #2a4f54;text-align: {{.STR_FILLER2}};background-color: #4a8d97;background-image: url(../img/grunge.jpg);}
+		#container	{margin: 0px auto 35px;width:660px; padding-top: 60px;}
+		.main 		{ font-family: "LeagueGothicRegular",Lucida, sans-serif;text-transform: uppercase;line-height: .9;}
+		.explanation{margin-top: 20px;font: italic 14px "Helvetica Neue", Helvetica, Arial, sans-serif;}
+		a           { color: #2a4f54; text-decoration: none; -webkit-transition: color .6s linear;}
+		a:hover     { color: #fff; -webkit-transition: color .1s linear;}
+
+
+		@font-face {font-family: 'LeagueGothicRegular';src: url('League_Gothic.eot');src: local('League Gothic Regular'), url('League_Gothic.woff') format('woff'), url('League_Gothic.otf') format('opentype'), url('League_Gothic.svg#LeagueGothic') format('svg');}
+
+
+		.itried {font-size: 50px;}
+		.css {font-size: 206px;letter-spacing: 5px;line-height: 1;}
+		.itworked {font: italic 60px/0 "bistro-script-web-1","bistro-script-web-2", cursive;text-transform: lowercase;margin-bottom: 12px;margin-top:12px;}
+		.hoo {font-size: 258px;letter-spacing: 5px;line-height: 1; margin-top: 35px;}
+		.view {font-size: 57px;margin-top: -15px;}
+		.hoo, .css {text-shadow: #4a8d97 3px 3px 0;}
+
+
+		.line-left, .line-right {border-bottom: 2px solid #2a4f54;width: 160px;display: inline-block;margin-bottom: -50px;}
+		.line-left {float: left;margin-top: 25px;margin-left: 15px;}
+		.line-right {float: right;margin-top: 0px;margin-right: 15px;}
+
+
+		.css:after {content:"CSS Three";margin-top: -198px;margin-left: 16px;}
+		.hoo:after {content:"hooray!"; margin-top: -250px;margin-left: 18px;}
+		.css:after, .hoo:after {background: url(../img/crosshatch.png) repeat;-webkit-background-clip: text;-webkit-text-fill-color: transparent;z-index: -5;display: block;text-shadow: none;}
+	</style>
+
+	<script src="/mint/?js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://use.typekit.com/xfd1ols.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	</head>
+<body>
+
+
+<div id="container">
+	<div class="main">
+		<div class="css" contenteditable="true">{{.STR_FILLER1}}</div>
+	</div>	
+</div>
+</body>
+</html>
+{{end}}

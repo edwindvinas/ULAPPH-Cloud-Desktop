@@ -1,0 +1,4 @@
+backends:
+- name: cmdline
+  class: B2
+  instances: 1

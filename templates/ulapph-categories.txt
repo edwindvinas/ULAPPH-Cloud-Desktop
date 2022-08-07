@@ -1,0 +1,48 @@
+#<Basic Desktops>
+# 0 - 9000
+	  <option value="desktop0">0:General</option>
+	  <option value="desktop100">100:God</option>
+	  <option value="desktop200">200:Planet</option>
+	  <option value="desktop300">300:Air</option>
+	  <option value="desktop400">400:Water</option>
+	  <option value="desktop500">500:Energy</option>
+	  <option value="desktop600">600:Food</option>
+	  <option value="desktop700">700:Shelter</option>
+	  <option value="desktop800">800:Education</option>
+	  <option value="desktop900">900:Transportation</option>
+	  <option value="desktop1000">1000:Financial</option>
+	  <option value="desktop1100">1100:Telecommunication</option>
+	  <option value="desktop1200">1200:Health</option>
+	  <option value="desktop1300">1300:Physical</option>
+	  <option value="desktop1400">1400:Mental</option>
+	  <option value="desktop1500">1500:Religion</option>
+	  <option value="desktop1600">1600:Entertainment</option>
+	  <option value="desktop1700">1700:Security</option>
+	  <option value="desktop1800">1800:Animals</option>
+	  <option value="desktop1900">1900:Business</option>
+	  <option value="desktop2000">2000:Sci&Tech</option>
+	  <option value="desktop2100">2100:Electronics</option>
+	  <option value="desktop2200">2200:Solar</option>
+	  <option value="desktop2300">2300:Cooking</option>
+	  <option value="desktop2400">2400:Agriculture</option>
+	  <option value="desktop2500">2500:Aquaculture</option>
+	  <option value="desktop2600">2600:Lifestyle</option>
+	  <option value="desktop2700">2700:Shopping</option>
+	  <option value="desktop2800">2800:Dogs</option>
+	  <option value="desktop2900">2900:Cats</option>
+	  <option value="desktop8000">8000:News</option>
+	  <option value="desktop9000">9000:Others</option>
+#</Basic Desktops>
+#
+#<CCTV>
+#	  <option value="desktop999001">999001:CCTV1</option>
+#	  <option value="desktop999002">999002:CCTV2</option>
+#	  <option value="desktop999003">999003:CCTV3</option>
+#	  <option value="desktop999004">999004:CCTV4</option>
+#	  <option value="desktop999005">999005:CCTV5</option>
+#	  <option value="desktop999006">999006:CCTV6</option>
+#	  <option value="desktop999007">999007:CCTV7</option>
+#	  <option value="desktop999008">999008:CCTV8</option>
+#	  <option value="desktop999009">999009:CCTV9</option>
+#	  <option value="desktop999010">999010:CCTV10</option>
+#</CCTV>

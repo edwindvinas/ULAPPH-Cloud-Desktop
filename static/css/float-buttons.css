@@ -1,0 +1,152 @@
+.icon-bar {
+  position: fixed;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  //background-color: #484848;
+}
+
+.icon-bar a {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+}
+
+.icon-bar a:hover {
+  background-color: #000;
+}
+
+.github {
+  background: #6e0208;
+  color: white;
+}
+
+.reddit {
+  background: #e02eba;
+  color: white;
+}
+
+.envelope {
+  background: #4d1839;
+  color: white;
+}
+
+.wiki {
+  background: #104a01;
+  color: white;
+}
+
+.random {
+  background: #82e214;
+  color: white;
+}
+
+.facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.google {
+  background: #dd4b39;
+  color: white;
+}
+
+.linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.microphone {
+  background: #00bb1f;
+  color: white;
+}
+
+.newspaper {
+  background: #165e52;
+  color: white;
+}
+
+.camera {
+  background: #7f0a8c;
+  color: white;
+}
+
+.desktop {
+  background: #c979c7;
+  color: white;
+}
+
+.comment {
+  background: #361e7d;
+  color: white;
+}
+
+.music {
+  background: #02f0dc;
+  color: white;
+}
+
+.save {
+  background: #1d8a25;
+  color: white;
+}
+
+.sticky-note {
+  background: #e7eb1c;
+  color: white;
+}
+
+.robot {
+  background: #323d40;
+  color: white;
+}
+
+.notepad {
+  background: #06637d;
+  color: white;
+}
+
+.search {
+  background: #571604;
+  color: white;
+}
+
+.content {
+  //margin-left: 75px;
+  font-size: 30px;
+}
+
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px;
+}
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}

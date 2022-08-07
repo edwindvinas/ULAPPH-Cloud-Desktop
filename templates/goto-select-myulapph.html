@@ -1,0 +1,87 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+<head>
+<title>ULAPPH Accounts Selector</title>
+<meta name="author" content="ULAPPH Cloud Desktop" />
+<link rel="os-touch-icon" href="images/custom_icon.ico"/>
+<link rel="shortcut icon" href="/img/favicon.ico"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/static/img/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+</style>
+</head>
+<body>
+
+<h2>My ULAPPH Accounts</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for accounts.." title="Type in a name">
+
+<ul id="myUL">
+  {{range .Ulapphs}}
+    <!--<li><a href="{{.Url}}/chat-bubble/ulapphbot.html" title="Chatbot" target="pwa-{{.UserID}}@{{.Url}}"><img src="/chat-bubble/bot-512.png" width=50 height=50></a><a href="{{.Url}}/pwa/" title="PWA Apps" target="pwa-{{.UserID}}@{{.Url}}"><img src="/img/pwa.png" width=50 height=50></a><a href="{{.Url}}/uwm" title="UWM Login" target="{{.UserID}}@{{.Url}}"><img src="{{.Picture}}" width=50 height=50>{{.UserID}} @ {{.Url}}</a></li> -->
+    {{if ne .Privacy "true"}}
+    <li><a href="{{.Url}}/uwm" title="UWM Login" target="{{.UserID}}@{{.Url}}"><img src="{{.Picture}}" width=50 height=50 title="Public">{{.UserID}} of {{.Url}} (Public)</a></li>
+    {{else}}
+    <li><a href="{{.Url}}/uwm" title="UWM Login" target="{{.UserID}}@{{.Url}}"><img src="{{.Picture}}" width=50 height=50 title="Private"><img src="/img/encrypted.png" width=50 height=50>{{.UserID}} of {{.Url}} (Private)</a></li>
+    {{end}}
+  {{end}}
+</ul>
+<h1><a href="/logout">Logout</a></h1>
+
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
+{{end}}

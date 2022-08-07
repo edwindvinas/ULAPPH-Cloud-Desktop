@@ -1,0 +1,31 @@
+#https://github.com/GoogleCloudPlatform/gke-gitops-tutorial-cloudbuild
+#Google Cloud Build Configuration File for ulapph-cloud-desktop
+steps:
+  # build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/ulapph-cloud-desktop:$SHORT_SHA', '.']
+  # push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/ulapph-cloud-desktop:$SHORT_SHA']
+# This step generates the new manifest
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
+     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > kubernetes.yaml
+  # Deploy container image to GKE
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: Deploy
+  args:
+  - 'apply'
+  - '-f'
+  - 'kubernetes.yaml'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=ulapph'
+images:
+- gcr.io/$PROJECT_ID/ulapph-cloud-desktop:$SHORT_SHA
+

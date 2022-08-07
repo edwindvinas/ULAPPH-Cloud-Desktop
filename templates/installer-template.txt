@@ -1,0 +1,220 @@
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>ULAPPH Cloud Desktop - Installer</title>
+    <script type="text/javascript" src="/static/lib/js/progressbar/babel.js"></script>
+	<script type="text/javascript" src="/static/lib/js/progressbar/progressbar.js"></script>
+  <style type="text/css">
+    #container {
+  margin: 20px;
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+  </style>
+  <script type="text/babel"
+    data-presets="es2017,react,stage-0"
+    data-plugins="transform-decorators-legacy">
+// progressbar.js@1.0.0 version is used
+// Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+
+var urlParams;
+var match,
+		pl     = /\+/g,  // Regex for replacing addition symbol with a space
+		search = /([^&=]+)=?([^&]*)/g,
+		decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+		query  = window.location.hash.substr(1);
+
+urlParams = {};
+while (match = search.exec(query))
+   urlParams[decode(match[1])] = decode(match[2]);
+var status = urlParams["status"];
+var cfun = urlParams["COM_FUN"];
+var pid = urlParams["pid"];
+
+var bar = new ProgressBar.Circle(container, {
+  color: '#e45127',
+  // This has to be the same size as the maximum width to
+  // prevent clipping
+  strokeWidth: 4,
+  trailWidth: 1,
+  easing: 'easeInOut',
+  duration: 1400,
+  text: {
+    autoStyleContainer: false
+  },
+  from: { color: '#50d9de', width: 1 },
+  to: { color: '#2827e4', width: 4 },
+  // Set default step function for all animate calls
+  step: function(state, circle) {
+    circle.path.setAttribute('stroke', state.color);
+    circle.path.setAttribute('stroke-width', state.width);
+
+    var value = Math.round(circle.value() * 100);
+    if (value === 0) {
+      circle.setText('0%');
+    } else {
+      circle.setText(value+'%');
+	  console.log(value+'%');
+	  //var turl = "https://" + pid + ".appspot.com";
+	  //document.getElementById("status").innerHTML = "<font color=green>Installation in progress... please wait...</font><br><font color=magenta>ULAPPH Cloud Desktop - Your computer in the cloud!</font><br><font color=magenta>" + turl + "</font>";	  
+    }
+
+  }
+});
+
+bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+bar.text.style.fontSize = '5rem';
+
+//var pid = urlParams["pid"];
+//document.getElementById("pid").value = pid;
+//if (status != "proceed" || status != undefined) {	
+if (status != undefined && status != "" && cfun != "INSTALL") {
+	bar.animate(1.0, {
+		duration: 60000
+	}, function() {
+		console.log('Animation has finished');
+/* 		var urlParams;
+		var match,
+				pl     = /\+/g,  // Regex for replacing addition symbol with a space
+				search = /([^&=]+)=?([^&]*)/g,
+				decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+				query  = window.location.hash.substr(1);
+
+		urlParams = {};
+		while (match = search.exec(query))
+		   urlParams[decode(match[1])] = decode(match[2]);
+		var status = urlParams["status"];
+		var cfun = urlParams["COM_FUN"];
+		var pid = urlParams["pid"];
+	    var turl = "https://" + pid + ".appspot.com"; */
+		document.getElementById("status").innerHTML = "<font color=green>Initialization Completed!</font><br><font color=magenta>ULAPPH Cloud Desktop - Your computer in the cloud!</font><br><font color=blue><a href='#' onclick='openServer()'>Click here to open Google Cloud Shell!</a></font>";
+	});
+}
+
+//ask user to create ID
+//installNow();
+
+</script>
+	
+</head>
+
+<body>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+
+<center>
+<div id="container"></div>
+<p>
+<h3><div id="status"><a href="#" onclick="installNow()">Click to Install Now!</a></div></h3>
+<input type="hidden" id="uid" value="{{.STR_FILLER1}}">
+<input type="hidden" id="pid" value="{{.STR_FILLER2}}">
+</center>
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "None"
+    }], "*")
+  }
+  
+	var urlParams;
+	var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			//query  = window.location.hash.substr(1);
+			query  = window.location.search.substring(1);
+
+	urlParams = {};
+	while (match = search.exec(query))
+	   urlParams[decode(match[1])] = decode(match[2]);
+
+	var status = urlParams["status"];
+	var cfun = urlParams["COM_FUN"];
+	var pid = urlParams["pid"];
+	console.log("status: "+status);
+	if (status == "proceed" && cfun == "INSTALL-NOW") {
+		var turl = "https://" + pid + ".appspot.com";
+		document.getElementById("pid").value = pid;
+		document.getElementById("status").innerHTML = "<font color=green>Initialization in progress... please wait...</font><br><font color=magenta>ULAPPH Cloud Desktop - Your computer in the cloud!</font><br><font color=orange>" + turl + "</font>";
+	}
+  
+  function installNow() {
+	//alert("Let's begin!");
+	//get desired project id
+    //var txt;
+	var pid = document.getElementById("pid").value;
+    var projectID = prompt("Please enter your server name:", pid);
+    if ((projectID != "my-ulapph-server") && (projectID == null || projectID == "")) {
+        //txt = "User cancelled the prompt.";
+		alert("Invalid server name!");
+		//installNow();
+		return;
+    } else {
+        //txt = "Hello " + projectID + "! How are you today?";
+		pid = projectID;
+    }
+    document.getElementById("pid").value = projectID;
+	
+	var urlParams;
+	var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			query  = window.location.hash.substr(1);
+
+	urlParams = {};
+	while (match = search.exec(query))
+	   urlParams[decode(match[1])] = decode(match[2]);
+
+	var tok = urlParams["access_token"];
+	var status = urlParams["status"];
+	console.log("tok: "+tok);
+	console.log("status: "+status);
+	var turl = "https://" + pid + ".appspot.com";
+	document.getElementById("status").innerHTML = "<font color=blue>Initializing cloud... please wait...</font><br><font color=magenta>ULAPPH Cloud Desktop - Your computer in the cloud!</font><br><font color=orange>" + turl + "</font>";
+	if (status != "proceed" ) {
+		var root = location.protocol + '//' + location.host;
+		var uid = document.getElementById("uid").value;
+		var url = root + '/compile?COM_FUN=INSTALL-NOW&uid=' + uid + '&pid=' + pid + '&tok=' + tok + '&status=proceed';
+		console.log("url: "+url);
+		window.location.href = url;
+	}
+  }
+  
+  function openServer() {
+	var src = location.href;
+	console.log(src);
+
+	var urlParams;
+	var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			//query  = window.location.hash.substr(1);
+			query  = src; 
+
+	urlParams = {};
+	while (match = search.exec(query))
+	   urlParams[decode(match[1])] = decode(match[2]);
+
+	var pid = urlParams["pid"];  
+	var turl = "https://" + pid + ".appspot.com";
+	console.log("turl: "+turl);
+	//window.location.href = turl;
+	alert("Your project ID is " + pid + " and your URL is "+turl);
+	var htmo = document.getElementById("status").innerHTML;
+	document.getElementById("status").innerHTML = htmo + "<br><font color=red>Project ID: </font>" + pid + "<br><font color=red>URL: </font>" + turl;
+	window.open("https://console.cloud.google.com/cloudshell/editor?project=" + pid + "&serviceId=default&duration=PT1H&shellonly=true", "_blank");
+  }
+  
+</script>
+</body>
+
+</html>
+{{end}}

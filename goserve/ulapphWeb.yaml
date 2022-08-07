@@ -1,0 +1,31 @@
+
+domain: "https://www.ngiyaw.com"
+site: "Ngiyaw Online Shop"
+developer: "ulapph@gmail.com"
+contentsDir: "./goserve/contents/"
+templatesDir: "./goserve/templates/"
+pages:
+   - page:
+      id: "home"
+      file: "Sample_Slide_1.slide"
+      type: slide
+      template: "slide-offline.template"
+      desc: "My sample home page file"
+      access: public
+   - page:
+      id: "home2"
+      file: "Sample_Article_1.article"
+      type: article
+      template: "article-offline.template"
+      desc: "My sample store file"
+      access: public
+   - page:
+      id: "home3"
+      file: "Sample_Slide_1.slide"
+      desc: "My sample home page file"
+      access: public
+   - page:
+      id: "home4"
+      file: "Sample_Article_1.article"
+      desc: "My sample store file"
+      access: public

@@ -1,0 +1,29 @@
+    .sticklr .notification-count {
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: #555;
+            box-shadow: 0 0 3px #999;
+            border-radius: 6px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            color: #f0f0f0;
+            cursor: default;
+            font-size: 10px;
+            line-height: 12px;
+            text-indent: 3px;
+            position: absolute;
+            top: 2px;
+            left: 20px;
+            z-index: 96;
+        }
+
+        .sticklr .calendar td {
+            width: 15px;
+            padding: 5px;
+        }
+
+        .sticklr .calendar td:hover {
+            background: #eaeaea;
+            font-weight: bold;
+        }

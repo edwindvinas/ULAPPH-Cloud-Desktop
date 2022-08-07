@@ -1,0 +1,29 @@
+Main Article Title!
+Sub-title here
+12 Feb 2022
+
+ULAPPH Demo
+Company/School Name
+https://localhost/
+
+* My Hello world article
+
+This is my sample article. You can put any sentences or paragraphs here. This can be a very long text.
+
+* Another section here
+
+All sections starts with asterisks. 
+
+* Section with Image
+
+You can put an image, a link or an iframe to your articles.
+.image https://www.linuxidc.com/upload/2015_03/150302124510391.png
+
+* A section with Youtube iframe
+
+.iframe https://youtu.be/2Kg7JpA2JSQ
+
+* You can also put links such as links to your favourite videos:
+
+[[https://youtu.be/CnYtWWDor2s][S0110]]
+

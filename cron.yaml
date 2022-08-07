@@ -1,0 +1,256 @@
+cron:
+- description: regular updates of dweetio stats
+  url: /ulapph-router?RTR_FUNC=TASK_DWEETIO
+  schedule: every 6 hours
+
+#- description: regular updates of STATS.ACCESS stats
+# url: /ulapph-router?RTR_FUNC=TASK_UPDATE_ACCESS
+# schedule: every 6 hours
+
+#- description: regular updates of STATS.DESKTOP stats
+# url: /ulapph-router?RTR_FUNC=TASK_UPDATE_DESKTOP
+# schedule: every 6 hours
+  
+- description: regular updates of STATS.OS / STATS.BROWSER stats
+  url: /ulapph-router?RTR_FUNC=TASK_UPDATE_OSBR
+  schedule: every 6 hours
+
+- description: regular indexing of unindexed items 
+  url: /ulapph-router?RTR_FUNC=TASK_UPDATE_INDEX
+  schedule: every 6 hours
+
+# biiling fix
+#- description: regular updates of OVERALL TOP SITES stats
+#  url: /ulapph-router?RTR_FUNC=TASK_UPDATE_TOP_CLICKS
+#  schedule: every 6 hours
+  
+#- description: regular updates of homeProcessor MEMCACHE
+#  url: /ulapph-router?RTR_FUNC=TASK_UPDATE_HOME_PROC
+#  schedule: every 6 hours
+  
+#- description: regular updates of searchIcons MEMCACHE
+#  url: /task-memcache-search-icons
+#  schedule: every 2 hours
+  
+#- description: regular updates of homeIcons MEMCACHE
+#  url: /ulapph-router?RTR_FUNC=TASK_MEMCACHER_homeIcons1_2
+#  schedule: every 6 hours
+  
+#- description: regular updates of homeIcons MEMCACHE
+#  url: /ulapph-router?RTR_FUNC=TASK_MEMCACHER_homeIcons2
+#  schedule: every 3 hours
+ 
+#- description: regular updates of desktopAllIcons MEMCACHE
+#  url: /task-memcache-desktopAllIcons
+#  schedule: every 4 hours
+
+# - description: regular updates of desktopAllIcons MEMCACHE
+# url: /queue-cache-desktop0-icons
+# schedule: every 1 hours
+  
+# - description: regular updates of settings MEMCACHE
+# url: /task-memcache-settings-all-icons
+# schedule: every 2 hours
+#- description: regular updates of homeIcons MEMCACHE
+#  url: /ulapph-router?RTR_FUNC=TASK_MEMCACHER_ALL_ICONS
+#  schedule: every 6 hours
+  
+#- description: regular updates of desktopAllSites MEMCACHE
+#  url: /task-memcache-desktopAllSites
+#  schedule: every 5 hours
+  
+#- description: regular updates of adslots MEMCACHE
+#  url: /task-memcache-adslotsProcessor
+#  schedule: every 30 minutes
+
+#- description: regular updates of adslots MEMCACHE
+#  url: /ulapph-router?RTR_FUNC=TASK_ADS_SLOTS
+#  schedule: every 30 minutes   
+
+- description: regular updates of users MEMCACHE
+  url: /ulapph-router?RTR_FUNC=TASK_USER_PROC
+  schedule: every 1 hours 
+  
+- description: regular updates of rules MEMCACHE
+  url: /ulapph-router?RTR_FUNC=TASK_RULE_PROC
+  schedule: every 33 minutes
+  
+#- description: regular update of profile pics MEMCACHE
+#  url: /ulapph-router?RTR_FUNC=CACHE_PROF_PICS
+#  schedule: every 2 hours 
+
+#- description: regular update of over quota status
+#  url: /ulapph-router?RTR_FUNC=DETECT_QUOTA
+#  schedule: every 1 hours
+
+- description: regular update of top statistics
+  url: /ulapph-router?RTR_FUNC=CACHE_TOP_STATS
+  schedule: every 12 hours
+
+#- description: regular update of random s/s sources
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_RANDOM
+#  schedule: every 30 minutes
+  
+#- description: regular update of quotations
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Quotations
+#  schedule: every 30 minutes
+
+#- description: regular update of Bible verses
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Bible
+#  schedule: every 30 minutes
+ 
+#- description: regular update of jokes
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Jokes
+#  schedule: every 30 minutes
+
+#- description: regular update of saving tips
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Saving
+#  schedule: every 30 minutes
+  
+#- description: regular update of blogging tips
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Blogs
+#  schedule: every 30 minutes
+
+#- description: regular update of fitness tips
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Fitness
+#  schedule: every 30 minutes
+  
+#- description: regular update of interview tips
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Interview
+#  schedule: every 30 minutes
+
+#- description: regular update of health tips
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Health
+#  schedule: every 30 minutes
+
+#- description: regular update of business tips
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Business
+#  schedule: every 30 minutes
+
+#- description: regular update of life tips
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Life
+#  schedule: every 30 minutes
+  
+#- description: regular update of table topics
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_Table
+#  schedule: every 30 minutes
+  
+#- description: regular update of stocks
+#  url: /ulapph-router?RTR_FUNC=CACHE_SPREADSHEETS_STOCKS
+#  schedule: every 6 hours
+
+#- description: regular update of top sites slides
+#  url: /ulapph-router?RTR_FUNC=CACHE_TOP_SITES
+#  schedule: every 6 hours
+
+#- description: regular update of desktop0 homeIcons
+#  url: /ulapph-router?RTR_FUNC=CACHE_DESKTOP0_ICONS
+#  schedule: every 3 hours
+  
+#- description: regular update of desktop0,1-20 Css
+#  url: /ulapph-router?RTR_FUNC=CACHE_DESKTOP_CSS
+#  schedule: every 3 hours
+
+#- description: regular update of desktop0 wallpapers
+#  url: /ulapph-router?RTR_FUNC=CACHE_DESKTOP0_WALLPAPERS
+#  schedule: every 3 hours
+
+#- description: regular update of desktopN wallpapers
+#  url: /ulapph-router?RTR_FUNC=CACHE_DESKTOPN_WALLPAPERS
+#  schedule: every 3 hours
+
+#- description: regular update of cached all contents - articles
+#  url: /ulapph-router?RTR_FUNC=CACHE_CONTENTS_ALL_ARTICLES
+#  schedule: every 2 hours
+
+#- description: regular update of cached all contents - slides
+#  url: /ulapph-router?RTR_FUNC=CACHE_CONTENTS_ALL_SLIDES
+#  schedule: every 3 hours
+
+#- description: regular archiving of cached notification logs
+#  url: /ulapph-router?RTR_FUNC=COPY_NOTIFS_CACHE_TO_ARCHIVE
+#  schedule: every 4 hours
+  
+#- description: regular archiving of cached notification logs
+#  url: /ulapph-router?RTR_FUNC=CLEAR_NOTIFS_CACHE_MIDNIGHT
+#  schedule: every day 00:00
+  
+#- description: regular update of earthquakes (PH)
+#  url: /ulapph-router?RTR_FUNC=CACHE_URL_FETCH_01
+#  schedule: every 15 minutes
+
+- description: regular cleanup of inactive users
+  url: /ulapph-router?RTR_FUNC=TASK_CLEAN_UP_INACT_USERS
+  schedule: every 6 hours
+
+#- description: regular checking of urlfetch jobs
+#  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_1_MINUTES
+#  schedule: every 1 minutes
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_5_MINUTES
+  schedule: every 5 minutes
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_15_MINUTES
+  schedule: every 15 minutes
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_30_MINUTES
+  schedule: every 30 minutes
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_1_HOURS
+  schedule: every 1 hours
+
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_2_HOURS
+  schedule: every 2 hours
+
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_3_HOURS
+  schedule: every 3 hours
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_4_HOURS
+  schedule: every 4 hours
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_6_HOURS
+  schedule: every 6 hours
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_8_HOURS
+  schedule: every 8 hours
+ 
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_12_HOURS
+  schedule: every 12 hours
+  
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_24_HOURS
+  schedule: every 24 hours
+
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_WEEK
+  schedule: every 168 hours
+
+- description: regular checking of urlfetch jobs
+  url: /ulapph-router?RTR_FUNC=URL_FETCH_NOTIFS&f=EVERY_MONTH
+  schedule: every 720 hours
+   
+#- description: regular checking of ifs and wtb items for each user
+#  url: /ulapph-router?RTR_FUNC=URL_FETCH_IFS_WTB
+#  schedule: every 1 hours
+
+- description: regular purging of sessions & people directory
+  url: /ulapph-router?RTR_FUNC=SESSION_ONLINE
+  schedule: every 1 hours synchronized
+  
+#- description: regular emails containing system reports
+#  url: /ulapph-router?RTR_FUNC=SYSTEM_REPORTS
+#  schedule: every 6 hours
+
+#- description: regular emails containing system reports
+#  url: /ulapph-router?RTR_FUNC=FIREBASE_CLEANUP
+#  schedule: every 5 minutes

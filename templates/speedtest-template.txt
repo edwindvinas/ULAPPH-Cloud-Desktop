@@ -1,0 +1,224 @@
+{{define "root"}}
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="/static/lib/js/echarts/echarts.min.js"></script>
+  <script src="/static/js/ping.min.js"></script>
+  <link rel="stylesheet" href="/static/lib/css/buttons/buttons.css">
+
+
+  <style type="text/css">
+    
+  </style>
+  
+
+  <title>Dynamic eChart</title>
+
+<script type='text/javascript'>
+
+//parse URL values
+var urlParams;
+var match,
+		pl     = /\+/g,  // Regex for replacing addition symbol with a space
+		search = /([^&=]+)=?([^&]*)/g,
+		decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+		query  = window.location.search.substring(1);
+
+urlParams = {};
+while (match = search.exec(query))
+   urlParams[decode(match[1])] = decode(match[2]);
+
+$(window).load(function(){
+
+option = {
+    tooltip : {
+        formatter: "{a} <br/>{c} {b}"
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    series : [
+        {
+            name: '速度',
+            type: 'gauge',
+            center: ['70%', '50%'],    // 默认全局居中
+            z: 3,
+            min: 0,
+            max: 100,
+            splitNumber: 10,
+            radius: '50%',
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    width: 10
+                }
+            },
+            axisTick: {            // 坐标轴小标记
+                length: 15,        // 属性length控制线长
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: 'auto'
+                }
+            },
+            splitLine: {           // 分隔线
+                length: 20,         // 属性length控制线长
+                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    color: 'auto'
+                }
+            },
+            title : {
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                    fontSize: 20,
+                    fontStyle: 'italic'
+                }
+            },
+            detail : {
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder'
+                },
+                formatter:'{value} M'
+            },
+            data:[{value: 40, name: 'Upload'}]
+        },
+        {
+            name: '转速',
+            type: 'gauge',
+            center: ['30%', '50%'],    // 默认全局居中
+            radius: '50%',
+            min:0,
+            max:100,
+            splitNumber:10,
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    width: 10
+                }
+            },
+            axisTick: {            // 坐标轴小标记
+                length:12,        // 属性length控制线长
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: 'auto'
+                }
+            },
+            splitLine: {           // 分隔线
+                length:20,         // 属性length控制线长
+                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    color: 'auto'
+                }
+            },
+            pointer: {
+                width:5
+            },
+            title: {
+                offsetCenter: [0, '-30%'],       // x, y，单位px
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                    fontSize: 20,
+                    fontStyle: 'italic'
+                }
+            },
+            detail: {
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder'
+                },
+                formatter:'{value} M'
+            },
+            data:[{value: 1.5, name: 'Download'}]
+        }
+    ]
+};
+
+/*setInterval(function (){
+    var myChart = echarts.init(document.getElementById('chart0'));
+    
+    option.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
+    option.series[1].data[0].value = (Math.random()*7).toFixed(2) - 0;
+    //option.series[2].data[0].value = (Math.random()*2).toFixed(2) - 0;
+    //option.series[3].data[0].value = (Math.random()*2).toFixed(2) - 0;
+    myChart.setOption(option,true);
+},2000);
+*/
+
+var myChart = echarts.init(document.getElementById('chart0'));
+
+//option.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
+option.series[0].data[0].value = 0;
+//option.series[1].data[0].value = (Math.random()*7).toFixed(2) - 0;
+option.series[1].data[0].value = 0;
+//option.series[2].data[0].value = (Math.random()*2).toFixed(2) - 0;
+//option.series[3].data[0].value = (Math.random()*2).toFixed(2) - 0;
+myChart.setOption(option,true);
+
+});
+
+var w=null;
+
+function startTest() {
+    console.log("startTest()");
+	var w=new Worker("/speedtest/speedtest_worker.js"); //create new worker
+	var interval=setInterval(function(){w.postMessage("status");}.bind(this),100); //ask for status every 100ms
+	w.onmessage=function(event){ //when status is received, split the string and put the values in the appropriate fields
+		var data=event.data.split(";"); //string format: status;download;upload;ping (speeds are in mbit/s) (status: 0=not started, 1=downloading, 2=uploading, 3=ping, 4=done, 5=aborted)
+		var status=Number(data[0]);
+		//document.getElementById("download").innerHTML=data[1]+" Mbit/s";
+		console.log(data[1]+" Mbit/s");
+		//document.getElementById("upload").innerHTML=data[2]+" Mbit/s";
+		console.log(data[2]+" Mbit/s");
+		//document.getElementById("ping").innerHTML=data[3]+" ms, "+data[5]+" ms jitter";
+		console.log(data[3]+" ms");
+		console.log(data[5]+" ms jitter");
+		//document.getElementById("ip").innerHTML=data[4];
+		console.log(data[4]);
+		
+        if(status>=4){
+            console.log("clearInterval");
+            clearInterval(interval);
+            document.getElementById("done").innerHTML = "<b><font color=blue>Finished</font></b>";
+            w=null;
+        }
+		
+        var myChart = echarts.init(document.getElementById('chart0'));
+        option.series[0].data[0].value = data[2];
+        option.series[1].data[0].value = data[1];
+        document.getElementById("ip").innerHTML = "<b><font color=green>ip</font>: " + data[4] + " <font color=green>resp</font>: " + data[3]+ " ms, <font color=green>jitter</font>: " +data[5]+ " ms" + "</b>";
+        myChart.setOption(option,true);
+    
+	}.bind(this);
+	
+	w.postMessage("start"); //start the speedtest (default params. keep garbage.php and empty.dat in the same directory as the js file)  
+};
+
+function abortTest() {
+    console.log("Aborted");
+    if(w)w.postMessage("abort");
+};
+
+</script>
+
+  
+</head>
+
+<body>
+<center>
+<span class="button-wrap">
+<a href="#" onclick="startTest(); return false;" class="button button-pill button-raised button-primary">Start Speedtest</a>
+</span> 
+<span class="button-wrap">
+<a href="#" onclick="abortTest(); return false;" class="button button-pill button-raised button-primary">Abort</a>
+</span>
+<div id="chart0" style="width: 800px;height:500px;"></div>
+<div id="ip"></div>
+<div id="done"></div> 
+</center>
+</body>
+
+</html>
+{{end}}

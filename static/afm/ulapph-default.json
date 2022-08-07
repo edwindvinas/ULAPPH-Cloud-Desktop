@@ -1,0 +1,28 @@
+{
+    "result": [
+        {
+            "name": "articles",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "slides",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "media",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        }
+    ],
+    "success": true,
+    "errorMsg": null,
+    "error": null
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="en"><head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Online Code Minifier</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700">
+		<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="/static/minify/style.css"/>
+	</head>
+
+	<body>
+
+<h1>Online web formats minifier</h1>
+<p>This service will minify files using the minifier at <a href="https://github.com/tdewolff/minify">github.com/tdewolff/minify</a>.</p>
+
+<h2>Minify</h2>
+<form id="minify" method="POST">
+	<fieldset>
+		<legend>MIME-type</legend>
+		<ul>
+			<li><label for="css"><input type="radio" id="css" name="mime" value="text/css"> CSS</label></li>
+			<li><label for="html"><input type="radio" id="html" name="mime" value="text/html" checked=""> HTML</label></li>
+			<li><label for="js"><input type="radio" id="js" name="mime" value="text/javascript"> Javascript</label></li>
+			<li><label for="json"><input type="radio" id="json" name="mime" value="application/json"> JSON</label></li>
+			<li><label for="svg"><input type="radio" id="svg" name="mime" value="image/svg+xml"> SVG</label></li>
+			<li><label for="xml"><input type="radio" id="xml" name="mime" value="text/xml"> XML</label></li>
+		</ul>
+	</fieldset>
+	<fieldset>
+		<legend>Options</legend>
+		<ul id="css-options" class="options" style="display: none;">
+			<li><label for="css-decimals"><input type="number" id="css-decimals" name="css-decimals" min="-1" max="10" value="-1"> Number of decimals to preserve in numbers, -1 is all</label></li>
+            <li><label for="css-keepcss2"><input type="checkbox" id="css-keepcss2" name="css-keepcss2"> Preserve CSS2 features</label></li>
+		</ul>
+		<ul id="html-options" class="options" style="display: none;">
+            <li><label for="html-keepconditionalcomments"><input type="checkbox" id="html-keepconditionalcomments" name="html-keepconditionalcomments"> Preserve conditional comments</label></li>
+			<li><label for="html-keepdefaultattrvals"><input type="checkbox" id="html-keepdefaultattrvals" name="html-keepdefaultattrvals"> Preserve default attribute values</label></li>
+			<li><label for="html-keepdocumenttags"><input type="checkbox" id="html-keepdocumenttags" name="html-keepdocumenttags"> Preserve <code>html</code>, <code>head</code> and <code>body</code> tags</label></li>
+			<li><label for="html-keependtags"><input type="checkbox" id="html-keependtags" name="html-keependtags"> Preserve all end tags</label></li>
+			<li><label for="html-keepwhitespace"><input type="checkbox" id="html-keepwhitespace" name="html-keepwhitespace"> Preserve whitespace characters but still collapse multiple into one</label></li>
+		</ul>
+		<ul id="svg-options" class="options" style="display: none;">
+			<li><label for="svg-decimals"><input type="number" id="svg-decimals" name="svg-decimals" min="-1" max="10" value="-1"> Number of decimals to preserve in numbers, -1 is all</label></li>
+		</ul>
+		<ul id="xml-options" class="options" style="display: none;">
+			<li><label for="xml-keepwhitespace"><input type="checkbox" id="xml-keepwhitespace" name="xml-keepwhitespace"> Preserve whitespace characters but still collapse multiple into one</label></li>
+		</ul>
+	</fieldset>
+	<p><label for="src">Input <textarea id="src" name="src">http://www.example.com/</textarea></label></p>
+	<p><input type="button" class="button" value="Minify"></p>
+	<fieldset>
+		<legend>Metrics</legend>
+		<table id="metrics">
+			<tbody><tr>
+				<td>Ratio:</td>
+				<td id="ratio">65.8%</td>
+			</tr>
+			<tr>
+				<td>Size:</td>
+				<td id="size">8.8KiB → 5.8KiB</td>
+			</tr>
+			<tr>
+				<td>Time:</td>
+				<td id="time">149.841µs</td>
+			</tr>
+		</tbody></table>
+	</fieldset>
+	<p class="error" style="display: none;"></p>
+	<p><label for="dst">Output <textarea id="dst" name="dst" style="white-space:pre;" readonly=""></textarea></label></p>
+</form>
+
+<script>
+	var urlParams;
+	var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			query  = window.location.search.substring(1);
+
+	urlParams = {};
+	while (match = search.exec(query))
+	   urlParams[decode(match[1])] = decode(match[2]);
+	function humanFileSize(bytes, si) {
+		var thresh = si ? 1000 : 1024;
+		if(bytes < thresh) return bytes + 'B';
+		var units = si ? ['kB','MB','GB','TB','PB','EB','ZB','YB'] : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+		var u = -1;
+		do {
+			bytes /= thresh;
+			++u;
+		} while(bytes >= thresh);
+		return bytes.toFixed(1)+units[u];
+	};
+
+	$(function(){
+		$('#minify input[type="button"]').click(function(e) {
+			e.preventDefault();
+			$('#minify input[type="button"]').prop('disabled', 'true');
+			$('.error').hide();
+			var UID = urlParams["UID"];
+			$.ajax({
+				type: 'POST',
+				url: '/tools?FUNC=WIDGET&t=MINIFY'+'&UID='+UID,
+				data: $('form').serialize(),
+				dataType: 'json',
+				success: function(data){
+					$('textarea[name="dst"]').text(data.Data);
+					$('#ratio').text('' + (data.NewSize / data.OldSize * 100).toFixed(1) + '%');
+					$('#size').html(humanFileSize(data.OldSize) + ' &#8594; ' + humanFileSize(data.NewSize));
+					$('#time').text(data.Time);
+					$('#minify input[type="button"]').prop('disabled', '');
+				},
+				error: function(data){
+					$('.error').text('ERROR: ' + data.responseText).show();
+					$('textarea[name="dst"]').text('');
+					$('#ratio').text("-");
+					$('#size').text("-");
+					$('#time').text("-");
+					$('#minify input[type="button"]').prop('disabled', '');
+				}
+			});
+		});
+
+		$('#src, #dst').focus(function() {
+			$(this).select();
+		});
+
+		$('input[name="mime"]').change(function(e) {
+			var mime = $(this).prop('id');
+			$('.options').hide();
+			$('#'+mime+'-options').show();
+		});
+	});
+</script>
+</body></html>

@@ -1,0 +1,2310 @@
+
+        <audio id="audioID">
+        <source src="/static/audio/1.ogg" type="audio/ogg">
+        <source src="/static/audio/1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+        <li class="here">
+          <a href="#page" id="uwmID" onmouseenter="playAudio();" onclick="uwmQuickSearch();">ULAPPH</a>                                                                                                                                  
+         <ul class="sublist">
+            <li>
+                <input type="text" id="newJSWM" value="https://" onfocus="disableKeys();" onkeypress="return searchKeyPress(event);" autocomplete="on" autofocus="autofocus"/>
+            </li>
+            <li>
+                <!--input type="button" value="Chat" id="btnSearch"  onclick="newBotMessage("");" /--><input type="button" value="+W" id="btnSearch" onclick="newJSWMWindow();" /><input type="button" value="+D" onclick="newUWM();" /><input type="button" value="TTS" onclick="sayItTTS();" />
+                <script>
+				function disableKeys() {
+					localStorage["btnSearch"] == "active";
+				}
+                function searchKeyPress(e)
+                {
+					localStorage["btnSearch"] = "inactive";
+                    //remove event listener
+                    removeEventListeners();
+                    // look for window.event in case event isnt passed in
+                    e = e || window.event;
+                    if (e.keyCode == 13)
+                    {
+                        document.getElementById('btnSearch').click();
+                        return false;
+                    }
+                    return true;
+                }
+                var audio1 = document.getElementById("audioID");
+                function playAudio() {
+					if (localStorage[root + 'quite-flag'] == "on") {
+						return;
+					}
+					audio1.play();
+                }
+				function newUWM() {
+					var tdesk = document.getElementById("newJSWM").value;
+					if (tdesk == "") {
+						if (urlParams["u"] == undefined) {
+							//localStorage["local-uwm-ctr"] = 1;
+							var nDesk = parseInt(localStorage["local-uwm-ctr"]);
+							nDesk = nDesk+1;
+							//window.open("/uwm?u="+ nDesk +"&UID="+urlParams["UID"]);
+							var dURL = "/uwm?u="+ nDesk +"&UID="+urlParams["UID"];
+							openWindow(dURL, dURL);
+						} else {
+							var nDesk = parseInt(localStorage["local-uwm-ctr"]);
+							nDesk = nDesk+1;
+							localStorage["local-uwm-ctr"] = nDesk;
+							//window.open("/uwm?u="+nDesk+"&UID="+urlParams["UID"]);
+							var dURL = "/uwm?u="+nDesk+"&UID="+urlParams["UID"];
+							openWindow(dURL, dURL);
+						}
+					} else {
+						//window.open("/uwm?u="+tdesk+"&UID="+urlParams["UID"]);
+						var dURL = "/uwm?u="+tdesk+"&UID="+urlParams["UID"];
+						openWindow(dURL, dURL);
+					}
+					return;
+				}
+                </script>
+            </li>
+            <li class="divider"></li>
+            <li onmouseenter="playAudio();">ULAPPH Quick Tools
+              <span class="arrow"></span>                                                                                                                                   
+                 <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'/go', 500, 300, 'right', 'top', {title: 'File Manager', icon: '/static/img/jswm-web.png'}" size="60" id="uafm" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('uafm').value + ');');">File Manager</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <a href="#page" onmouseenter="playAudio();" onclick="setQuietMode();return false;">Quite Mode Toggle</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li><a href="#page" onmouseenter="playAudio();" onclick="cctvStream();return false;">CCTV Stream On/Off</a></li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=CCTV_STREAM', 500, 300, 'right', 'top', {title: 'CCTV Realtime Viewer', icon: '/static/img/jswm-web.png'}" size="60" id="cctvsg" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cctvsg').value + ');');">CCTV Realtime Viewer</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=CCTV_STREAM&SID=GEN', 500, 300, 'right', 'top', {title: 'CCTV Database Viewer', icon: '/static/img/jswm-web.png'}" size="60" id="cctvdb" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cctvdb').value + ');');">CCTV Database Viewer</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/directory?DIR_FUNC=cctv-recent', 500, 300, 'right', 'top', {title: 'CCTV List Cameras', icon: '/static/img/jswm-web.png'}" size="60" id="cctvcams" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cctvcams').value + ');');">CCTV List Cameras</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/directory?DIR_FUNC=cctv-battery', 500, 300, 'right', 'top', {title: 'CCTV Battery Status', icon: '/static/img/jswm-web.png'}" size="60" id="cctvbats" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cctvbats').value + ');');">CCTV Battery Status</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/directory?DIR_FUNC=cctv-capture', 500, 300, 'right', 'top', {title: 'CCTV Capture Now', icon: '/static/img/jswm-web.png'}" size="60" id="cctvcams2" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cctvcams2').value + ');');">CCTV Capture Now</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+						<a href="#page" onmouseenter="playAudio();" onclick="newCCTV();">NewCCTV - QR Scan</a>
+						<script>
+						function newCCTV() {
+							var rootPath = "";
+							var rootPathB = "";
+							var runtime = document.getElementById("sys").value;
+							if (runtime == "local") {
+								var fip = document.getElementById("IP").value;
+								rootPath = location.protocol + '//' + fip + "/tools?FUNC=MIRROR2&v=AYufk";
+								rootPathB = location.protocol + '//' + fip + "/tools?FUNC=MIRROR&v=AYufk";
+							} else {
+								rootPath = location.protocol + '//' + location.host + "/tools?FUNC=MIRROR2&v=AYufk";
+								rootPathB = location.protocol + '//' + location.host + "/tools?FUNC=MIRROR&v=AYufk";
+							}
+							//small
+							var qrLink = "https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=" + rootPath+ "&choe=UTF-8";
+							window.open(qrLink);
+							//big
+							var qrLinkB = "https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=" + rootPathB+ "&choe=UTF-8";
+							window.open(qrLinkB);
+						}
+						</script>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=MIRROR3', 500, 300, 'right', 'top', {title: 'Webcam CCTV', icon: '/static/img/jswm-web.png'}" size="60" id="wmscctv1" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wmscctv1').value + ');');">NewCCTV Camera</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=MIRROR2', 500, 300, 'right', 'top', {title: 'Webcam MirrorS CCTV', icon: '/static/img/jswm-web.png'}" size="60" id="wmscctv" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wmscctv').value + ');');">NewCCTV - Local (S)</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=MIRROR', 500, 300, 'right', 'top', {title: 'Webcam Mirror CCTV', icon: '/static/img/jswm-web.png'}" size="60" id="wmscctv2" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wmscctv2').value + ');');">NewCCTV - Local (B)</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/static/pwa/cctv/index.html', 500, 300, 'right', 'top', {title: 'CCTV Camera App', icon: '/static/img/jswm-web.png'}" size="60" id="cctvca" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cctvca').value + ');');">CCTV Camera App</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li><a href="#page" onmouseenter="playAudio();" onclick="toggleCctvReviewSpeaker();return false;">CCTV Speak On/Off</a></li>
+    				<li class="divider"></li>
+    				<li><a href="#page" onmouseenter="playAudio();" onclick="newsStream();return false;">News Stream On/Off</a></li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/ulapph-router?RTR_FUNC=CLR_MC_ALL', 500, 300, 'right', 'top', {title: 'Clear All Cache', icon: '/static/img/jswm-web.png'}" size="60" id="cacache" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cacache').value + ');');">Clear All Cache</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <a href="#page" onmouseenter="playAudio();" onclick="window.speechSynthesis.cancel();return false">Stop Talking!!!</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <a href="#page" onmouseenter="playAudio();" onclick="endConversation();return false;">End Conversation</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <a href="#page" onmouseenter="playAudio();" onclick="openWpImage();return false;">Open Wallpaper</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <a href="#page" onmouseenter="playAudio();" onclick="pauseWp();return false;">Stop Random Wallpaper</a>
+    				</li>
+    				<li class="divider"></li>
+                </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            </li>
+            <li class="divider"></li>
+            <li onmouseenter="playAudio();">My Settings 
+              <span class="arrow"></span>                                                                                                                                   
+                 <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'/admin-setup', 500, 300, 'right', 'top', {title: 'Admin Settings', icon: '/static/img/jswm-web.png'}" size="60" id="adminSettings" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('adminSettings').value + ');');">Admin Settings</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/people-edit?EditPeopleFunc=EditPeople&UID=', 500, 300, 'right', 'top', {title: 'Edit Profile', icon: '/static/img/jswm-web.png'}" size="60" id="editProfile" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('editProfile').value + ');');">Edit Profile</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/people-edit?EditPeopleFunc=deleteMyAccount&UID=', 500, 300, 'right', 'top', {title: 'Delete Profile', icon: '/static/img/jswm-web.png'}" size="60" id="deleteProfile" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('deleteProfile').value + ');');">Delete Profile</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/people-edit?EditPeopleFunc=EDIT_TOP_LIST_MENU_MINE&UID=', 500, 300, 'right', 'top', {title: 'Edit Personal Menu', icon: '/static/img/jswm-web.png'}" size="60" id="editCustomMenu" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('editCustomMenu').value + ');');">Edit Personal Menu</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/admin-setup?ADMIN_FUNC=EDIT_CATEGORY_LIST', 500, 300, 'right', 'top', {title: 'Edit Desktops List', icon: '/static/img/jswm-web.png'}" size="60" id="editCatList" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('editCatList').value + ');');">Edit Desktops List</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/people-edit?EditPeopleFunc=EDIT_WINDOWS_MINE&UID=', 500, 300, 'right', 'top', {title: 'Edit UWM Startup', icon: '/static/img/jswm-web.png'}" size="60" id="editUWMWindows" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('editUWMWindows').value + ');');">Edit UWM Startup</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/people-edit?EditPeopleFunc=EDIT_CUSTOM_SEARCH_MINE&UID=', 500, 300, 'right', 'top', {title: 'Edit Custom Search', icon: '/static/img/jswm-web.png'}" size="60" id="editCustSearch" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('editCustSearch').value + ');');">Edit Custom Search</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=ADDUWM', 500, 300, 'right', 'top', {title: 'Add UWM Windows', icon: '/static/img/jswm-web.png'}" size="60" id="genUWMWindows" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('genUWMWindows').value + ');');">Add UWM Windows</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=MyDrives', 500, 300, 'right', 'top', {title: 'My Drives', icon: '/static/img/jswm-web.png'}" size="60" id="myDrives" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('myDrives').value + ');');">My Drives</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/people-edit?EditPeopleFunc=EDIT_CONTACTS_LIST&UID=', 500, 300, 'right', 'top', {title: 'My Contacts', icon: '/static/img/jswm-web.png'}" size="60" id="myContacts" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('myContacts').value + ');');">My Contacts</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=MyLocalNotes', 500, 300, 'right', 'top', {title: 'My Local Notes', icon: '/static/img/jswm-web.png'}" size="60" id="myNotes" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('myNotes').value + ');');">My Local Notes</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=MyDefaultSlide', 500, 300, 'right', 'top', {title: 'My Default Slide', icon: '/static/img/jswm-web.png'}" size="60" id="defSlide" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('defSlide').value + ');');">My Default Slide</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=MyPreferences', 500, 300, 'right', 'top', {title: 'My Preferences', icon: '/static/img/jswm-web.png'}" size="60" id="myPrefs" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('myPrefs').value + ');');">My Preferences</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=MyUrlFetcher', 500, 300, 'right', 'top', {title: 'My URL Fetcher', icon: '/static/img/jswm-web.png'}" size="60" id="myURLs" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('myURLs').value + ');');">My URL Fetcher</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/admin-setup?ADMIN_FUNC=EDIT_TOP_LIST_MENU', 500, 300, 'right', 'top', {title: 'Edit Start Menu', icon: '/static/img/jswm-web.png'}" size="60" id="esysmenu" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('esysmenu').value + ');');">Edit Start Menu</a>
+    				</li>
+    				<li class="divider"></li>
+                    <li>
+                         <input type="hidden" value="'/api-doc/', 500, 300, 'right', 'top', {title: 'Explore APIs', icon: '/static/img/jswm-web.png'}" size="60" id="exapis" />
+                        <a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('exapis').value + ');');">Explore APIs</a>
+                    </li>
+                    <li class="divider"></li>
+                </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            </li>
+            <li class="divider"></li>
+			
+            <li onmouseenter="playAudio();">ULAPPH Online Games                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://funhtml5games.com/', 'HTML5 Games' ); return false">HTML5 Games</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://ddmills.github.io/snake/', 'Classic Snake' ); return false">Classic Snake</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://ondras.github.io/custom-tetris/', 'Tetris' ); return false">Tetris</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://m.funkypotato.com/mobile-games/scrabble-online/?status=play', 'Scrabble' ); return false">Scrabble</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('http://www.betterthanchess.com/', 'Chess' ); return false">Chess</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://mario5.florian-rappl.de/', 'Super Mario' ); return false">Super Mario</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.flightarcade.com/', 'Flight Simulator' ); return false">Flight Simulator</a>
+				</li>
+				<li class="divider"></li>  
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://gabrielecirulli.github.io/2048/', '2048' ); return false">2048</a>
+				</li>
+				<li class="divider"></li>                 
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://hexgl.bkcore.com/play/', 'HexGL Racing' ); return false">HexGL Racing</a>
+				</li>
+				<li class="divider"></li>                 
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://realtime-cube.appspot.com', 'Rubix Cube' ); return false">Rubix Cube</a>
+				</li>
+				<li class="divider"></li>                
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://ellisonleao.github.io/clumsy-bird/', 'clumsybird' ); return false">Clumsy Bird</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://ludo.abiosoft.net/', 'Ludo Game' ); return false">Ludo Game</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://dataarts.github.io/drivechess', 'Drive Chess' ); return false">Drive Chess</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://blockly-games.appspot.com/', 'Blockly' ); return false">Blockly</a>
+				</li>
+					<li class="divider"></li> 
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.miniclip.com/games/motherload/en/', 'Motherload' ); return false">Motherload</a>
+				</li>
+					<li class="divider"></li> 
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://adarkroom.doublespeakgames.com/', 'Dark Room' ); return false">Dark Room</a>
+				</li>
+					<li class="divider"></li>  
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://dukope.com/play.php?g=uns', 'Unsolicited' ); return false">Unsolicited</a>
+				</li>
+					<li class="divider"></li>  
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://wizardofwor.krissz.hu/', 'Wizard of Wor' ); return false">Wizard of Wor</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.kongregate.com/games/sushistory/10-bullets', '10 Bullets' ); return false">10 Bullets</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.playalterego.com/', 'Alter Ego' ); return false">Alter Ego</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://orteil.dashnet.org/cookieclicker/', 'Cookie Clicker' ); return false">Cookie Clicker</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.nitrome.com/games/wormfood/#.UmDq-JT0YqQ', 'Wormfood' ); return false">Wormfood</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://godswillbewatching.clay.io/', 'Gods Will Be Watching' ); return false">Gods Will Be Watching</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://games.adultswim.com/hrmageddon-puzzle-online-game.html', 'HRMageddon' ); return false">HRMageddon</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.kongregate.com/games/mike_id/doom-1', 'Doom' ); return false">Doom</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.kongregate.com/games/DarkRealmStudios/pandemic-2', 'Pandemic' ); return false">Pandemic</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.kongregate.com/games/dampgnat/wonderputt', 'Wonderputt' ); return false">Wonderputt</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://armorgames.com/play/1128/', 'Desktop Tower Defense' ); return false">Desktop Tower Defense</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.cuttherope.net/', 'Cut The Rope' ); return false">Cut The Rope</a>
+				</li>
+					<li class="divider"></li>
+				<li>
+					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://ulapph-public-1.appspot.com/slides?TYPE=SLIDE&DOC_ID=48&SID=TDSSLIDE-48', 'All Browser Games...' ); return false">All Browser Games</a>
+				</li>
+					<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+
+			<li onmouseenter="playAudio();">ULAPPH PWA Apps
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+				<li>
+					 <input type="hidden" value="'/static/pwa/index.html', 500, 500, 'left', 'top', {title: 'PWA Apps List', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-index" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-index').value + ');');">PWA Apps List</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/www/index.html', 500, 500, 'left', 'top', {title: 'ULAPPH Home', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-home" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-home').value + ');');">ULAPPH Home</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/uwm/uwm.html', 500, 500, 'left', 'top', {title: 'UWM', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-uwm" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-uwm').value + ');');">UWM</a>
+				</li>
+				<li class="divider"></li>   
+				<li>
+					 <input type="hidden" value="'/static/pwa/desktops/desktops.html', 500, 500, 'left', 'top', {title: 'Desktops', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-desktops" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-desktops').value + ');');">Desktops</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/site/site.html', 500, 500, 'left', 'top', {title: 'Website', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-web" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-web').value + ');');">Website</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/chat-bubble/ulapphbot.html', 500, 500, 'left', 'top', {title: 'Chatbot', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-bot" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-bot').value + ');');">Chatbot</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/cctv/index.html', 500, 500, 'left', 'top', {title: 'CCTV', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-cctv" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-cctv').value + ');');">CCTV</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/doctor/doctor.html', 500, 500, 'left', 'top', {title: 'Doctor', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-doc" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-doc').value + ');');">Doctor</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/music/music.html', 500, 500, 'left', 'top', {title: 'Music', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-music" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-music').value + ');');">Music</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/video/video.html', 500, 500, 'left', 'top', {title: 'Video', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-video" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-video').value + ');');">Video</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/guestbook/guestbook.html', 500, 500, 'left', 'top', {title: 'Guestbook', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-gb" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-gb').value + ');');">Guestbook</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/timelinejs/timelinejs.html', 500, 500, 'left', 'top', {title: 'TimelineJS', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-tjs" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-tjs').value + ');');">TimelineJS</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/uploader/uploader.html', 500, 500, 'left', 'top', {title: 'Uploader', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-upl" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-upl').value + ');');">Uploader</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/todo/todo.html', 500, 500, 'left', 'top', {title: 'Todo', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-todo" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-todo').value + ');');">Todo</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/search/search.html', 500, 500, 'left', 'top', {title: 'Search', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-search" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-search').value + ');');">Search</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/stream/stream.html', 500, 500, 'left', 'top', {title: 'Stream', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-stream" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-stream').value + ');');">Stream</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/chat/chat.html', 500, 500, 'left', 'top', {title: 'Chat', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-chat" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-chat').value + ');');">Chat</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/broadcast/broadcast.html', 500, 500, 'left', 'top', {title: 'Broadcast', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-bcast" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-bcast').value + ');');">Broadcast</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/social/social.html', 500, 500, 'left', 'top', {title: 'Social', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-social" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-social').value + ');');">Social</a>
+				</li>
+				<li class="divider"></li>   
+				<li>
+					 <input type="hidden" value="'/static/pwa/qrscan/qrscan.html', 500, 500, 'left', 'top', {title: 'QR', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-qr" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-qr').value + ');');">QR</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/remote/remote.html', 500, 500, 'left', 'top', {title: 'Remote', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-remote" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-remote').value + ');');">Remote</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/maps/maps.html', 500, 500, 'left', 'top', {title: 'Maps', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-maps" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-maps').value + ');');">Maps</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/tracker/tracker.html', 500, 500, 'left', 'top', {title: 'Tracker', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-tracker" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-tracker').value + ');');">Tracker</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/news/news.html', 500, 500, 'left', 'top', {title: 'News', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-news" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-news').value + ');');">News</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/ls/ls.html', 500, 500, 'left', 'top', {title: 'Local Storage', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-ls" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-ls').value + ');');">Local Storage</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/games/games.html', 500, 500, 'left', 'top', {title: 'Games', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-games" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-games').value + ');');">Games</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/recipes/recipes.html', 500, 500, 'left', 'top', {title: 'Recipes', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-recipes" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-recipes').value + ');');">Recipes</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/exercise/exercise.html', 500, 500, 'left', 'top', {title: 'Exercise', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-exer" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-exer').value + ');');">Exercise</a>
+				</li>
+				<li class="divider"></li>  
+				<li>
+					 <input type="hidden" value="'/static/pwa/recent/recent.html', 500, 500, 'left', 'top', {title: 'Recent', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-recent" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-recent').value + ');');">Recent</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/pwa/textformat/textformat.html', 500, 500, 'left', 'top', {title: 'Text Format', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-tf" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-tf').value + ');');">Text Format</a>
+				</li>
+				<li class="divider"></li>  
+				<li>
+					 <input type="hidden" value="'/static/pwa/countdown/countdown.html', 500, 500, 'left', 'top', {title: 'Countdown', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-cd />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-cd').value + ');');">Countdown</a>
+				</li>
+				<li class="divider"></li> 
+				<li>
+					 <input type="hidden" value="'/static/pwa/motion/motion.html', 500, 500, 'left', 'top', {title: 'Motion', icon: '/static/img/jswm-web.png'}" size="60" id="pwa-motion"/>
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pwa-motion').value + ');');">Motion</a>
+				</li>
+				<li class="divider"></li>                
+				</ul>
+			</li>
+			
+			<li class="divider"></li>
+
+			<li onmouseenter="playAudio();">ULAPPH Applications 1
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=ScanRemoteControl', 500, 500, 'left', 'top', {title: 'Scan QR Remote Control', icon: '/static/img/jswm-web.png'}" size="60" id="scanremoteControl" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('scanremoteControl').value + ');');">Scan QR Remote Control</a>
+				</li>
+				<li class="divider"></li>                
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=RemoteControl', 500, 300, 'right', 'top', {title: 'Remote Control', icon: '/static/img/jswm-web.png'}" size="60" id="remoteControl" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('remoteControl').value + ');');">Remote Control (Viewer)</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/presenter?MODE=CONTROL@888@PRESENTER_SESSION_KEY=dummy', 500, 300, 'right', 'top', {title: 'Remote Controller', icon: '/static/img/jswm-web.png'}" size="60" id="remoteController" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('remoteController').value + ');');">Remote Control (Control)</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/website?q=home', 500, 300, 'right', 'top', {title: 'myWebsite', icon: '/static/img/jswm-web.png'}" size="60" id="website" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('website').value + ');');">Public Website</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/m', 500, 300, 'right', 'top', {title: 'Mobile Home', icon: '/static/img/jswm-web.png'}" size="60" id="mobview" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mobview').value + ');');">Mobile Home</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/webapp/', 500, 300, 'right', 'top', {title: 'Mobile Webapp', icon: '/static/img/jswm-web.png'}" size="60" id="mobapp" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mobapp').value + ');');">Mobile Webapp</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/tools?FUNC=ALL_RECENT', 500, 300, 'right', 'top', {title: 'All Recent', icon: '/static/img/jswm-web.png'}" size="60" id="allrecm" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('allrecm').value + ');');">All Recent</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/infodb?DB_FUNC=VIEWER-SLIDES-ALL&TYPE=SLIDE&MODE=NORMAL&PARM=LOOP&SECS=8', 500, 300, 'right', 'top', {title: 'All Contents Index', icon: '/static/img/jswm-web.png'}" size="60" id="smaindex" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('smaindex').value + ');');">All Contents Index</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/tools?FUNC=ALL_DESKTOPS', 500, 300, 'right', 'top', {title: 'All Desktops', icon: '/static/img/jswm-web.png'}" size="60" id="allds" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('allds').value + ');');">All Desktops</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/tools?FUNC=ALL_ICONS', 500, 300, 'right', 'top', {title: 'All Icons', icon: '/static/img/jswm-web.png'}" size="60" id="allics" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('allics').value + ');');">All Icons</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+				    <input type="hidden" value="'/search?f=glow2&In ULAPPH&i=yes', 500, 300, 'right', 'top', {title: 'ULAPPH Search', icon: '/static/img/jswm-web.png'}" size="60" id="search" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('search').value + ');');">ULAPPH Search</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/?q=home', 500, 300, 'right', 'top', {title: 'myCarousel', icon: '/static/img/jswm-web.png'}" size="60" id="openURI1" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('openURI1').value + ');');">Carousel</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/desktop0', 500, 300, 'right', 'top', {title: 'myDesktop0', icon: '/static/img/jswm-web.png'}" size="60" id="openURI2" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('openURI2').value + ');');">Desktop0</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/slides', 500, 300, 'right', 'top', {title: 'Slides', icon: '/static/img/jswm-web.png'}" size="60" id="slides" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('slides').value + ');');">Slides</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/infodb?DB_FUNC=SLIDES&CATEGORY=desktop0&VIEW=RECENT', 500, 300, 'right', 'top', {title: 'Slides - Recent', icon: '/static/img/jswm-web.png'}" size="60" id="slidesR" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('slidesR').value + ');');">Slides - Recent</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/articles', 500, 300, 'right', 'top', {title: 'Articles', icon: '/static/img/jswm-web.png'}" size="60" id="articles" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('articles').value + ');');">Articles</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/infodb?DB_FUNC=ARTICLES&CATEGORY=desktop0&VIEW=RECENT', 500, 300, 'right', 'top', {title: 'Articles - Recent', icon: '/static/img/jswm-web.png'}" size="60" id="articlesR" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('articlesR').value + ');');">Articles - Recent</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/media', 500, 300, 'right', 'top', {title: 'Media', icon: '/static/img/jswm-web.png'}" size="60" id="media" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('media').value + ');');">Media</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/infodb?DB_FUNC=MEDIA&CATEGORY=ALL_RECENT', 500, 300, 'right', 'top', {title: 'Media - Recent', icon: '/static/img/jswm-web.png'}" size="60" id="mediaR" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mediaR').value + ');');">Media - Recent</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=THEMES', 500, 300, 'right', 'top', {title: 'Content Themes', icon: '/static/img/jswm-web.png'}" size="60" id="ContentThemes" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ContentThemes').value + ');');">Content Themes</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/uloc', 500, 300, 'right', 'top', {title: 'Local Storage', icon: '/static/img/jswm-web.png'}" size="60" id="LocalStorage" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('LocalStorage').value + ');');">Local Storage</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=HTERM', 500, 300, 'right', 'top', {title: 'HTML5 Terminal', icon: '/static/img/jswm-web.png'}" size="60" id="h5Terminal" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('h5Terminal').value + ');');">HTML5 Terminal</a>
+				</li>
+				<li class="divider"></li>
+				</ul>
+			</li>
+			
+			<li class="divider"></li>
+
+			<li onmouseenter="playAudio();">ULAPPH Applications 2
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+				<li>
+					 <input type="hidden" value="'/chat-bubble/ulapphbot.html', 500, 300, 'right', 'top', {title: 'Chatbot', icon: '/static/img/jswm-web.png'}" size="60" id="chatbot" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('chatbot').value + ');');">Chatbot</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/stream', 500, 300, 'right', 'top', {title: 'Stream', icon: '/static/img/jswm-web.png'}" size="60" id="stream" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('stream').value + ');');">Stream</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/share?SH_FUNC=custom', 500, 300, 'right', 'top', {title: 'Share Social', icon: '/static/img/jswm-web.png'}" size="60" id="sharethis" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('sharethis').value + ');');">Share Social</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/chat?pubchan=public', 500, 300, 'right', 'top', {title: 'Public Chat (Site)', icon: '/static/img/jswm-web.png'}" size="60" id="openURI6" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('openURI6').value + ');');">Public Chat (Site)</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/chat?pubchan=country', 500, 300, 'right', 'top', {title: 'Public Chat (Country)', icon: '/static/img/jswm-web.png'}" size="60" id="pcountry" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pcountry').value + ');');">Public Chat (Country)</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/chat?pubchan=worldwide', 500, 300, 'right', 'top', {title: 'Public Chat (Worldwide)', icon: '/static/img/jswm-web.png'}" size="60" id="pworldwide" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pworldwide').value + ');');">Public Chat (Worldwide)</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/chat?CHAT_FUNC=newChatRoom', 500, 300, 'right', 'top', {title: 'Private Chat (Owner)', icon: '/static/img/jswm-web.png'}" size="60" id="chatroom" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('chatroom').value + ');');">Create Chat Room</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/chat?CHAT_FUNC=connectChatRoom', 500, 300, 'right', 'top', {title: 'Private Chat (Join)', icon: '/static/img/jswm-web.png'}" size="60" id="chatroom2" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('chatroom2').value + ');');">Join Chat Room</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/guestbook?GB_FUNC=GB_OWNER', 500, 300, 'right', 'top', {title: 'Guestbook', icon: '/static/img/jswm-web.png'}" size="60" id="gbook" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('gbook').value + ');');">Guestbook</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=WallMessage', 500, 300, 'right', 'top', {title: 'Wall Message', icon: '/static/img/jswm-web.png'}" size="60" id="wmsg" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wmsg').value + ');');">Wall Message</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/admin-setup?ADMIN_FUNC=SEND_MSG_ALL', 500, 300, 'right', 'top', {title: 'Broadcast Message', icon: '/static/img/jswm-web.png'}" size="60" id="bcast" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('bcast').value + ');');">Broadcast Message</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/people?PEOPLE_FUNC=QUICK-VIEW', 500, 300, 'right', 'top', {title: 'People Directory', icon: '/static/img/jswm-web.png'}" size="60" id="people" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('people').value + ');');">People</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/media?FUNC_CODE=UMP', 500, 300, 'right', 'top', {title: 'Music Player', icon: '/static/img/jswm-web.png'}" size="60" id="openURI3" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('openURI3').value + ');');">Music Player</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/media?FUNC_CODE=MDP', 500, 500, 'left', 'top', {title: 'MIDI Player', icon: '/static/img/jswm-web.png'}" size="60" id="mdplayer" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mdplayer').value + ');');">MIDI Player</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/media?FUNC_CODE=UVP', 518, 470, 'left', 'top', {title: 'Video Player', icon: '/static/img/jswm-web.png'}" size="60" id="openURI4" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('openURI4').value + ');');">Video Player</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/media?FUNC_CODE=VIEW_THUMBS', 500, 300, 'right', 'top', {title: 'Photo Gallery', icon: '/static/img/jswm-web.png'}" size="60" id="gallery" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('gallery').value + ');');">Photo Gallery</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<input type="hidden" value="'/editor?EDIT_FUNC=TIMELINE&SID=GEN', 500, 300, 'right', 'top', {title: 'TimelineJS', icon: '/static/img/jswm-web.png'}" size="60" id="timejs" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('timejs').value + ');');">TimelineJS</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=TODO', 500, 300, 'right', 'top', {title: 'TODOs', icon: '/static/img/jswm-web.png'}" size="60" id="todos" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('todos').value + ');');">TODOs</a>
+				</li>
+				<li class="divider"></li>
+				</ul>
+			</li>
+			
+			<li class="divider"></li>
+
+
+            <li onmouseenter="playAudio();">ULAPPH Content Editors                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=QuickLaunch', 500, 300, 'right', 'top', {title: 'Quick Launch', icon: '/static/img/jswm-web.png'}" size="60" id="qlaunch" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('qlaunch').value + ');');">Quick Launch</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/media?FUNC_CODE=SET_MULTI_IMAGE_UPLOAD', 500, 300, 'right', 'top', {title: 'Multiple Upload', icon: '/static/img/jswm-web.png'}" size="60" id="MultipleUpload" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('MultipleUpload').value + ');');">Multiple Upload</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/?q=qi#upload-image', 500, 300, 'right', 'top', {title: 'Upload Image', icon: '/static/img/jswm-web.png'}" size="60" id="UploadImage" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('UploadImage').value + ');');">Upload Image</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/?q=qm#upload-music', 500, 300, 'right', 'top', {title: 'Upload Music', icon: '/static/img/jswm-web.png'}" size="60" id="UploadMusic" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('UploadMusic').value + ');');">Upload Music</a>
+    				</li>
+					<li class="divider"></li>  
+    				<li>
+    					 <input type="hidden" value="'/?q=qv#upload-video', 500, 300, 'right', 'top', {title: 'Upload Video', icon: '/static/img/jswm-web.png'}" size="60" id="UploadVideo" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('UploadVideo').value + ');');">Upload Video</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?DOC_ID=0&SID=NEWARTICLE', 500, 300, 'right', 'top', {title: 'New Article', icon: '/static/img/jswm-web.png'}" size="60" id="NewArticle" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('NewArticle').value + ');');">New Article</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?DOC_ID=0&SID=NEWSLIDE', 500, 300, 'right', 'top', {title: 'New Slide', icon: '/static/img/jswm-web.png'}" size="60" id="NewSlide" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('NewSlide').value + ');');">New Slide</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?MEDIA_ID=0&SID=NEWTEXT', 500, 300, 'right', 'top', {title: 'New Text', icon: '/static/img/jswm-web.png'}" size="60" id="NewText" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('NewText').value + ');');">New Text</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'http://deadsimplescreensharing.com', 500, 300, 'right', 'top', {title: 'Share Screen', icon: '/static/img/jswm-web.png'}" size="60" id="sharescr" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('sharescr').value + ');');">Share Screen</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=GIF-REC', 500, 300, 'right', 'top', {title: 'Recorder GIF', icon: '/static/img/jswm-web.png'}" size="60" id="wrtcgif" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wrtcgif').value + ');');">Recorder GIF</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=RECORD', 500, 300, 'right', 'top', {title: 'Recorder WebRTC', icon: '/static/img/jswm-web.png'}" size="60" id="wrtcrec" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wrtcrec').value + ');');">Recorder WebRTC</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=BROADCAST-AV', 500, 300, 'right', 'top', {title: 'BroadcastAV WebRTC', icon: '/static/img/jswm-web.png'}" size="60" id="wrtcbro" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wrtcbro').value + ');');">BroadcastAV WebRTC</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=BROADCAST-A', 500, 300, 'right', 'top', {title: 'BroadcastA WebRTC', icon: '/static/img/jswm-web.png'}" size="60" id="wrtcbroa" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wrtcbroa').value + ');');">BroadcastA WebRTC</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=TEXT-CSS', 500, 300, 'right', 'top', {title: 'Text Formatter', icon: '/static/img/jswm-web.png'}" size="60" id="textcss" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('textcss').value + ');');">Text Formatter</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=READER', 500, 300, 'right', 'top', {title: 'Ace Editor', icon: '/static/img/jswm-web.png'}" size="60" id="acedit" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('acedit').value + ');');">Ace Editor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=TINY', 500, 300, 'right', 'top', {title: 'Tiny Editor', icon: '/static/img/jswm-web.png'}" size="60" id="tinyedit" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('tinyedit').value + ');');">Tiny Editor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://deepumohan.com/projects/word-count/', 500, 300, 'right', 'top', {title: 'Word Counter', icon: '/static/img/jswm-web.png'}" size="60" id="wctr" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wctr').value + ');');">Word Counter</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.jasondavies.com/wordcloud/', 500, 300, 'right', 'top', {title: 'Word Cloud', icon: '/static/img/jswm-web.png'}" size="60" id="wcloud" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wcloud').value + ');');">Word Cloud</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/?q=qu', 500, 300, 'right', 'top', {title: 'Add Website', icon: '/static/img/jswm-web.png'}" size="60" id="AddWebsite" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('AddWebsite').value + ');');">Add Website</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=TEXT-TO-SPEECH', 500, 300, 'right', 'top', {title: 'Text to Speech', icon: '/static/img/jswm-web.png'}" size="60" id="Text2Speech" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('Text2Speech').value + ');');">Text to Speech</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=CRYPTO', 500, 300, 'right', 'top', {title: 'Encryption', icon: '/static/img/jswm-web.png'}" size="60" id="crypto" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('crypto').value + ');');">Encryption</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=DRAW', 500, 300, 'right', 'top', {title: 'Drawing', icon: '/static/img/jswm-web.png'}" size="60" id="lcdraw" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('lcdraw').value + ');');">Drawing</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/mindmaps/', 500, 300, 'right', 'top', {title: 'Mindmaps', icon: '/static/img/jswm-web.png'}" size="60" id="mindmaps" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mindmaps').value + ');');">Mind Maps</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=MERMAID', 500, 300, 'right', 'top', {title: 'Sequence Diagram', icon: '/static/img/jswm-web.png'}" size="60" id="merdraw" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('merdraw').value + ');');">Sequence Diagram</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=TREE', 500, 300, 'right', 'top', {title: 'Syntax Tree', icon: '/static/img/jswm-web.png'}" size="60" id="ptree" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ptree').value + ');');">Syntax Tree</a>
+    				</li>
+					<li class="divider"></li>
+					<li>
+    					 <input type="hidden" value="'https://ulapph-swagger.appspot.com', 500, 300, 'right', 'top', {title: 'Swagger Editor', icon: '/static/img/jswm-web.png'}" size="60" id="swagedit" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('swagedit').value + ');');">Swagger Editor</a>
+    				</li>
+					<li class="divider"></li>
+                </ul>
+            </li>
+         
+			<li class="divider"></li>			
+
+            <li onmouseenter="playAudio();">ULAPPH Utilities                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'/tools?t=DESK', 500, 300, 'right', 'top', {title: 'Desktop Tools', icon: '/static/img/jswm-web.png'}" size="60" id="dtools" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('dtools').value + ');');">Desktop Tools</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=MIRROR2', 500, 300, 'right', 'top', {title: 'Webcam MirrorS', icon: '/static/img/jswm-web.png'}" size="60" id="wms" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wms').value + ');');">Webcam MirrorS</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://html5-demos.appspot.com/static/getusermedia/photobooth.html', 500, 300, 'right', 'top', {title: 'Live Photobooth', icon: '/static/img/jswm-web.png'}" size="60" id="lph" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('lph').value + ');');">Live Photobooth</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://webcamtoy.com/', 500, 300, 'right', 'top', {title: 'Webcam Toy', icon: '/static/img/jswm-web.png'}" size="60" id="wct" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wct').value + ');');">Webcam Toy</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.soundstep.com/blog/experiments/jsdetection/', 500, 300, 'right', 'top', {title: 'Magic Xylophone', icon: '/static/img/jswm-web.png'}" size="60" id="mxy" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mxy').value + ');');">Magic Xylophone</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=WorldTimezone', 500, 300, 'right', 'top', {title: 'worldtime', icon: '/static/img/jswm-web.png'}" size="60" id="worldtime" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('worldtime').value + ');');">World Timezone</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.worldtimebuddy.com/', 500, 300, 'right', 'top', {title: 'TimeBuddy', icon: '/static/img/jswm-web.png'}" size="60" id="timebuddy" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('timebuddy').value + ');');">TimeBuddy</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=AnalogClockWidget', 500, 300, 'right', 'top', {title: 'Clock & Calendar', icon: '/static/img/jswm-web.png'}" size="60" id="clockcal" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('clockcal').value + ');');">Clock & Calendar</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://time.is', 500, 300, 'right', 'top', {title: 'Time.is', icon: '/static/img/jswm-web.png'}" size="60" id="wotime" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wotime').value + ');');">Time.is</a>
+    				</li>
+					<li class="divider"></li>
+   				    <li>
+    					 <input type="hidden" value="'/flash/stopwatch.swf', 500, 300, 'right', 'top', {title: 'Stopwatch', icon: '/static/img/jswm-web.png'}" size="60" id="stopwatch" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('stopwatch').value + ');');">Stopwatch</a>
+    				</li>
+					<li class="divider"></li>
+					    <li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=CountDownGet', 470, 200, 'left', 'top', {title: 'Countdown Timer', icon: '/static/img/jswm-web.png'}" size="60" id="ucountdowntimer" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ucountdowntimer').value + ');');">Countdown Timer</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://oras.pagasa.dost.gov.ph/widget.shtml', 250, 100, 'left', 'top', {title: 'Philippine Time', icon: '/static/img/jswm-web.png'}" size="60" id="phtime" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('phtime').value + ');');">Philippine Time</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://freesecure.timeanddate.com/clock/i5jccu94/fs48/tcf90/pc9f0/ftbi/th2', 250, 100, 'left', 'top', {title: 'UTC Time', icon: '/static/img/jswm-web.png'}" size="60" id="utctime" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('utctime').value + ');');">UTC Time</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=MiniBrowserGet', 500, 300, 'right', 'top', {title: 'Mini Browser', icon: '/static/img/jswm-web.png'}" size="60" id="minibrowser" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('minibrowser').value + ');');">Mini Browser</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    				    <input type="hidden" value="'/tools?FUNC=WIDGET&t=ProxyBrowser', 500, 300, 'right', 'top', {title: 'Proxy Browser', icon: '/static/img/jswm-web.png'}" size="60" id="ufb" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ufb').value + ');');">Proxy Browser</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    				    <input type="hidden" value="'/tools?FUNC=WIDGET&t=RandomGenerator', 500, 300, 'right', 'top', {title: 'Random Generator', icon: '/static/img/jswm-web.png'}" size="60" id="rgen" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('rgen').value + ');');">Random Generator</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/bible?BIB_FUNC=biblegateway', 500, 300, 'right', 'top', {title: 'Bible Audio', icon: '/static/img/jswm-web.png'}" size="60" id="openURI17" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('openURI17').value + ');');">Bible Audio</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://randombibleizer.spiffy.tech/', 500, 300, 'right', 'top', {title: 'Bible Random', icon: '/static/img/jswm-web.png'}" size="60" id="brand" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('brand').value + ');');">Bible Random</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.fromtexttospeech.com/', 500, 300, 'right', 'top', {title: 'Text2Speech-MP3', icon: '/static/img/jswm-web.png'}" size="60" id="ttsmp3" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ttsmp3').value + ');');">Text2Speech-MP3</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=Calendar', 500, 300, 'right', 'top', {title: 'myCalendar', icon: '/static/img/jswm-web.png'}" size="60" id="calendar" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('calendar').value + ');');">Calendar</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=Weather', 500, 300, 'right', 'top', {title: 'Weather Today', icon: '/static/img/jswm-web.png'}" size="60" id="weather" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('weather').value + ');');">Weather</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://dictionary.reference.com/', 500, 300, 'right', 'top', {title: 'Dictionary', icon: '/static/img/jswm-web.png'}" size="60" id="dictionary" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('dictionary').value + ');');">Dictionary</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.m.wikipedia.org', 500, 300, 'right', 'top', {title: 'Wikipedia', icon: '/static/img/jswm-web.png'}" size="60" id="wikipedia" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wikipedia').value + ');');">Wikipedia</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://tools.pingdom.com/ping/', 500, 300, 'right', 'top', {title: 'Ping', icon: '/static/img/jswm-web.png'}" size="60" id="pingTool" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pingTool').value + ');');">Ping</a>
+    				</li>
+					<li class="divider"></li>  
+    				<li>
+    					 <input type="hidden" value="'https://www.timezoneconverter.com/cgi-bin/tzc.tzc', 500, 300, 'right', 'top', {title: 'Timezone', icon: '/static/img/jswm-web.png'}" size="60" id="timeZone" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('timeZone').value + ');');">Timezone Converter</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					 <input type="hidden" value="'https://scientific-calculator.appspot.com/', 500, 300, 'right', 'top', {title: 'Calculator', icon: '/static/img/jswm-web.png'}" size="60" id="calculator" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('calculator').value + ');');">Calculator</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.towerhobbies.com/ucc.html', 500, 300, 'right', 'top', {title: 'Currency Converter', icon: '/static/img/jswm-web.png'}" size="60" id="currConv" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('currConv').value + ');');">Currency Converter</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://onlineclock.net/radio/', 500, 300, 'right', 'top', {title: 'Radio Alarm Clock', icon: '/static/img/jswm-web.png'}" size="60" id="radioClock" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('radioClock').value + ');');">Radio Alarm Clock</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://zxing.appspot.com/generator/', 500, 300, 'right', 'top', {title: 'QR Generator', icon: '/static/img/jswm-web.png'}" size="60" id="qrCode" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('qrCode').value + ');');">QR Generator</a>
+    				</li>
+					<li class="divider"></li>
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">ULAPPH K-12                                                                                                                                                    
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=kindergarten+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Kinder Search', icon: '/static/img/jswm-web.png'}" size="60" id="kinder" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('kinder').value + ');');">Kinder</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+1+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 1 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade1" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade1').value + ');');">Grade 1</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+2+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 2 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade2" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade2').value + ');');">Grade 2</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+3+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 3 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade3" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade3').value + ');');">Grade 3</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+4+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 4 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade4" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade4').value + ');');">Grade 4</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+5+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 5 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade5" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade5').value + ');');">Grade 5</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+6+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 6 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade6" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade6').value + ');');">Grade 6</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+7+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 7 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade7" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade7').value + ');');">Grade 7</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+8+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 8 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade8" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade8').value + ');');">Grade 8</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+9+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 9 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade9" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade9').value + ');');">Grade 9</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+10+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 10 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade10" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade10').value + ');');">Grade 10</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+11+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 11 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade11" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade11').value + ');');">Grade 11</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=K-12+grade+12+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'Grade 12 Search', icon: '/static/img/jswm-web.png'}" size="60" id="grade12" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('grade12').value + ');');">Grade 12</a>
+    				</li>
+					<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+			
+            <li onmouseenter="playAudio();">ULAPPH College                                                                                                                                                    
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=college+mathematics+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'College Math', icon: '/static/img/jswm-web.png'}" size="60" id="ckinder" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ckinder').value + ');');">College Math</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=college+science+technology+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'College Sci&Tech', icon: '/static/img/jswm-web.png'}" size="60" id="cgrade1" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cgrade1').value + ');');">College Sci&Tech</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=college+English+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'College English', icon: '/static/img/jswm-web.png'}" size="60" id="cgrade2" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cgrade2').value + ');');">College English</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=college+programming+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'College Programming', icon: '/static/img/jswm-web.png'}" size="60" id="cgrade3" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cgrade3').value + ');');">College Programming</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=college+business+economics+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'College Business', icon: '/static/img/jswm-web.png'}" size="60" id="cgrade4" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cgrade4').value + ');');">College Business</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/results?search_query=college+inventions+learning+videos&sp=CAM%253D', 500, 300, 'right', 'top', {title: 'College Inventions', icon: '/static/img/jswm-web.png'}" size="60" id="cgrade5" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cgrade5').value + ');');">College Inventions</a>
+    				</li>
+					<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Catalogues & Libraries                                                                                                                                                    
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'https://www.rfc-editor.org/search/rfc_search.php', 500, 300, 'right', 'top', {title: 'RFC Search', icon: '/static/img/jswm-web.png'}" size="60" id="cal1" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal1').value + ');');">RFC Search</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://pilc.org.ph/cgi-bin/koha/opac-main.pl', 500, 300, 'right', 'top', {title: 'PILC Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal2" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal2').value + ');');">PILC Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.mainlib.upd.edu.ph/', 500, 300, 'right', 'top', {title: 'UPD Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal3" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal3').value + ');');">UPD Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.elib.gov.ph/', 500, 300, 'right', 'top', {title: 'Phil e-Lib', icon: '/static/img/jswm-web.png'}" size="60" id="cal4" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal4').value + ');');">Phil e-Lib</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.librarylink.org.ph/', 500, 300, 'right', 'top', {title: 'Library Link', icon: '/static/img/jswm-web.png'}" size="60" id="cal5" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal5').value + ');');">Library Link</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.dlsu.edu.ph/library/free_databases.asp', 500, 300, 'right', 'top', {title: 'DLSU Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal6" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal6').value + ');');">DLSU Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.librarydir.org/', 500, 300, 'right', 'top', {title: 'Library Dir', icon: '/static/img/jswm-web.png'}" size="60" id="cal7" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal7').value + ');');">Library Dir</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://library.uplb.edu.ph/', 500, 300, 'right', 'top', {title: 'UPLB Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal8" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal8').value + ');');">UPLB Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://library.upou.edu.ph/', 500, 300, 'right', 'top', {title: 'UPOU Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal9" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal9').value + ');');">UPOU Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.tip.edu.ph/library', 500, 300, 'right', 'top', {title: 'TIP Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal10" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal10').value + ');');">TIP Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://ilib.upm.edu.ph/', 500, 300, 'right', 'top', {title: 'UPM Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal12" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal12').value + ');');">UPM Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://ustlib.ust.edu.ph/', 500, 300, 'right', 'top', {title: 'UST Libary', icon: '/static/img/jswm-web.png'}" size="60" id="cal13" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal13').value + ');');">UST Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://rizal.library.ateneo.edu/', 500, 300, 'right', 'top', {title: 'Ateneo Libary', icon: '/static/img/jswm-web.png'}" size="60" id="cal14" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal14').value + ');');">Ateneo Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.chanrobles.com/legal3nationalibrary.html', 500, 300, 'right', 'top', {title: 'Chan Robles', icon: '/static/img/jswm-web.png'}" size="60" id="cal11" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal11').value + ');');">Chan Robles</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://online.pbts.net.ph/', 500, 300, 'right', 'top', {title: 'PBTS Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal15" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal15').value + ');');">PBTS Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://opac.filipinaslibrary.org.ph/', 500, 300, 'right', 'top', {title: 'Filipinas Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal16" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal16').value + ');');">Filipinas Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.library.usc.edu.ph/', 500, 300, 'right', 'top', {title: 'USC Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal17" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal17').value + ');');">USC Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.lib-web.org/asia/philippines/', 500, 300, 'right', 'top', {title: 'LibWeb Phils', icon: '/static/img/jswm-web.png'}" size="60" id="cal18" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal18').value + ');');">LibWeb Phils</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.adamson.edu.ph/?page=library', 500, 300, 'right', 'top', {title: 'ADU Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal19" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal19').value + ');');">ADU Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://library.adb.org/', 500, 300, 'right', 'top', {title: 'ADB Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal20" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal20').value + ');');">ADB Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.dti.gov.ph/dti/index.php/resources/e-library', 500, 300, 'right', 'top', {title: 'DTI Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal21" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal21').value + ');');">DTI Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://data.gov.ph/', 500, 300, 'right', 'top', {title: 'Data Phils', icon: '/static/img/jswm-web.png'}" size="60" id="cal22" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal22').value + ');');">Data Phils</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.dost.gov.ph/knowledge-resources/databases', 500, 300, 'right', 'top', {title: 'DOST Databases', icon: '/static/img/jswm-web.png'}" size="60" id="cal23" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal23').value + ');');">DOST Databases</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://library.xu.edu.ph/newwebpage/openaccessdatabases.htm', 500, 300, 'right', 'top', {title: 'XU Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal24" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal24').value + ');');">XU Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.ipophil.gov.ph/', 500, 300, 'right', 'top', {title: 'IPO Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal25" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal25').value + ');');">IPO Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://web.nlp.gov.ph/nlp/?q=taxonomy/term/14', 500, 300, 'right', 'top', {title: 'NLP Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal26" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal26').value + ');');">NLP Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://web.nlp.gov.ph/nlp/?q=taxonomy/term/14', 500, 300, 'right', 'top', {title: 'NLP Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal26" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal26').value + ');');">NLP Library</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.unc.edu.ph/?page_id=662', 500, 300, 'right', 'top', {title: 'UNC Library', icon: '/static/img/jswm-web.png'}" size="60" id="cal27" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cal27').value + ');');">UNC Library</a>
+    				</li>
+					<li class="divider"></li>
+					
+
+
+                </ul>
+            </li>
+            
+			<li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Networking Tools                                                                                                                                                    
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'https://ipaddress.com/', 500, 300, 'right', 'top', {title: 'IP Address', icon: '/static/img/jswm-web.png'}" size="60" id="myip" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('myip').value + ');');">IP Address</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.subnetmask.info/', 500, 300, 'right', 'top', {title: 'Network Calculators', icon: '/static/img/jswm-web.png'}" size="60" id="ncalc" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ncalc').value + ');');">Network Calculators</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://wintelguy.com/vmcalc.pl', 500, 300, 'right', 'top', {title: 'CPU/RAM Calculator', icon: '/static/img/jswm-web.png'}" size="60" id="cpuramcalc" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cpuramcalc').value + ');');">CPU/RAM Calculator</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://html5demos.com/geo', 500, 300, 'right', 'top', {title: 'Geo Location', icon: '/static/img/jswm-web.png'}" size="60" id="findme" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('findme').value + ');');">Geo Location</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://mxtoolbox.com/SuperTool.aspx', 500, 300, 'right', 'top', {title: 'Super Tool', icon: '/static/img/jswm-web.png'}" size="60" id="supt" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('supt').value + ');');">Super Tool</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://centralops.net/co/Ping.aspx', 500, 300, 'right', 'top', {title: 'Ping', icon: '/static/img/jswm-web.png'}" size="60" id="pingt" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('pingt').value + ');');">Ping</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://centralops.net/co/Traceroute.aspx', 500, 300, 'right', 'top', {title: 'Traceroute', icon: '/static/img/jswm-web.png'}" size="60" id="tracet" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('tracet').value + ');');">Traceroute</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.andlabs.org/tools/jsrecon.html', 500, 300, 'right', 'top', {title: 'JS Recon', icon: '/static/img/jswm-web.png'}" size="60" id="jsrecon" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('jsrecon').value + ');');">JS Recon</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://centralops.net/co/NsLookup.aspx', 500, 300, 'right', 'top', {title: 'NS Lookup', icon: '/static/img/jswm-web.png'}" size="60" id="nslookup" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('nslookup').value + ');');">NS Lookup</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://hexillion.com/asp/samples/AutoWhois.vbs.asp', 500, 300, 'right', 'top', {title: 'AutoWhois', icon: '/static/img/jswm-web.png'}" size="60" id="autowhois" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('autowhois').value + ');');">AutoWhois</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://ipgeolocation.nmonitoring.com/', 500, 300, 'right', 'top', {title: 'IP Geolocation', icon: '/static/img/jswm-web.png'}" size="60" id="ipgeo" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ipgeo').value + ');');">IP Geolocation</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.nmonitoring.com/ip-to-domain-name.html', 500, 300, 'right', 'top', {title: 'IP to Domain Name', icon: '/static/img/jswm-web.png'}" size="60" id="ip2dom" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('ip2dom').value + ');');">IP to Domain Name</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.nmonitoring.com/show-mx-record.html', 500, 300, 'right', 'top', {title: 'Show MX Record', icon: '/static/img/jswm-web.png'}" size="60" id="showmxrecord" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('showmxrecord').value + ');');">Show MX Record</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://dig-nslookup.nmonitoring.com/dns-dig-nslookup.html', 500, 300, 'right', 'top', {title: 'DNS Dig', icon: '/static/img/jswm-web.png'}" size="60" id="dnsdig" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('dnsdig').value + ');');">DNS Dig</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=Speedtest', 500, 300, 'right', 'top', {title: 'Speed Test', icon: '/static/img/jswm-web.png'}" size="60" id="speedt" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('speedt').value + ');');">Speed Test</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.att.com/speedtest/', 500, 300, 'right', 'top', {title: 'AT&T Speed Test', icon: '/static/img/jswm-web.png'}" size="60" id="speedt2" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('speedt2').value + ');');">AT&T Speed Test</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.nmonitoring.com/service-port-name.html', 500, 300, 'right', 'top', {title: 'Servic to Port', icon: '/static/img/jswm-web.png'}" size="60" id="servp" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('servp').value + ');');">Service to Port</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.kloth.net/services/srvinfo.php', 500, 300, 'right', 'top', {title: 'Server Info', icon: '/static/img/jswm-web.png'}" size="60" id="servi" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('servi').value + ');');">Server Info</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://bgp.he.net/', 500, 300, 'right', 'top', {title: 'BGP Toolkit', icon: '/static/img/jswm-web.png'}" size="60" id="bgpt" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('bgpt').value + ');');">BGP Toolkit</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://lg.he.net/', 500, 300, 'right', 'top', {title: 'Looking Glass', icon: '/static/img/jswm-web.png'}" size="60" id="lglass" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('lglass').value + ');');">Looking Glass</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://ulapph-public-1.appspot.com/slides?TYPE=SLIDE&DOC_ID=218&SID=TDSSLIDE-218&MUSIC_ID=0&GET_NEXT=', 500, 300, 'right', 'top', {title: 'All Networking Tools', icon: '/static/img/jswm-web.png'}" size="60" id="allntt" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('allntt').value + ');');">View All Tools...</a>
+    				</li>
+					<li class="divider"></li>
+					
+                </ul>
+            </li>
+            
+			<li class="divider"></li>
+			
+            <li onmouseenter="playAudio();">Life & Health Tools                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/embed/u8jImIjg4UY', 'Lords Prayer' ); return false">Lords Prayer</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/embed/rYZB1tk5FJ0', 'Prayer Against Evil' ); return false">Prayer Against Evil</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.cyclocane.com/', 'Typhoon Monitor' ); return false">Typhoon Monitor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=CCTV_STREAM', 500, 300, 'right', 'top', {title: 'CCTV Stream', icon: '/static/img/jswm-web.png'}" size="60" id="cctvs" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cctvs').value + ');');">CCTV Stream</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/bible?BIB_FUNC=biblegateway', 500, 300, 'right', 'top', {title: 'Random Bible Audio', icon: '/static/img/jswm-web.png'}" size="60" id="rbaudio" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('rbaudio').value + ');');">Random Bible Audio</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP&SID=FAM_TRACKER', 500, 300, 'right', 'top', {title: 'Family Tracker', icon: '/static/img/jswm-web.png'}" size="60" id="famtracker" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('famtracker').value + ');');">Family Tracker</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=FAM_TREE', 500, 300, 'right', 'top', {title: 'Family Tree', icon: '/static/img/jswm-web.png'}" size="60" id="famtree" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('famtree').value + ');');">Family Tree</a>
+    				</li>
+    				<li class="divider"></li>               
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.google.com/android/devicemanager', 'Find my Android' ); return false">Find my Android</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://myaccount.google.com/security?pli=1', 'Set Google Account' ); return false">Set Google Account</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/infodb?DB_FUNC=ULAPPH-EQ-PH&SID=ULAPPH-EQ-PH', 500, 300, 'right', 'top', {title: 'Earthquake Monitor', icon: '/static/img/jswm-web.png'}" size="60" id="eqMon" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('eqMon').value + ');');">Earthquake Monitor</a>
+    				</li>
+					<li class="divider"></li>
+					
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.dti.gov.ph/dti/index.php/resources/price-watch', 'DTI Price Watch' ); return false">DTI Price Watch</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.stocksph.com/', 'Stocks Monitor' ); return false">Stocks Monitor</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.doe.gov.ph/oil-price-monitoring', 'Oil Price Monitor' ); return false">Oil Price Monitor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://airquality-embdenr.com/', 'Air Quality Monitor' ); return false">Air Quality Monitor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.gov.ph/emergency-hotlines/', 'Philippine Hotlines' ); return false">Philippine Hotlines</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://quezoncity.gov.ph/index.php/qc-services/emergency-hotlines', 'QC Hotlines' ); return false">QC Hotlines</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://mmda.nowplanet.tv/', 'Traffic Monitor' ); return false">Traffic Monitor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.nababaha.com/', 'Flood Monitor' ); return false">Flood Monitor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.ustream.tv/channel/iss-hdev-payload', 'ISS Earth Viewer' ); return false">ISS Earth Viewer</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.earthcam.com/mapsearch/', 'Earth CAM' ); return false">Earth CAM</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.mycam-asia.tv/', 'Asia Webcams' ); return false">Asia Webcams</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.insecam.org/en/bycountry/PH/?page=1', 'IP Cameras PH' ); return false">IP Cameras PH</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.archive.org/', 'iarchive' ); return false">Internet Archive</a>
+    				</li>
+					<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Radio, TV, & Newspapers                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=live+news', 'ytNews' ); return false">Youtube News Live</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/channel/UC4R8DWoMoI7CAwX8_LjQHig', 'ytLiveAll' ); return false">Youtube Live Streams</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://radiowebsites.org/', 'RadioPH' ); return false">Global Radio</a>
+    				</li>
+					<li class="divider"></li>
+                    <li>
+                        <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://podcasts.google.com', 'gPodcasts' ); return false">Google Podcasts</a>
+                    </li>
+                    <li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://iptv-5f88c.web.app/', 'IPTV' ); return false">IPTV</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://mb.com.ph/', 'npMB' ); return false">Newspaper - Manila Bulletin</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.inquirer.net/', 'npINQ' ); return false">Newspaper - Inquirer</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.philstar.com/', 'npSTAR' ); return false">Newspaper - Phil Star</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://tonite.abante.com.ph/', 'npAbante' ); return false">Newspaper - Abante</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.sunstar.com.ph/', 'npSunstar' ); return false">Newspaper - SunStar</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.manilatimes.net/', 'npMT' ); return false">Newspaper - ManilaTimes</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.bworldonline.com/', 'npBW' ); return false">Newspaper - BusinessWorld</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://businessmirror.com.ph/', 'npBM' ); return false">Newspaper - BusinessMirror</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://tribune.net.ph/', 'npTribune' ); return false">Newspaper - DailyTribune</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://malaya.com.ph/', 'npMalaya' ); return false">Newspaper - Malaya</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://manilastandard.net/', 'npMS' ); return false">Newspaper - ManilaStandard</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.rappler.com/', 'npRappler' ); return false">Newspaper - Rappler</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://cnnphilippines.com/', 'npCNN' ); return false">Newspaper - CNN PH</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://news.abs-cbn.com/', 'npABSCBN' ); return false">Newspaper - ABS-CBN</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="window.open('http://www.unitednews.net.ph/en/', 'npUN' ); return false">Newspaper - United News</a>
+    				</li>
+					<li class="divider"></li> 
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+
+            <li onmouseenter="playAudio();">Movies, Films, Videos                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.netflix.com/', 'Netflix' ); return false">Netflix</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=movies+trailers+latest&sp=CAMSBggEEAEgAQ%253D%253D', 'mYoutubeTrailers' ); return false">Youtube Movie Trailers</a>
+    				</li>
+                    <li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=english+movies+full&sp=CAMSBggEEAEgAQ%253D%253D', 'mYoutube' ); return false">Youtube Movies Latest</a>
+    				</li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/', 'mYoutube' ); return false">Youtube</a>
+                    </li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1900s+movies&sp=CAM%253D', '1900s' ); return false">1900s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1910s+movies&sp=CAM%253D', '1910s' ); return false">1910s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1920s+movies&sp=CAM%253D', '1920s' ); return false">1920s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1930s+movies&sp=CAM%253D', '1930s' ); return false">1930s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1940s+movies&sp=CAM%253D', '1940s' ); return false">1940s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1950s+movies&sp=CAM%253D', '1950s' ); return false">1950s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1960s+movies&sp=CAM%253D', '1960s' ); return false">1960s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1970s+movies&sp=CAM%253D', '1970s' ); return false">1970s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1980s+movies&sp=CAM%253D', '1980s' ); return false">1980s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=1990s+movies&sp=CAM%253D', '1990s' ); return false">1990s Movies</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=2000s+movies&sp=CAM%253D', '2000s' ); return false">2000s Movies</a>
+    				</li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=2010s+movies&sp=CAM%253D', '2010s' ); return false">2010s Movies</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=2020s+movies&sp=CAM%253D', '2020s' ); return false">2020s Movies</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+			
+            <li onmouseenter="playAudio();">Music, Karaoke, MTVs                                                                       
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=solfeggio+pure', 'music+solfeggio' ); return false">Solfeggio</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=non-stop+music', 'music+nonstop' ); return false">Non-Stop Music</a>
+    				</li>
+					<li class="divider"></li>
+				    <li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=Music+video&sp=CAMSAiAB', 'music+videos+hd' ); return false">Music Videos HD</a>
+    				</li>
+					<li class="divider"></li>
+				    <li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=high+notes+songs&sp=CAMSAiAB', 'high+notes+songs' ); return false">High Notes Songs</a>
+    				</li>
+					<li class="divider"></li>
+				    <li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=gym+motivational+songs&sp=CAMSAiAB', 'gym+moti+songs' ); return false">Gym Motivation Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=karaoke+sing+along+songs+with+lyrics&sp=CAMSAhAB', 'ksaswl' ); return false">Karaoke with Lyrics</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=videoke+sing+along+songs+with+lyrics&sp=CAMSAhAB', 'vsaswl' ); return false">Videoke with Lyrics</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=famous+male+karaoke+songs+english&sp=CAM%253D', 'fmkse' ); return false">Famous Male Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=famous+female+karaoke+songs+english&sp=CAM%253D', 'ffkse' ); return false">Famous Female Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=karaoke+oldies+english+songs+with+lyrics&sp=CAM%253D', 'koeswl' ); return false">Oldies Karaoke Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=karaoke+standard+english+songs+with+lyrics&sp=CAM%253D', 'kseswl' ); return false">Standard Karaoke Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=guitar+karaoke+songs+with+lyrics&sp=CAM%253D', 'gkswl' ); return false">Guitar Karaoke Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=piano+karaoke+songs+with+lyrics&sp=CAM%253D', 'pkswl' ); return false">Piano Karaoke Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=violin+karaoke+songs+with+lyrics&sp=CAM%253D', 'vkswl' ); return false">Violin Karaoke Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=filipino+folk+songs+with+lyrics&sp=CAM%253D', 'ffswl' ); return false">Filipino Folk Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=nature+sounds+music&sp=CAM%253D', 'natms' ); return false">Nature Sounds Songs</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=christian+music+worship+songs+with+lyrics&sp=CAMSAhAD', 'christianpl' ); return false">Christian Songs</a>
+    				</li>
+					<li class="divider"></li>
+                    <li>
+                        <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=Starbucks+Music&sp=CAMSAhAD', 'sbucks' ); return false">Starbucks Music</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=Coffee+Shop+Music&sp=CAMSAhAD', 'coffeeshop' ); return false">Coffee Shop Music</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.youtube.com/results?search_query=Hotel+Lounge+Music&sp=CAMSAhAD', 'loungemusic' ); return false">Hotel Lounge Music</a>
+                    </li>
+                    <li class="divider"></li>
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Research & Education                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#East_and_Southern_Africa', 500, 300, 'right', 'top', {title: 'East and Southern Africa', icon: '/static/img/jswm-web.png'}" size="60" id="re1" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re1').value + ');');">East and Southern Africa</a>
+    				</li>
+    				<li class="divider"></li> 
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#North_Africa', 500, 300, 'right', 'top', {title: 'North Africa', icon: '/static/img/jswm-web.png'}" size="60" id="re2" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re2').value + ');');">North Africa</a>
+    				</li>
+    				<li class="divider"></li> 
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#West_and_Central_Africa', 500, 300, 'right', 'top', {title: 'West and Central Africa', icon: '/static/img/jswm-web.png'}" size="60" id="re3" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re3').value + ');');">West and Central Africa</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Asia_Pacific', 500, 300, 'right', 'top', {title: 'Asia Pacific', icon: '/static/img/jswm-web.png'}" size="60" id="re4" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re4').value + ');');">Asia Pacific</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#North_America', 500, 300, 'right', 'top', {title: 'North America', icon: '/static/img/jswm-web.png'}" size="60" id="re5" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re5').value + ');');">North America</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Latin_America', 500, 300, 'right', 'top', {title: 'Latin America', icon: '/static/img/jswm-web.png'}" size="60" id="re6" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re6').value + ');');">Latin America</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Caribbean', 500, 300, 'right', 'top', {title: 'Caribbean', icon: '/static/img/jswm-web.png'}" size="60" id="re7" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re7').value + ');');">Caribbean</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Europe', 500, 300, 'right', 'top', {title: 'Europe', icon: '/static/img/jswm-web.png'}" size="60" id="re8" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re8').value + ');');">Europe</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Scandinavia', 500, 300, 'right', 'top', {title: 'Scandinavia', icon: '/static/img/jswm-web.png'}" size="60" id="re9" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re9').value + ');');">Scandinavia</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Middle_East', 500, 300, 'right', 'top', {title: 'Middle East', icon: '/static/img/jswm-web.png'}" size="60" id="re10" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re10').value + ');');">Middle East</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Central_Asia', 500, 300, 'right', 'top', {title: 'Central Asia', icon: '/static/img/jswm-web.png'}" size="60" id="re11" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re11').value + ');');">Central Asia</a>
+    				</li>
+    				<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://en.wikipedia.org/wiki/National_research_and_education_network#Antartica', 500, 300, 'right', 'top', {title: 'Antartica', icon: '/static/img/jswm-web.png'}" size="60" id="re12" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('re12').value + ');');">Antartica</a>
+    				</li>
+    				<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+
+            <li onmouseenter="playAudio();">Internet Applications                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://en.wikipedia.org/wiki/List_of_most_popular_websites', 'Top 100 Websites' ); return false">Top 100 Websites</a>
+    				</li>
+					<li class="divider"></li>
+   				    <li>
+    					 <input type="hidden" value="'https://www.sharedrop.io/', 500, 300, 'right', 'top', {title: 'ShareDrop P2P', icon: '/static/img/jswm-web.png'}" size="60" id="sdp2p" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('sdp2p').value + ');');">ShareDrop P2P</a>
+    				</li>
+					<li class="divider"></li>
+   				    <li>
+    					 <input type="hidden" value="'https://apprtc.appspot.com/', 500, 300, 'right', 'top', {title: 'Apprtc Videochat', icon: '/static/img/jswm-web.png'}" size="60" id="artcvideo" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('artcvideo').value + ');');">Apprtc Videochat</a>
+    				</li>
+					<li class="divider"></li>
+   				    <li>
+    					 <input type="hidden" value="'https://rollcall.audio/', 500, 300, 'right', 'top', {title: 'Roll Call', icon: '/static/img/jswm-web.png'}" size="60" id="rollcall" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('rollcall').value + ');');">Roll Call</a>
+    				</li>
+					<li class="divider"></li>
+   				    <li>
+    					 <input type="hidden" value="'https://www.driveplayer.com/', 500, 300, 'right', 'top', {title: 'Drive Music Player', icon: '/static/img/jswm-web.png'}" size="60" id="dmplayer" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('dmplayer').value + ');');">Drive Music Player</a>
+    				</li>
+					<li class="divider"></li>
+   				    <li>
+    					 <input type="hidden" value="'https://kiwiirc.com/client', 500, 300, 'right', 'top', {title: 'KiwiIRC', icon: '/static/img/jswm-web.png'}" size="60" id="KiwiIRC" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('KiwiIRC').value + ');');">KiwiIRC</a>
+    				</li>
+					<li class="divider"></li>
+   				    <li>
+    					 <input type="hidden" value="'https://www.mathcha.io/editor', 500, 300, 'right', 'top', {title: 'Math Editor', icon: '/static/img/jswm-web.png'}" size="60" id="matheditor" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('matheditor').value + ');');">Math Editor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www120.lunapic.com/editor/', 'ImageEditor' ); return false">Image Editor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://aviary.com/', 'Photo Editor' ); return false">Photo Editor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://stackedit.io/editor', 'MarkdownEditor' ); return false">Markdown Editor</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('http://prose.io', 'Github Editor' ); return false">Github Editor</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://bookbrowser-demo.geek1011.net/books', 'Ebook Reader' ); return false">Ebook Reader</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://dotepub.com/creator/?lang=en', 'Epub Creator' ); return false">Epub Creator</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://convert-video-online.com', 'Video Converter' ); return false">Video Converter</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.e-chat.co/browse', 'e-Chat' ); return false">e-Chat</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.chat-avenue.com/', 'Chat Avenue' ); return false">Chat Avenue</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://onlinechat.co.in/', 'Online Chat' ); return false">Online Chat</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://chatroulette.com/', 'Chat Roulette' ); return false">Chat Roulette</a>
+    				</li>
+					<li class="divider"></li>
+					
+					
+					
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Programming Playgrounds                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'https://repl.it/languages', 500, 300, 'right', 'top', {title: 'Repl', icon: '/static/img/jswm-web.png'}" size="60" id="repl" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('repl').value + ');');">Repl.it</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://c9.io/', 500, 300, 'right', 'top', {title: 'Cloud9', icon: '/static/img/jswm-web.png'}" size="60" id="c9" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('c9').value + ');');">Cloud9</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://play.golang.org/', 500, 300, 'right', 'top', {title: 'Go Playground', icon: '/static/img/jswm-web.png'}" size="60" id="goplay" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('goplay').value + ');');">Go Playground</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://golang-programming.appspot.com/', 500, 300, 'right', 'top', {title: 'Golang Programming', icon: '/static/img/jswm-web.png'}" size="60" id="goprog" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('goprog').value + ');');">Golang Programming</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://jsfiddle.net/', 500, 300, 'right', 'top', {title: 'JS Fiddle', icon: '/static/img/jswm-web.png'}" size="60" id="jsfiddle" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('jsfiddle').value + ');');">JS Fiddle</a>
+    				</li>
+					<li class="divider"></li> 
+    				<li>
+    					 <input type="hidden" value="'https://codepen.io/', 500, 300, 'right', 'top', {title: 'Codepen.io', icon: '/static/img/jswm-web.png'}" size="60" id="codepen.io" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('codepen.io').value + ');');">CodePen.IO</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.websequencediagrams.com/', 500, 300, 'right', 'top', {title: 'WebSequence Diagrams', icon: '/static/img/jswm-web.png'}" size="60" id="wsdiag" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wsdiag').value + ');');">WebSequence Diagrams</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://ulapph-swagger.appspot.com', 500, 300, 'right', 'top', {title: 'Swagger Editor', icon: '/static/img/jswm-web.png'}" size="60" id="swagedit" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('swagedit').value + ');');">Swagger Editor</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://keycode.info/', 500, 300, 'right', 'top', {title: 'Key Codes', icon: '/static/img/jswm-web.png'}" size="60" id="keycodes" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('keycodes').value + ');');">Javascript KeyCodes</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/jwtdebugger/', 500, 300, 'right', 'top', {title: 'JWT Debugger', icon: '/static/img/jswm-web.png'}" size="60" id="jwtdeb" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('jwtdeb').value + ');');">JWT Debugger</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.colorpicker.com/', 500, 300, 'right', 'top', {title: 'Color Picker', icon: '/static/img/jswm-web.png'}" size="60" id="cpicker" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('cpicker').value + ');');">Color Picker</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.mobilefish.com/services/base64/base64.php', 500, 300, 'right', 'top', {title: 'Base64 Encoder', icon: '/static/img/jswm-web.png'}" size="60" id="b64en" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('b64en').value + ');');">Base64 Encoder</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=JSBEAUTIFY', 500, 300, 'right', 'top', {title: 'JS Beautifier', icon: '/static/img/jswm-web.png'}" size="60" id="jsbe" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('jsbe').value + ');');">JS Beautifier</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/static/minify/index.html', 500, 300, 'right', 'top', {title: 'Code Minifier', icon: '/static/img/jswm-web.png'}" size="60" id="comi" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('comi').value + ');');">Code Minifier</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://javascript-minifier.com/, 500, 300, 'right', 'top', {title: 'JS Minifier', icon: '/static/img/jswm-web.png'}" size="60" id="mfier" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mfier').value + ');');">JS Minifier</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://validator.w3.org/', 500, 300, 'right', 'top', {title: 'Markup Validator', icon: '/static/img/jswm-web.png'}" size="60" id="mval" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('mval').value + ');');">Markup Validator</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/static/json2csv/', 500, 300, 'right', 'top', {title: 'JSON to CSV (json2csv)', icon: '/static/img/jswm-web.png'}" size="60" id="json2csv" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('json2csv').value + ');');">JSON to CSV</a>
+    				</li>
+					<li class="divider"></li>					
+    				<li>
+    					 <input type="hidden" value="'/static/csv2json/', 500, 300, 'right', 'top', {title: 'CSV to JSON (csv2json)', icon: '/static/img/jswm-web.png'}" size="60" id="csv2json" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('csv2json').value + ');');">CSV to JSON</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://ulapph-public-1.appspot.com/slides?TYPE=SLIDE&DOC_ID=183&SID=TDSSLIDE-183', 'moreplay' ); return false">More Playgrounds...</a>
+    				</li>
+					<li class="divider"></li>    
+					
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Development Platforms                                                                                                                                                   
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'/static/api-doc/', 500, 300, 'right', 'top', {title: 'ULAPPH API', icon: '/static/img/jswm-web.png'}" size="60" id="uapi" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('uapi').value + ');');">ULAPPH API</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://code.google.com/', 'Google Code' ); return false">Google Developers</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/cloudshell', 'Google Shell' ); return false">Google Shell</a>
+    				</li>
+					<li class="divider"></li>
+					<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.firebase.google.com/', 'Google Firebase' ); return false">Google Firebase</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://console.cloud.google.com/logs/viewer', 'Logs Viewer' ); return false">Logs Viewer</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://developer.android.com/index.html', 'Android Developers' ); return false">Android Developers</a>
+    				</li>
+					<li class="divider"></li>  
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://developer.chrome.com/home', 'Chrome Developers' ); return false">Chrome Developers</a>
+    				</li>
+					<li class="divider"></li>  
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://cloud.google.com/', 'Cloud Developers' ); return false">Cloud Developers</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.websequencediagrams.com/', 500, 300, 'right', 'top', {title: 'WebSequence Diagrams', icon: '/static/img/jswm-web.png'}" size="60" id="wsdiag" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wsdiag').value + ');');">WebSequence Diagrams</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://about.google/products/', 'Everything Google...' ); return false">Everything Google...</a>
+    				</li>
+					<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Project Management                                                                                                                                                   
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://gantt.twproject.com/applications/gantt/distrib/gantt.jsp', 'Gannt Twproject' ); return false">Gannt Twproject</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://freedcamp.com/dashboard', 'Freedcamp' ); return false">Freedcamp</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://trello.com', 'Trello Boards' ); return false">Trello Boards</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://debugle.com/projects', 'Debugle Tracker' ); return false">Debugle Tracker</a>
+    				</li>
+					<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Social Networks                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://www.facebook.com', 'Facebook' ); return false">Facebook</a>
+    				</li>
+					<li class="divider"></li>  
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://www.twitter.com', 'Twitter' ); return false">Twitter</a>
+    				</li>
+					<li class="divider"></li>  
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="window.open('https://www.linkedin.com', 'Linked In' ); return false">Linked In</a>
+    				</li>
+					<li class="divider"></li>
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Mobile Applications                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://web.airdroid.com/', 'Airdroid' ); return false">Airdroid</a>
+    				</li>
+					<li class="divider"></li>  
+    				<li>
+    					 <input type="hidden" value="'/editor?EDIT_FUNC=SEMAPHORE', 500, 300, 'right', 'top', {title: 'Semaphore SendSMS', icon: '/static/img/jswm-web.png'}" size="60" id="semsms" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('semsms').value + ');');">Semaphore SendSMS</a>
+    				</li>
+    				<li class="divider"></li>
+
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">Financial Resources                                                                                                                                                     
+              <span class="arrow"></span>
+                <ul class="sublist-menu">
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.bpi.com.ph/', 'frBPI' ); return false">BPI Online</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://online.bdo.com.ph/', 'frBDO' ); return false">BDO Online</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					<a href="#page" onmouseenter="playAudio();" onclick="openWindow('https://www.binance.com/en', 'frBinance' ); return false">Binance</a>
+    				</li>
+					<li class="divider"></li>
+					
+                </ul>
+            </li>
+            
+            <li class="divider"></li>
+            
+            <li onmouseenter="playAudio();">ULAPPH Window Manager                                                                                                                                                      
+              <span class="arrow"></span>                                                                                                                                   
+                 <ul class="sublist-menu">
+    				<li><a href="#page" onmouseenter="playAudio();" onclick="windowManager.cascade();">cascade()</a></li>
+    				<li class="divider"></li>
+    				<li><a href="#page" onmouseenter="playAudio();" onclick="windowManager.collapseAll();">collapseAll()</a></li>
+    				<li class="divider"></li>
+    				<li><a href="#page" onmouseenter="playAudio();" onclick="windowManager.expandAll();">expandAll()</a></li>
+    				<li class="divider"></li>
+    				<li><a href="#page" onmouseenter="playAudio();" onclick="windowManager.tile();">tile()</a></li>
+    				<li class="divider"></li>
+                </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            </li>
+			
+			<li class="divider"></li>
+
+            <li onmouseenter="playAudio();">Admin                                                                                                                                                      
+              <span class="arrow"></span>                                                                                                                                   
+                 <ul class="sublist-menu">
+				<li>
+					 <input type="hidden" value="'/admin-setup', 500, 300, 'right', 'top', {title: 'Admin', icon: '/static/img/jswm-web.png'}" size="60" id="openURI5" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('openURI5').value + ');');">Admin</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-LOG&SID=ULAPPH-NOTIFICATIONS-LOG', 500, 300, 'right', 'top', {title: 'Access Logs', icon: '/static/img/jswm-web.png'}" size="60" id="accessLogs" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('accessLogs').value + ');');">Notifications & Logs</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/login?f=presence', 500, 300, 'right', 'top', {title: 'Site-wide Notifications', icon: '/static/img/jswm-web.png'}" size="60" id="swlogs" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('swlogs').value + ');');">Site-wide Notifications</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/directory?DIR_FUNC=sessions', 500, 300, 'right', 'top', {title: 'Online Users', icon: '/static/img/jswm-web.png'}" size="60" id="adUsersOnline" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('adUsersOnline').value + ');');">Online Users</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=ECHARTS', 500, 300, 'right', 'top', {title: 'eCharts', icon: '/static/img/jswm-web.png'}" size="60" id="echartsn" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('echartsn').value + ');');">eCharts</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=EVENT', 500, 300, 'right', 'top', {title: 'EVENTs', icon: '/static/img/jswm-web.png'}" size="60" id="events" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('events').value + ');');">EVENTs</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/static/api-doc/', 500, 300, 'right', 'top', {title: 'ULAPPH API', icon: '/static/img/jswm-web.png'}" size="60" id="uapi" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('uapi').value + ');');">ULAPPH API</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/tools?FUNC=WIDGET&t=DWEETIO', 500, 300, 'right', 'top', {title: 'Dweet.io', icon: '/static/img/jswm-web.png'}" size="60" id="dweet.iodb" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('dweet.iodb').value + ');');">Dweet.io</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					 <input type="hidden" value="'/infodb?DB_FUNC=ULAPPH-NOTIFICATIONS-MAP', 500, 300, 'right', 'top', {title: 'Access Maps', icon: '/static/img/jswm-web.png'}" size="60" id="accessMaps" />
+					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('accessMaps').value + ');');">User Location Maps</a>
+				</li>
+				<li class="divider"></li>
+                </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            </li>
+			
+			<li class="divider"></li>
+			
+            <li onmouseenter="playAudio();">Help                                                                                                                                                      
+              <span class="arrow"></span>                                                                                                                                   
+                 <ul class="sublist-menu">
+    				<li>
+    					 <input type="hidden" value="'https://ulapph-public-1.appspot.com/slides?TYPE=SLIDE&MODE=NORMAL&PARM=LOOP&SECS=8&DOC_ID=233&SID=TDSSLIDE-233&MUSIC_ID=0&GET_NEXT=&SOUND=ON', 500, 300, 'right', 'top', {title: 'ULAPPH Features', icon: '/static/img/jswm-web.png'}" size="60" id="features" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('features').value + ');');">ULAPPH Features</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://ulapph-public-1.appspot.com/articles?TYPE=ARTICLE&DOC_ID=3&SID=TDSARTL-3', 500, 300, 'right', 'top', {title: 'ULAPPH Documentation', icon: '/static/img/jswm-web.png'}" size="60" id="Help" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('Help').value + ');');">ULAPPH Documentations</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://ulapph-public-1.appspot.com/slides?TYPE=SLIDE&DOC_ID=249&SID=TDSSLIDE-249', 500, 300, 'right', 'top', {title: 'ULAPPH Developers', icon: '/static/img/jswm-web.png'}" size="60" id="wdlib" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('wdlib').value + ');');">ULAPPH Developers</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'/guestbook?GB_FUNC=FEEDBACK_VIEW', 500, 300, 'right', 'top', {title: 'Submit Feedback', icon: '/static/img/jswm-web.png'}" size="60" id="feedback" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('feedback').value + ');');">Submit Feedback</a>
+    				</li>
+					<li class="divider"></li>
+    				<li>
+    					 <input type="hidden" value="'https://www.youtube.com/channel/UCfmBlIM8pbOs3Vaq1lTZ22Q', 500, 300, 'right', 'top', {title: 'Video Tutorials', icon: '/static/img/jswm-web.png'}" size="60" id="vtut" />
+    					<a href="#page" onmouseenter="playAudio();" onclick="eval('windowManager.openURI(' + $('vtut').value + ');');">Video Tutorials</a>
+    				</li>
+					<li class="divider"></li>
+                </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            </li>
+			
+			<li class="divider"></li>
+
+            
+            
+          </ul>
+        </li>
+        
