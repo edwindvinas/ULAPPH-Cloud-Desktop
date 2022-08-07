@@ -17,32 +17,32 @@ https://en.wikipedia.org/wiki/List_of_Philippine_dishes
 - Version 2019: "Adobo" - Appengine version
 - Version 2020: "Afridata" - Dockerized, Platform-agnostic version with AI using IBM Watson
 ```
-                            - Artificial Intelligence (AI) NLP from IBM Watson
-                            - Custom IBM Watson Orchestrator
+	- Artificial Intelligence (AI) NLP from IBM Watson
+	- Custom IBM Watson Orchestrator
 ```
 - Version 2021: *Version not released due to COVID-19 Pandemic*
 - Version 2022: "Barbecue" - Added more AI use cases and improved productivity features:
 ```
-                            - Default & Custom Search Engines
-                            - Multiple desktop support
-                            - Programmable Javascript startup
-                            - Chat with AI...
-                            - Desktop News Reader
-                            - Sticky Notes Per Desktop
+	- Default & Custom Search Engines
+	- Multiple desktop support
+	- Programmable Javascript startup
+	- Chat with AI...
+	- Desktop News Reader
+	- Sticky Notes Per Desktop
 ```
 - Version 2022-2: "Bopis" - Added full support to Android Termux with AI:
 ```
-							- Local use via Android Termux
-                            - Local Custom Search via Android Termux
-							- Local Desktops & Sticky Notes via Android Termux
-							- Chat with AI via Android Termux
-							- Speak with AI via Android Termux
-							- Improved News API
-							- Google Cloud Speech to Text integration
-							- Simplified initial setup and upgrade scripts
-							- Simplified Private and Public release scripts
-							- Integrated File Browser as File Manager
-							- Integrated Syncthing as Shared Drive
+	- Local use via Android Termux
+	- Local Custom Search via Android Termux
+	- Local Desktops & Sticky Notes via Android Termux
+	- Chat with AI via Android Termux
+	- Speak with AI via Android Termux
+	- Improved News API
+	- Google Cloud Speech to Text integration
+	- Simplified initial setup and upgrade scripts
+	- Simplified Private and Public release scripts
+	- Integrated File Browser as File Manager
+	- Integrated Syncthing as Shared Drive
 
 ```
 
@@ -92,3 +92,12 @@ Installation - Android
 ----------------
 Please see README below for the detailed installation and troubleshooting guide.
 - https://github.com/edwindvinas/ULAPPH-Cloud-Desktop-Quick-Install/blob/main/README-Termux-Android.md
+
+Installation - Windows 10
+----------------
+TBD
+
+Installation - Docker Desktop
+----------------
+TBD
+
